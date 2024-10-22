@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.py.api.mapper.sistema.ItemCotacaoMapper">
+
+	<resultMap id="resultSimples" type="ItemCotacao">
+		<id property="id" column="ID_ITEM_COTACAO" />
+		<result property="vlFaturacao" column="VL_FATURACAO" />
+		<result property="vlFinancero" column="VL_FINANCERO" />
+<!-- 		<result property="isAtivo" column="BO_ATIVO" /> -->
+		
+		<association property="cotacao" javaType="Cotacao">
+			<id property="id" column="ID_COTACAO" />
+		</association>
+
+		<association property="moeda" javaType="Moeda">
+			<id property="id" column="ID_MOEDA" />
+			<result property="descricao" column="DS_MOEDA" />
+			<result property="precisao" column="PRECISAO" />
+		</association>
+
+		
+	</resultMap>
+	
+	<sql id="sqlDefault">
+		SELECT
+		IC.*,
+		M.*
+		FROM
+		BS_ITEM_COTACAO IC
+		INNER JOIN BS_MOEDA M
+		ON M.ID_MOEDA = IC.ID_MOEDA 
+	</sql>
+	
+	<select id="findItemByCotacao" resultMap="resultSimples"
+		parameterType="hashMap">
+		<include refid="sqlDefault" />
+		 where IC.ID_COTACAO = #{idCotacao}
+	</select>
+
+</mapper>

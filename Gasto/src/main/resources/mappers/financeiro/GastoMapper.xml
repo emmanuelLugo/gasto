@@ -1,0 +1,121 @@
+<?xml version= "1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.py.api.mapper.financeiro.GastoMapper">
+
+	<resultMap id="resultSimples" type="Gasto">
+		<id property="id" column="ID_GASTO" />
+		<result property="descricao" column="DS_GASTO" />
+		<result property="vlGasto" column="VL_GASTO" />
+		<result property="dtGasto" column="DT_GASTO" />
+		<result property="usuario" column="USUARIO" />
+		<result property="cancelado" column="BO_CANCELADO" />
+		<result property="usuarioCancelamento"
+			column="USUARIO_CANCELAMENTO" />
+		<result property="dtCancelamento" column="DT_CANCELAMENTO" />
+
+<!-- 		<association property="moeda" javaType="Moeda"> -->
+<!-- 			<id property="id" column="ID_MOEDA" /> -->
+<!-- 			<result property="descricao" column="DS_MOEDA" /> -->
+<!-- 		</association> -->
+
+		<association property="classificacaoGasto"
+			javaType="ClassificacaoGasto">
+			<id property="id" column="ID_CLASSIFICACAO_GASTO" />
+			<result property="descricao" column="DS_CLASSIFICACAO_GASTO" />
+		</association>
+
+		<association property="caixa" javaType="Caixa">
+			<id property="id" column="ID_CAIXA" />
+		</association>
+
+	</resultMap>
+
+	<resultMap id="result" type="Gasto" extends="resultSimples">
+	</resultMap>
+
+	<sql id="sqlDefault">
+		SELECT
+		*
+		FROM
+		FIN_GASTO FIN_GASTO
+		INNER JOIN
+		FIN_CLASSIFICACAO_GASTO CG
+		ON CG.ID_CLASSIFICACAO_GASTO =
+		FIN_GASTO.ID_CLASSIFICACAO
+	</sql>
+
+	<select id="findByCondition" resultMap="resultSimples"
+		parameterType="hashMap">
+		<include refid="sqlDefault" />
+		WHERE ${condition}
+		ORDER BY FIN_GASTO.BO_CANCELADO, FIN_GASTO.ID_GASTO
+		DESC
+	</select>
+
+	<select id="findGastoByCaixa" resultMap="resultSimples"
+		parameterType="hashMap">
+		<include refid="sqlDefault" />
+		WHERE #{idCaixa}
+	</select>
+
+
+	<select id="findTotalGastoByClassificacaoAndCaixa"
+		resultType="TotalClassificacaoGastoDto" parameterType="hashMap">
+		SELECT
+		CG.ID_CLASSIFICACAO_GASTO AS idClassificacao,
+		CG.DS_CLASSIFICACAO_GASTO AS descricao,
+		IFNULL(SUM(G.VL_GASTO), 0) AS
+		vlTotal,
+		ROUND((SUM(G.VL_GASTO) * 100 / C.VL_CAIXA), 2) AS
+		vlPorcentagem
+		FROM
+		FIN_GASTO G
+		INNER JOIN
+		FIN_CLASSIFICACAO_GASTO CG
+		ON
+		CG.ID_CLASSIFICACAO_GASTO =
+		G.ID_CLASSIFICACAO
+		INNER JOIN FIN_CAIXA C ON
+		C.ID_CAIXA = G.ID_CAIXA
+		WHERE G.ID_CAIXA =
+		#{idCaixa}
+		GROUP BY
+		G.ID_CLASSIFICACAO ORDER BY vlTotal DESC
+	</select>
+
+	<select id="findValorTotalGastoByCaixa" resultType="BigDecimal"
+		parameterType="hashMap">
+		SELECT IFNULL(SUM(g.VL_GASTO),0) FROM fin_gasto g WHERE
+		g.ID_CAIXA = #{idCaixa}
+	</select>
+
+	<select id="findTotalGastoPorTipoByCaixa"
+		resultType="TotalClassificacaoGastoDto" parameterType="hashMap">
+		select
+		IFNULL(SUM(G.VL_GASTO),0) AS vlTotal,
+		TG.DS_TIPO_GASTO AS descricao
+		FROM
+		FIN_GASTO G
+		INNER JOIN
+		FIN_CLASSIFICACAO_GASTO CG
+		ON
+		CG.ID_CLASSIFICACAO_GASTO =
+		G.ID_CLASSIFICACAO
+		INNER JOIN FIN_TIPO_GASTO
+		TG
+		ON TG.ID_TIPO_GASTO =
+		CG.ID_TIPO_GASTO
+		WHERE G.ID_CAIXA = #{idCaixa}
+		GROUP BY TG.ID_TIPO_GASTO
+		ORDER BY vlTotal DESC
+	</select>
+
+
+
+
+
+
+
+</mapper>

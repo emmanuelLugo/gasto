@@ -1,0 +1,25 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'classificacao_gasto.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+ClassificacaoGasto _$ClassificacaoGastoFromJson(Map<String, dynamic> json) =>
+    ClassificacaoGasto(
+      id: (json['id'] as num?)?.toInt(),
+      descricao: json['descricao'] as String?,
+      ativo: json['ativo'] as bool?,
+      tipoGasto: json['tipoGasto'] == null
+          ? null
+          : TipoGasto.fromJson(json['tipoGasto'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$ClassificacaoGastoToJson(ClassificacaoGasto instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'descricao': instance.descricao,
+      'ativo': instance.ativo,
+      'tipoGasto': instance.tipoGasto,
+    };

@@ -1,0 +1,33 @@
+<?xml version= "1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.py.api.mapper.sistema.CotacaoMapper">
+
+	<resultMap id="resultSimples" type="Cotacao">
+		<id property="id" column="ID_COTACAO" />
+		<result property="dtCotacao" column="DT_COTACAO" />
+		<result property="usuario" column="USUARIO" />
+
+	</resultMap>
+
+	<resultMap id="result" type="Cotacao" extends="resultSimples">
+		<collection property="itens" ofType="ItemCotacao"
+			jdbcType="VARCHAR" javaType="ArrayList"
+			select="com.py.api.mapper.sistema.ItemCotacaoMapper.findItemByCotacao"
+			column="{idCotacao=ID_COTACAO}" />
+
+	</resultMap>
+
+	<select id="findCotacaoAtual" resultMap="result">
+		SELECT
+		*
+		FROM
+		BS_COTACAO
+		WHERE ID_COTACAO =
+		(SELECT
+		MAX(ID_COTACAO)
+		FROM
+		BS_COTACAO)
+	</select>
+</mapper>

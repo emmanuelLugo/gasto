@@ -1,0 +1,47 @@
+<?xml version= "1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.py.api.mapper.financeiro.ClassificacaoGastoMapper">
+
+	<resultMap id="resultSimples" type="ClassificacaoGasto">
+		<id property="id" column="ID_CLASSIFICACAO_GASTO" />
+		<result property="descricao" column="DS_CLASSIFICACAO_GASTO" />
+		<result property="ativo" column="BO_ATIVO" />
+
+		<association property="tipoGasto" javaType="TipoGasto">
+			<id property="id" column="ID_TIPO_GASTO" />
+			<result property="descricao" column="DS_TIPO_GASTO" />
+		</association>
+	</resultMap>
+
+	<resultMap id="result" type="ClassificacaoGasto"
+		extends="resultSimples">
+	</resultMap>
+
+	<sql id="sqlDefault">
+		SELECT * FROM FIN_CLASSIFICACAO_GASTO FIN_CLASSIFICACAO_GASTO
+		INNER JOIN FIN_TIPO_GASTO TP ON
+		FIN_CLASSIFICACAO_GASTO.ID_TIPO_GASTO =
+		TP.ID_TIPO_GASTO
+	</sql>
+
+	<select id="findByCondition" resultMap="resultSimples"
+		parameterType="hashMap">
+		<include refid="sqlDefault" />
+		WHERE ${condition}
+		ORDER BY BO_ATIVO DESC,
+		ID_CLASSIFICACAO_GASTO DESC
+	</select>
+
+	<select id="findByConditionVO" resultMap="resultSimples"
+		parameterType="hashMap">
+		<include refid="sqlDefault" />
+		WHERE ${condition} AND BO_ATIVO = TRUE
+		ORDER BY ID_CLASSIFICACAO_GASTO
+		DESC
+	</select>
+
+
+</mapper>

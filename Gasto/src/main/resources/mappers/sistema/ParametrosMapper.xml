@@ -1,0 +1,28 @@
+<?xml version= "1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace= "com.py.api.mapper.sistema.ParametrosMapper">
+
+	<resultMap id="resultSimples" type="Parametros">
+  		<id property="id" column="ID_PARAMETRO"/> 
+		<result property="parametro" column="PARAMETRO"/>
+		<result property="valor" column="VALOR"/>
+		<result property="valor_alternativo" column="VALOR_ALTERNATIVO"/>
+	</resultMap>
+
+	<resultMap id="result" type="Parametros" extends="resultSimples">
+	</resultMap>
+
+	<sql id="sqlDefault">
+		SELECT * FROM SYS_PARAMETROS
+	</sql>
+
+ 
+
+	<select id="findParametroByChave" resultMap="result">
+		<include refid="sqlDefault" />
+		WHERE PARAMETRO = #{chave} LIMIT 1
+	</select>
+
+</mapper>

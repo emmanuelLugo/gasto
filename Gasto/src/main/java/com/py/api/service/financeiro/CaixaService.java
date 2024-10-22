@@ -1,0 +1,40 @@
+package com.py.api.service.financeiro;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.py.api.exception.AppException;
+import com.py.api.mapper.financeiro.CaixaMapper;
+import com.py.api.model.entity.Caixa;
+import com.py.api.repository.financeiro.CaixaRepository;
+
+import lombok.AllArgsConstructor;
+
+@Service
+@Transactional(rollbackFor = Exception.class)
+@AllArgsConstructor
+public class CaixaService {
+
+	private CaixaRepository caixaRepository;
+	private CaixaMapper caixaMapper;
+
+	public Caixa save(Caixa caixa) {
+		return caixaRepository.save(caixa);
+	}
+
+	public Caixa caixaABertoById(Long idCaixa) {
+		Caixa caixa = caixaRepository.findOneById(idCaixa);
+		if (caixa == null) {
+			throw new AppException("No existe un Caja Abierto");
+		}
+
+		return caixa;
+	}
+
+	public List<Caixa> findByCondition(String condition) {
+		return caixaMapper.findByCondition(condition);
+	}
+
+}

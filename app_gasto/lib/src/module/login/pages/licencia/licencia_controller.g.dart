@@ -1,0 +1,78 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'licencia_controller.dart';
+
+// **************************************************************************
+// StoreGenerator
+// **************************************************************************
+
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
+
+mixin _$LicenciaController on LicenciaControllerBase, Store {
+  late final _$messageAtom =
+      Atom(name: 'LicenciaControllerBase.message', context: context);
+
+  @override
+  String get message {
+    _$messageAtom.reportRead();
+    return super.message;
+  }
+
+  @override
+  set message(String value) {
+    _$messageAtom.reportWrite(value, super.message, () {
+      super.message = value;
+    });
+  }
+
+  late final _$dtVencimentoAtom =
+      Atom(name: 'LicenciaControllerBase.dtVencimento', context: context);
+
+  @override
+  String get dtVencimento {
+    _$dtVencimentoAtom.reportRead();
+    return super.dtVencimento;
+  }
+
+  @override
+  set dtVencimento(String value) {
+    _$dtVencimentoAtom.reportWrite(value, super.dtVencimento, () {
+      super.dtVencimento = value;
+    });
+  }
+
+  late final _$_statusAtom =
+      Atom(name: 'LicenciaControllerBase._status', context: context);
+
+  LicenciaStatusState get status {
+    _$_statusAtom.reportRead();
+    return super._status;
+  }
+
+  @override
+  LicenciaStatusState get _status => status;
+
+  @override
+  set _status(LicenciaStatusState value) {
+    _$_statusAtom.reportWrite(value, super._status, () {
+      super._status = value;
+    });
+  }
+
+  late final _$atualizaLicenciaAsyncAction =
+      AsyncAction('LicenciaControllerBase.atualizaLicencia', context: context);
+
+  @override
+  Future<void> atualizaLicencia(String serie) {
+    return _$atualizaLicenciaAsyncAction
+        .run(() => super.atualizaLicencia(serie));
+  }
+
+  @override
+  String toString() {
+    return '''
+message: ${message},
+dtVencimento: ${dtVencimento}
+    ''';
+  }
+}

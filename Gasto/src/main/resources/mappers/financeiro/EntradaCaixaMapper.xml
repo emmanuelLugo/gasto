@@ -1,0 +1,44 @@
+<?xml version= "1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.py.api.mapper.financeiro.EntradaCaixaMapper">
+
+	<resultMap id="resultSimples" type="EntradaCaixa">
+		<id property="id" column="ID_ENTRADA_CAIXA" />
+		<result property="observacao" column="OBS_ENTRADA" />
+		<result property="vlEntrada" column="VL_ENTRADA" />
+		<result property="dtEntrada" column="DT_ENTRADA" />
+		<result property="usuario" column="USUARIO" />
+		<result property="cancelado" column="BO_CANCELADO" />
+		<result property="dtCancelamento" column="DT_CANCELAMENTO" />
+		<result property="usuarioCancelamento"
+			column="USUARIO_CANCELAMENTO" />
+
+		<association property="moeda" javaType="Moeda">
+			<id property="id" column="ID_MOEDA" />
+		</association>
+
+		<association property="caixa" javaType="Caixa">
+			<id property="id" column="ID_CAIXA" />
+		</association>
+
+
+	</resultMap>
+
+	<resultMap id="result" type="EntradaCaixa"
+		extends="resultSimples">
+	</resultMap>
+
+	<sql id="sqlDefault">
+		SELECT * FROM FIN_ENTRADA_CAIXA
+	</sql>
+
+	<select id="findByCondition" resultMap="resultSimples"
+		parameterType="hashMap">
+		<include refid="sqlDefault" />
+		WHERE ${condition}
+	</select>
+
+</mapper>

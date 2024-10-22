@@ -1,0 +1,30 @@
+<?xml version= "1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.py.api.mapper.financeiro.CaixaMapper">
+
+	<resultMap id="resultSimples" type="Caixa">
+		<id property="id" column="ID_CAIXA" />
+		<result property="observacao" column="OBSERVACAO" />
+		<result property="dtAbertura" column="DT_ABERTURA" />
+		<result property="isAberto" column="BO_ABERTO" />
+		<result property="dtFechamento" column="DT_FECHAMENTO" />
+		<result property="vlCaixa" column="VL_CAIXA" />
+
+	</resultMap>
+
+	<resultMap id="result" type="Caixa" extends="resultSimples">
+	</resultMap>
+
+	<sql id="sqlDefault">
+		SELECT * FROM FIN_CAIXA
+	</sql>
+
+	<select id="findByCondition" resultMap="resultSimples"
+		parameterType="hashMap">
+		<include refid="sqlDefault" />
+		WHERE ${condition}
+	</select>
+
+</mapper>

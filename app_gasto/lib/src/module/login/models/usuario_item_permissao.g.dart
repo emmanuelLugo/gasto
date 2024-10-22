@@ -1,0 +1,27 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'usuario_item_permissao.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+UsuarioItemPermissao _$UsuarioItemPermissaoFromJson(
+        Map<String, dynamic> json) =>
+    UsuarioItemPermissao(
+      id: (json['id'] as num?)?.toInt(),
+      usuario: json['usuario'] == null
+          ? null
+          : Usuario.fromJson(json['usuario'] as Map<String, dynamic>),
+      permissao: json['permissao'] == null
+          ? null
+          : Permissao.fromJson(json['permissao'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$UsuarioItemPermissaoToJson(
+        UsuarioItemPermissao instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'usuario': instance.usuario,
+      'permissao': instance.permissao,
+    };

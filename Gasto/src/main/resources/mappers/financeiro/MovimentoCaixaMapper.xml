@@ -1,0 +1,47 @@
+<?xml version= "1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.py.api.mapper.financeiro.MovimentoCaixaMapper">
+
+	<resultMap id="resultSimples" type="MovimentoCaixa">
+		<id property="id" column="ID_MOVIMENTO" />
+		<result property="dtMovimento" column="DT_MOVIMENTO" />
+		<result property="vlMovimento" column="VL_MOVIMENTO" />
+		<result property="tipo" column="TP_MOVIMENTO" />
+
+		<association property="moeda" javaType="Moeda">
+			<id property="id" column="ID_MOEDA" />
+		</association>
+
+		<association property="gasto" javaType="Gasto">
+			<id property="id" column="ID_GASTO" />
+		</association>
+
+		<association property="entradaCaixa"
+			javaType="EntradaCaixa">
+			<id property="id" column="ID_ENTRADA_CAIXA" />
+		</association>
+
+		<association property="caixa" javaType="Caixa">
+			<id property="id" column="ID_CAIXA" />
+		</association>
+
+	</resultMap>
+
+	<resultMap id="result" type="MovimentoCaixa"
+		extends="resultSimples">
+	</resultMap>
+
+	<sql id="sqlDefault">
+		SELECT * FROM FIN_MOVIMENTO_CAIXA
+	</sql>
+
+	<select id="findByCondition" resultMap="resultSimples"
+		parameterType="hashMap">
+		<include refid="sqlDefault" />
+		WHERE ${condition}
+	</select>
+
+</mapper>

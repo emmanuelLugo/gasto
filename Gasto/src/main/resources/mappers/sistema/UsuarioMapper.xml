@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.py.api.mapper.sistema.UsuarioMapper">
+
+	<resultMap id="resultSimples" type="Usuario">
+		<id property="id" column="ID_USUARIO" />
+		<result property="login" column="LOGIN" />
+		<result property="senha" column="SENHA" />
+		<result property="nome" column="NOME_USUARIO" />
+		<result property="ativo" column="BO_ATIVO" />
+	</resultMap>
+
+
+	<sql id="sqlDefault">
+		SELECT
+		SYS_USUARIO.*
+		FROM
+		SYS_USUARIO
+	</sql>
+
+
+	<select id="findByLoginAndSenha" resultMap="resultSimples">
+		<include refid="sqlDefault" />
+		WHERE UPPER(LOGIN) = UPPER(#{login}) AND SENHA = #{senha} limit 1
+	</select>
+
+	<select id="findByCondition" resultMap="resultSimples">
+		<include refid="sqlDefault" />
+		WHERE ${condition}
+	</select>
+
+
+</mapper>

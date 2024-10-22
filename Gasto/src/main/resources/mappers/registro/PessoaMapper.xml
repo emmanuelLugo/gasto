@@ -1,0 +1,34 @@
+<?xml version= "1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.py.api.mapper.registro.PessoaMapper">
+
+	<resultMap id="resultSimples" type="Pessoa">
+		<id property="id" column="ID_PESSOA" />
+		<result property="nome" column="NOME" />
+		<result property="ruc" column="RUC" />
+		<result property="ativo" column="BO_ATIVO" />
+		<result property="localizacao" column="LOCALIZACAO" />
+		<result property="observacao" column="OBSERVACAO" />
+		<result property="telefone" column="TELEFONE" />
+	</resultMap>
+
+	<resultMap id="result" type="Pessoa" extends="resultSimples">
+	</resultMap>
+
+	<sql id="sqlDefault">
+		SELECT * FROM BS_PESSOA
+	</sql>
+
+	<select id="findByCondition" resultMap="resultSimples" 
+		parameterType="hashMap">
+		<include refid="sqlDefault" />
+		WHERE ${condition}
+		ORDER BY BO_ATIVO DESC,
+		NOME
+	</select>
+
+
+
+</mapper>

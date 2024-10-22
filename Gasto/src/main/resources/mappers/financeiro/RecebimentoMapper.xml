@@ -1,0 +1,65 @@
+<?xml version= "1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace= "com.py.api.mapper.financeiro.RecebimentoMapper">
+
+	<resultMap id="resultSimples" type="Recebimento">
+		<id property="id" column="ID_RECEBIMENTO"/>
+		<result property="vlRecebimento" column="VL_RECEBIMENTO"/>
+		<result property="vlJuro" column="VL_JURO"/>
+		<result property="cotacao" column="COTACAO"/>
+		<result property="dtRecebimento" column="DT_RECEBIMENTO"/>
+		<result property="nrDocumento" column="NR_DOCUMENTO"/>
+		<result property="usuario" column="USUARIO"/>
+		<result property="observacao" column="OBSERVACAO"/>
+		<result property="isTroco" column="BO_IS_TROCO"/>
+
+		<association property="formaRecebimento" javaType="FormaRecebimento">
+			<id property="id" column= "ID_FORMA_RECEBIMENTO" />
+		</association>
+		
+		<association property="moeda" javaType="Moeda">
+			<id property="id" column= "ID_MOEDA" />
+		</association>
+
+		<association property="venda" javaType="Venda">
+			<id property="id" column= "ID_VENDA" />
+		</association>
+
+		<association property="caixa" javaType="Caixa">
+			<id property="id" column= "ID_CAIXA" />
+		</association>
+
+
+		<association property="contaReceber" javaType="ContaReceber">
+			<id property="id" column= "ID_CONTA_RECEBER" />
+		</association>
+
+
+<!-- 		<association property="formaRecebimento" javaType="FormaRecebimento"> -->
+<!-- 			<id property="id" column= "ID_FORMA_RECEBIMENTO" /> -->
+<!-- 		</association> -->
+
+	</resultMap>
+
+	<resultMap id="result" type="Recebimento" extends="resultSimples">
+	</resultMap>
+
+	<sql id="sqlDefault">
+		SELECT * FROM FIN_RECEBIMENTO
+	</sql>
+
+	<select id="findByCondition" resultMap="resultSimples"
+		parameterType="hashMap">
+		<include refid="sqlDefault" />
+		WHERE ${condition}
+	</select>
+	
+	<select id="findRecebimentosByContaReceber" resultMap="resultSimples"
+		parameterType="hashMap">
+		<include refid="sqlDefault" />
+		 where FIN_RECEBIMENTO.ID_CONTA_RECEBER = #{idConta}
+	</select>
+
+</mapper>

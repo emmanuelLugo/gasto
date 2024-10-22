@@ -1,0 +1,25 @@
+<?xml version= "1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace= "com.py.api.mapper.financeiro.TipoGastoMapper">
+
+	<resultMap id="resultSimples" type="TipoGasto">
+		<id property="id" column="ID_TIPO_GASTO"/>
+		<result property="descricao" column="DS_TIPO_GASTO"/>
+	</resultMap>
+
+	<resultMap id="result" type="TipoGasto" extends="resultSimples">
+	</resultMap>
+
+	<sql id="sqlDefault">
+		SELECT * FROM FIN_TIPO_GASTO
+	</sql>
+
+	<select id="findByCondition" resultMap="resultSimples"
+		parameterType="hashMap">
+		<include refid="sqlDefault" />
+		WHERE ${condition}
+	</select>
+
+</mapper>
