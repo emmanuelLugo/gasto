@@ -1,5 +1,6 @@
 import 'package:app_venda/src/core/dio/rest_client.dart';
 import 'package:app_venda/src/core/exceptions/exception_utils.dart';
+import 'package:app_venda/src/core/exceptions/repository_exception.dart';
 import 'package:app_venda/src/core/exceptions/service_exception.dart';
 import 'package:app_venda/src/module/gasto/models/gasto.dart';
 import 'package:app_venda/src/module/gasto/models/dto/gasto_dto.dart';
@@ -64,6 +65,18 @@ class GastoRepository {
       return dto;
     } on Exception catch (e) {
       throw ServiceException(message: ExceptionUtils.getExceptionMessage(e));
+    }
+  }
+
+  Future<List<Gasto>> findByCondition(String condition) async {
+    try {
+      final response = await restClient.get(
+        '/gasto/findByCondition',
+        queryParameters: {'condition': condition},
+      );
+      return response.data.map<Gasto>((e) => Gasto.fromJson(e)).toList();
+    } on Exception catch (e) {
+      throw RepositoryException.fromException(e);
     }
   }
 }

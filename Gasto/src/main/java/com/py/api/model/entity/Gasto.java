@@ -12,13 +12,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.py.api.model.sistema.Moeda;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "FIN_GASTO")
@@ -37,15 +36,11 @@ public class Gasto {
 	@Column(name = "DS_GASTO")
 	private String descricao;
 
-//	@ManyToOne
-//	@JoinColumn(name = "ID_MOEDA", referencedColumnName = "ID_MOEDA")
-//	private Moeda moeda;
-
 	@Column(name = "VL_GASTO")
 	private BigDecimal vlGasto;
 
 	@Column(name = "DT_GASTO")
-	private Date dtGasto;
+	private LocalDateTime dtGasto;
 
 	@Column(name = "USUARIO")
 	private String usuario;

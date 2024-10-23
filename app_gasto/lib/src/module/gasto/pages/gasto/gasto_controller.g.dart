@@ -63,10 +63,26 @@ mixin _$GastoController on GastoControllerBase, Store {
     });
   }
 
+  late final _$dataProviderAtom =
+      Atom(name: 'GastoControllerBase.dataProvider', context: context);
+
+  @override
+  ObservableList<Gasto> get dataProvider {
+    _$dataProviderAtom.reportRead();
+    return super.dataProvider;
+  }
+
+  @override
+  set dataProvider(ObservableList<Gasto> value) {
+    _$dataProviderAtom.reportWrite(value, super.dataProvider, () {
+      super.dataProvider = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
-
+dataProvider: ${dataProvider}
     ''';
   }
 }

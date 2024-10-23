@@ -1,3 +1,4 @@
+import 'package:app_venda/src/core/ui/styles/colors_app.dart';
 import 'package:flutter/material.dart';
 
 class FooterPaginationBar extends StatefulWidget {
@@ -29,19 +30,8 @@ class _FooterPaginationBarState extends State<FooterPaginationBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
-      decoration: const BoxDecoration(
-          // color: const Color.fromARGB(255, 197, 112, 14),
-          // borderRadius: BorderRadius.circular(8.0),
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: Colors.grey.withOpacity(0.3),
-          //     blurRadius: 4,
-          //     spreadRadius: 1,
-          //     offset: const Offset(0, 2),
-          //   ),
-          // ],
-          ),
+      padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 16.0),
+      decoration: const BoxDecoration(),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -75,7 +65,6 @@ class _FooterPaginationBarState extends State<FooterPaginationBar> {
   List<Widget> _buildPageButtons() {
     final List<_PaginaSelected> paginas = [];
 
-    // Si el total de registros coincide con el tamaño de la página, solo mostrar la página 1
     if (widget.totalRegistros == widget.pageSize) {
       paginas.add(const _PaginaSelected(pagina: '1', isSelected: true));
     } else {
@@ -92,7 +81,6 @@ class _FooterPaginationBarState extends State<FooterPaginationBar> {
         ));
       }
 
-      // Agregar puntos suspensivos si hay más páginas
       if (widget.pages > 3) {
         if (widget.paginaAtual > 2) {
           paginas.insert(
@@ -122,10 +110,13 @@ class _FooterPaginationBarState extends State<FooterPaginationBar> {
           margin: const EdgeInsets.symmetric(horizontal: 6),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           decoration: BoxDecoration(
-            color: e.isSelected! ? Colors.blue : Colors.transparent,
+            color:
+                e.isSelected! ? ColorsApp.instance.primary : Colors.transparent,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: e.isSelected! ? Colors.blue : Colors.grey.shade300,
+              color: e.isSelected!
+                  ? ColorsApp.instance.primary
+                  : Colors.grey.shade300,
             ),
           ),
           child: Column(
@@ -169,7 +160,7 @@ class _FooterPaginationBarState extends State<FooterPaginationBar> {
       child: Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: isDisabled ? Colors.grey[300] : Colors.blue,
+          color: isDisabled ? Colors.grey[300] : ColorsApp.instance.primary,
         ),
         child: Icon(
           icon,

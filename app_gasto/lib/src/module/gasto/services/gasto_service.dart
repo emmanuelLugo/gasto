@@ -19,4 +19,13 @@ class GastoService {
       throw ServiceException(message: ExceptionUtils.getExceptionMessage(e));
     }
   }
+
+  Future<List<Gasto>> findByCondition(String condition) async {
+    try {
+      final response = await _repository.findByCondition(condition);
+      return response;
+    } on RepositoryException catch (e) {
+      throw ServiceException(message: ExceptionUtils.getExceptionMessage(e));
+    }
+  }
 }

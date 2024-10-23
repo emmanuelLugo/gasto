@@ -1,3 +1,4 @@
+import 'package:app_venda/src/core/components/fields/date_form_input/date_form_input.dart';
 import 'package:app_venda/src/core/components/fields/input_auto_search/input_seach_delegate.dart';
 import 'package:app_venda/src/core/components/fields/number_form_input/number_input_form.dart';
 import 'package:app_venda/src/core/components/fields/text_form_input/text_form_input.dart';
@@ -22,6 +23,7 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
   final _controller = Modular.get<GastoController>();
   final _valorEC = TextEditingController();
   final _descricaoEC = TextEditingController();
+  DateTime selectedDateTime = DateTime.now();
 
   @override
   void initState() {
@@ -41,6 +43,16 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
       appBar: AppBar(
         title: const Text('Nuevo Gasto'),
       ),
+      persistentFooterButtons: [
+        const SizedBox(
+          height: 10,
+        ),
+        ElevatedButton.icon(
+          onPressed: () => _controller.save(),
+          icon: const Icon(Icons.save),
+          label: const Text('guardar'),
+        ),
+      ],
       body: _buildBody(),
     );
   }
@@ -50,6 +62,17 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
       padding: const EdgeInsets.all(12),
       child: Column(
         children: [
+          DateFormInput(
+            date: selectedDateTime.toString(),
+            label: 'Fecha del Gasto',
+            selectedDate: (newDate) {
+              selectedDateTime = newDate;
+              _controller.setDate(newDate);
+            },
+          ),
+          const SizedBox(
+            height: 10,
+          ),
           InputSeachDelegate<ClassificacaoGasto?>(
             label: 'Tipo Gasto',
             searchDelegate:
@@ -82,11 +105,6 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
               return null;
             },
           ),
-          ElevatedButton(
-              onPressed: () {
-                _controller.save();
-              },
-              child: const Text('guardar')),
         ],
       ),
     );

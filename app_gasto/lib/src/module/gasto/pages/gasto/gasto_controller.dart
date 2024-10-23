@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:developer';
+
 import 'package:app_venda/src/core/exceptions/service_exception.dart';
 import 'package:app_venda/src/module/gasto/models/classificacao_gasto.dart';
 import 'package:mobx/mobx.dart';
@@ -35,6 +37,9 @@ abstract class GastoControllerBase with Store {
   @readonly
   Gasto _currentRecord = Gasto.novo();
 
+  @observable
+  ObservableList<Gasto> dataProvider = ObservableList<Gasto>();
+
   Future<void> save() async {
     _status = GastoStatusState.initial;
     try {
@@ -42,6 +47,18 @@ abstract class GastoControllerBase with Store {
       _currentRecord = response;
       _message = 'Gasto guardado con Exito';
       _status = GastoStatusState.success;
+    } on ServiceException catch (e) {
+      _message = e.message;
+      _status = GastoStatusState.error;
+    }
+  }
+
+  Future<void> findByCondition(String condition) async {
+    _status = GastoStatusState.loading;
+    try {
+      final response = await _service.findByCondition(condition);
+      dataProvider = response.asObservable();
+      _status = GastoStatusState.loaded;
     } on ServiceException catch (e) {
       _message = e.message;
       _status = GastoStatusState.error;
@@ -66,5 +83,9 @@ abstract class GastoControllerBase with Store {
   void setClassificacao(ClassificacaoGasto? classificacaoGasto) {
     _currentRecord =
         _currentRecord.copyWith(classificacaoGasto: classificacaoGasto);
+  }
+
+  void setDate(DateTime? date) {
+    _currentRecord = _currentRecord.copyWith(dtGasto: date);
   }
 }

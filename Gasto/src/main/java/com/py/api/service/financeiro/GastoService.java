@@ -2,6 +2,7 @@ package com.py.api.service.financeiro;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -42,7 +43,10 @@ public class GastoService {
 //		Caixa caixa = caixaService.caixaABerto();
 		Caixa caixa = new Caixa();
 		caixa.setId(1L);
-		gasto.setDtGasto(new Date());
+		if(gasto.getDtGasto() == null) {
+			gasto.setDtGasto(LocalDateTime.now());
+		}
+//		gasto.setDtGasto(new Date());
 		gasto.setCancelado(false);
 		gasto.setUsuario(usuario);
 		gasto.setCaixa(caixa);
@@ -53,6 +57,11 @@ public class GastoService {
 //		movimentoCaixaRepository.save(mov);
 //		caixaService.atualizaValoresCaixa(gasto.getCaixa().getId());
 		return gasto;
+	}
+
+	public List<Gasto> findByCondition(String condition) {
+		List<Gasto> gastos = gastoMapper.findByCondition(condition);
+		return gastos;
 	}
 
 	public Gasto cancelaGastoById(Long id, String usuario) {
@@ -158,7 +167,7 @@ public class GastoService {
 					.divide(vlTotalGasto, 2, RoundingMode.HALF_UP);
 			totalClassificacaoGastoDto.setVlPorcentagem(vlPorcentagem);
 		}
-		
+
 		GastoDto dto = new GastoDto();
 //		dto.setGastos(listTotais);
 		dto.setVlTotal(vlTotalGasto);

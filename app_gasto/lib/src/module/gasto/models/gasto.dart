@@ -12,7 +12,7 @@ class Gasto {
   String? descricao;
   Moeda? moeda;
   double? vlGasto;
-  String? dtGasto;
+  DateTime? dtGasto;
   String? usuario;
   bool? cancelado;
   String? usuarioCancelamento;
@@ -40,7 +40,7 @@ class Gasto {
     String? descricao,
     Moeda? moeda,
     double? vlGasto,
-    String? dtGasto,
+    DateTime? dtGasto,
     String? usuario,
     bool? cancelado,
     String? usuarioCancelamento,

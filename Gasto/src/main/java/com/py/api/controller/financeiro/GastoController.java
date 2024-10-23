@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.py.api.mapper.financeiro.GastoMapper;
 import com.py.api.model.dto.GastoDto;
 import com.py.api.model.dto.TotalClassificacaoGastoDto;
 import com.py.api.model.entity.Gasto;
@@ -26,7 +25,6 @@ import lombok.AllArgsConstructor;
 public class GastoController {
 
 	private GastoService gastoService;
-	private GastoMapper gastoMapper;
 
 	@PostMapping("/save")
 	public ResponseEntity<?> save(@RequestBody Gasto gasto, @RequestHeader("usuario") String usuario) {
@@ -36,7 +34,7 @@ public class GastoController {
 
 	@GetMapping("/findByCondition")
 	public ResponseEntity<List<Gasto>> findByCondition(@RequestParam String condition) {
-		List<Gasto> gastos = gastoMapper.findByCondition(condition);
+		List<Gasto> gastos = gastoService.findByCondition(condition);
 		return ResponseEntity.ok(gastos);
 	}
 

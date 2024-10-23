@@ -13,7 +13,9 @@ Gasto _$GastoFromJson(Map<String, dynamic> json) => Gasto(
           ? null
           : Moeda.fromJson(json['moeda'] as Map<String, dynamic>),
       vlGasto: (json['vlGasto'] as num?)?.toDouble(),
-      dtGasto: json['dtGasto'] as String?,
+      dtGasto: json['dtGasto'] == null
+          ? null
+          : DateTime.parse(json['dtGasto'] as String),
       usuario: json['usuario'] as String?,
       cancelado: json['cancelado'] as bool?,
       usuarioCancelamento: json['usuarioCancelamento'] as String?,
@@ -31,7 +33,7 @@ Map<String, dynamic> _$GastoToJson(Gasto instance) => <String, dynamic>{
       'descricao': instance.descricao,
       'moeda': instance.moeda,
       'vlGasto': instance.vlGasto,
-      'dtGasto': instance.dtGasto,
+      'dtGasto': instance.dtGasto?.toIso8601String(),
       'usuario': instance.usuario,
       'cancelado': instance.cancelado,
       'usuarioCancelamento': instance.usuarioCancelamento,

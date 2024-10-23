@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
@@ -26,16 +27,12 @@ class AppWidget extends StatelessWidget {
       title: 'Ventas',
       debugShowCheckedModeBanner: false,
       routerConfig: Modular.routerConfig,
-      // theme: theme.themeMode == ThemeMode.light
-      //     ? ThemeConfig.theme
-      //     : ThemeConfig.darkTheme,
-
       theme: ThemeConfig.theme,
       locale: const Locale('es', 'PY'),
       localizationsDelegates: const [
-        // GlobalMaterialLocalizations.delegate,
-        // GlobalWidgetsLocalizations.delegate,
-        // GlobalCupertinoLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
       ],
       builder: (context, child) => ResponsiveWrapper.builder(
         child!,

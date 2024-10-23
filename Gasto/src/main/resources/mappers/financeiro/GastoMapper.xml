@@ -15,10 +15,10 @@
 			column="USUARIO_CANCELAMENTO" />
 		<result property="dtCancelamento" column="DT_CANCELAMENTO" />
 
-<!-- 		<association property="moeda" javaType="Moeda"> -->
-<!-- 			<id property="id" column="ID_MOEDA" /> -->
-<!-- 			<result property="descricao" column="DS_MOEDA" /> -->
-<!-- 		</association> -->
+		<!-- <association property="moeda" javaType="Moeda"> -->
+		<!-- <id property="id" column="ID_MOEDA" /> -->
+		<!-- <result property="descricao" column="DS_MOEDA" /> -->
+		<!-- </association> -->
 
 		<association property="classificacaoGasto"
 			javaType="ClassificacaoGasto">
@@ -28,6 +28,7 @@
 
 		<association property="caixa" javaType="Caixa">
 			<id property="id" column="ID_CAIXA" />
+			<result property="observacao" column="OBSERVACAO" />
 		</association>
 
 	</resultMap>
@@ -44,6 +45,7 @@
 		FIN_CLASSIFICACAO_GASTO CG
 		ON CG.ID_CLASSIFICACAO_GASTO =
 		FIN_GASTO.ID_CLASSIFICACAO
+		INNER JOIN FIN_CAIXA C ON C.ID_CAIXA = FIN_GASTO.ID_CAIXA
 	</sql>
 
 	<select id="findByCondition" resultMap="resultSimples"
