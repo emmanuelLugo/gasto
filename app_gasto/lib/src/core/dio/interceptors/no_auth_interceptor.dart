@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:app_venda/src/core/api/host_name.dart';
+import 'package:app_gasto/src/core/api/host_name.dart';
 import 'package:dio/dio.dart';
 
 class NoAuthInterceptor extends Interceptor {

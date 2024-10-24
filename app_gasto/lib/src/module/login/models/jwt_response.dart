@@ -1,6 +1,6 @@
-import 'package:app_venda/src/module/login/models/empresa.dart';
-import 'package:app_venda/src/module/login/models/licencia.dart';
-import 'package:app_venda/src/module/login/models/usuario.dart';
+import 'package:app_gasto/src/module/login/models/empresa.dart';
+import 'package:app_gasto/src/module/login/models/licencia.dart';
+import 'package:app_gasto/src/module/login/models/usuario.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'jwt_response.g.dart';
@@ -19,7 +19,7 @@ class JwtResponse {
     this.licencia,
   });
 
- factory JwtResponse.fromJson(Map<String, dynamic> json) =>
+  factory JwtResponse.fromJson(Map<String, dynamic> json) =>
       _$JwtResponseFromJson(json);
   Map<String, dynamic> toJson() => _$JwtResponseToJson(this);
 }

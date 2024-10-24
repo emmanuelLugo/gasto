@@ -1,4 +1,4 @@
-import 'package:app_venda/src/core/components/fields/input_auto_search/input_auto_search.dart';
+import 'package:app_gasto/src/core/components/fields/input_auto_search/input_auto_search.dart';
 import 'package:flutter/material.dart';
 
 class SearchAppBarWidget extends StatelessWidget

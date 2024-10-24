@@ -1,5 +1,5 @@
-import 'package:app_venda/src/core/components/fields/number_form_input/currency_input_formatter.dart';
-import 'package:app_venda/src/core/components/fields/text_form_input/text_form_input.dart';
+import 'package:app_gasto/src/core/components/fields/number_form_input/currency_input_formatter.dart';
+import 'package:app_gasto/src/core/components/fields/text_form_input/text_form_input.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

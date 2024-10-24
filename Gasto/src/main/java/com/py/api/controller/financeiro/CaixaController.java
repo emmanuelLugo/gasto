@@ -28,4 +28,16 @@ public class CaixaController {
 		return ResponseEntity.ok(caixas);
 	}
 
+	@GetMapping("/findByConditionOrderByAbertos")
+	public ResponseEntity<List<Caixa>> findByConditionOrderByAbertos(@RequestParam String condition) {
+		List<Caixa> caixas = caixaService.findByConditionOrderByAbertos(condition);
+		return ResponseEntity.ok(caixas);
+	}
+	
+	@GetMapping("/findCaixasAbertas")
+	public ResponseEntity<List<Caixa>> findCaixasAbertas() {
+		List<Caixa> caixas = caixaService.findCaixasAbertas();
+		return ResponseEntity.ok(caixas);
+	}
+
 }

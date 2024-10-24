@@ -1,5 +1,5 @@
-import 'package:app_venda/src/module/core/modules/core_module.dart';
-import 'package:app_venda/src/module/login/login_module.dart';
+import 'package:app_gasto/src/module/core/modules/core_module.dart';
+import 'package:app_gasto/src/module/login/login_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AppModule extends Module {

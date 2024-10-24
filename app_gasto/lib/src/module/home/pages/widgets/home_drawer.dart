@@ -1,24 +1,18 @@
-import 'package:app_venda/src/core/global/key_constants.dart';
-import 'package:app_venda/src/core/storage/local_storage_service.dart';
-import 'package:app_venda/src/core/ui/helpers/helpers/size_extension.dart';
-import 'package:app_venda/src/core/ui/styles/colors_app.dart';
-import 'package:app_venda/src/core/utils/image/image_util.dart';
-import 'package:app_venda/src/module/core/shared/data_shared.dart';
-import 'package:app_venda/src/module/core/shared/parametros_shared.dart';
-import 'package:app_venda/src/module/core/shared/telas_shared.dart';
-import 'package:app_venda/src/module/home/pages/widgets/expansion_tile_gasto.dart';
+import 'package:app_gasto/src/core/global/key_constants.dart';
+import 'package:app_gasto/src/core/storage/local_storage_service.dart';
+import 'package:app_gasto/src/core/ui/helpers/helpers/size_extension.dart';
+import 'package:app_gasto/src/core/ui/styles/colors_app.dart';
+import 'package:app_gasto/src/core/utils/image/image_util.dart';
+import 'package:app_gasto/src/module/core/shared/data_shared.dart';
+import 'package:app_gasto/src/module/home/pages/widgets/expansion_tile_gasto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class HomeDrawer extends StatefulWidget {
   final DataShared dataShared;
-  final ParametrosShared parametrosShared;
-  final TelasShared telasShared;
   const HomeDrawer({
     super.key,
     required this.dataShared,
-    required this.telasShared,
-    required this.parametrosShared,
   });
 
   @override
@@ -54,7 +48,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 child: customImageWidget(widget.dataShared.empresa!.urlFoto),
               ),
             ),
-            Text('Saludos, ${widget.dataShared.usuario!.nome!}'),
+            Text('Saludos, ${widget.dataShared.usuario?.nome!}'),
           ],
         ),
       ),
@@ -71,14 +65,12 @@ class _HomeDrawerState extends State<HomeDrawer> {
     return Theme(
       data: Theme.of(context).copyWith(dividerColor: dividerColor),
       child: ListView(
+        padding: EdgeInsets.zero,
         children: [
           ExpansionTileGasto(
-            telasShared: widget.telasShared,
             dataShared: widget.dataShared,
             titleStyle: titleStyle,
           ),
-
-          // ExpansionTileConfiguracao(parametrosShared: widget.parametrosShared),
         ],
       ),
     );

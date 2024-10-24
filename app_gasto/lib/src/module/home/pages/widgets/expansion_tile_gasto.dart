@@ -1,19 +1,14 @@
-import 'package:app_venda/src/core/ui/styles/colors_app.dart';
-import 'package:app_venda/src/module/core/shared/data_shared.dart';
-import 'package:app_venda/src/module/core/shared/telas_shared.dart';
+import 'package:app_gasto/src/core/ui/styles/colors_app.dart';
+import 'package:app_gasto/src/module/core/shared/data_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class ExpansionTileGasto extends StatefulWidget {
-  final TelasShared telasShared;
   final DataShared dataShared;
   final TextStyle titleStyle;
 
   const ExpansionTileGasto(
-      {super.key,
-      required this.telasShared,
-      required this.dataShared,
-      required this.titleStyle});
+      {super.key, required this.dataShared, required this.titleStyle});
 
   @override
   State<ExpansionTileGasto> createState() => _ExpansionTileGastoState();

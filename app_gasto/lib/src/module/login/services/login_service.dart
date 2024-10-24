@@ -1,11 +1,11 @@
-import 'package:app_venda/src/core/api/host_name.dart';
-import 'package:app_venda/src/core/exceptions/repository_exception.dart';
-import 'package:app_venda/src/core/exceptions/service_exception.dart';
-import 'package:app_venda/src/core/global/key_constants.dart';
-import 'package:app_venda/src/core/storage/local_storage_service.dart';
-import 'package:app_venda/src/module/core/shared/data_shared.dart';
-import 'package:app_venda/src/module/login/models/jwt_response.dart';
-import 'package:app_venda/src/module/login/repositories/login_repository.dart';
+import 'package:app_gasto/src/core/api/host_name.dart';
+import 'package:app_gasto/src/core/exceptions/repository_exception.dart';
+import 'package:app_gasto/src/core/exceptions/service_exception.dart';
+import 'package:app_gasto/src/core/global/key_constants.dart';
+import 'package:app_gasto/src/core/storage/local_storage_service.dart';
+import 'package:app_gasto/src/module/core/shared/data_shared.dart';
+import 'package:app_gasto/src/module/login/models/jwt_response.dart';
+import 'package:app_gasto/src/module/login/repositories/login_repository.dart';
 
 import '../../../core/exceptions/exception_utils.dart';
 

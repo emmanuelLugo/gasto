@@ -1,12 +1,12 @@
 import 'dart:developer';
 
-import 'package:app_venda/src/core/ui/helpers/helpers/loader.dart';
-import 'package:app_venda/src/core/ui/helpers/helpers/snack_bar_manager.dart';
-import 'package:app_venda/src/core/ui/widget/custom_slidable_action_widget.dart';
-import 'package:app_venda/src/core/ui/widget/search_app_bar_widget.dart';
-import 'package:app_venda/src/core/utils/empty_list.dart';
-import 'package:app_venda/src/module/gasto/models/classificacao_gasto.dart';
-import 'package:app_venda/src/module/gasto/pages/classificacao/classificacao_gasto_controller.dart';
+import 'package:app_gasto/src/core/ui/helpers/helpers/loader.dart';
+import 'package:app_gasto/src/core/ui/helpers/helpers/snack_bar_manager.dart';
+import 'package:app_gasto/src/core/ui/widget/custom_slidable_action_widget.dart';
+import 'package:app_gasto/src/core/ui/widget/search_app_bar_widget.dart';
+import 'package:app_gasto/src/core/utils/empty_list.dart';
+import 'package:app_gasto/src/module/gasto/models/classificacao_gasto.dart';
+import 'package:app_gasto/src/module/gasto/pages/classificacao/classificacao_gasto_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';

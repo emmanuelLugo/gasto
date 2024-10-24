@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:app_venda/src/core/exceptions/service_exception.dart';
-import 'package:app_venda/src/module/file/services/image_service.dart';
+import 'package:app_gasto/src/core/exceptions/service_exception.dart';
+import 'package:app_gasto/src/module/file/services/image_service.dart';
 
 class ImageController {
   final ImageService _service;

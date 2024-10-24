@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:app_venda/src/core/global/key_constants.dart';
-import 'package:app_venda/src/core/storage/local_storage_service.dart';
+import 'package:app_gasto/src/core/global/key_constants.dart';
+import 'package:app_gasto/src/core/storage/local_storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 

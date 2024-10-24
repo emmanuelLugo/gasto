@@ -1,9 +1,9 @@
-import 'package:app_venda/src/core/components/fields/input_auto_search/input_seach_delegate.dart';
-import 'package:app_venda/src/core/components/fields/text_form_input/text_form_input.dart';
-import 'package:app_venda/src/module/gasto/models/tipo_gasto.dart';
-import 'package:app_venda/src/module/gasto/pages/classificacao/classificacao_gasto_controller.dart';
-import 'package:app_venda/src/module/gasto/pages/delegate/tipo_gasto_delegate.dart';
-import 'package:app_venda/src/module/gasto/pages/delegate/tipo_gasto_delegate_controller.dart';
+import 'package:app_gasto/src/core/components/fields/input_auto_search/input_seach_delegate.dart';
+import 'package:app_gasto/src/core/components/fields/text_form_input/text_form_input.dart';
+import 'package:app_gasto/src/module/gasto/models/tipo_gasto.dart';
+import 'package:app_gasto/src/module/gasto/pages/classificacao/classificacao_gasto_controller.dart';
+import 'package:app_gasto/src/module/gasto/pages/delegate/tipo_gasto_delegate.dart';
+import 'package:app_gasto/src/module/gasto/pages/delegate/tipo_gasto_delegate_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:validatorless/validatorless.dart';

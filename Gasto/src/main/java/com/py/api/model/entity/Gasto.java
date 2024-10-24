@@ -52,7 +52,7 @@ public class Gasto {
 	private String usuarioCancelamento;
 
 	@Column(name = "DT_CANCELAMENTO")
-	private Date dtCancelamento;
+	private LocalDateTime dtCancelamento;
 
 	@ManyToOne
 	@JoinColumn(name = "ID_CLASSIFICACAO", referencedColumnName = "ID_CLASSIFICACAO_GASTO")

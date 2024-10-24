@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'app_style.dart';
 import 'colors_app.dart';
-import 'text_styles.dart';
 
 class ThemeConfig {
   ThemeConfig._();

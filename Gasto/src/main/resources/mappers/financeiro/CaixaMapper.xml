@@ -27,4 +27,18 @@
 		WHERE ${condition}
 	</select>
 
+	<select id="findCaixasAbertas" resultMap="resultSimples"
+		parameterType="hashMap">
+		<include refid="sqlDefault" />
+		WHERE BO_ABERTO = TRUE
+	</select>
+
+	<select id="findByConditionOrderByAbertos"
+		resultMap="resultSimples" parameterType="hashMap">
+		<include refid="sqlDefault" />
+		WHERE ${condition} ORDER BY FIN_CAIXA.BO_ABERTO DESC,
+		FIN_CAIXA.ID_CAIXA DESC
+	</select>
+
+
 </mapper>

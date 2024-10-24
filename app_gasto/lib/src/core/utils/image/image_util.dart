@@ -1,5 +1,5 @@
-import 'package:app_venda/src/core/api/host_name.dart';
-import 'package:app_venda/src/core/global/image_constants.dart';
+import 'package:app_gasto/src/core/api/host_name.dart';
+import 'package:app_gasto/src/core/global/image_constants.dart';
 import 'package:flutter/material.dart';
 
 FadeInImage customFadeInImage(String? urlFoto,

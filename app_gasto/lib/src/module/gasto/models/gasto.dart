@@ -1,5 +1,5 @@
-import 'package:app_venda/src/module/gasto/models/caixa.dart';
-import 'package:app_venda/src/module/login/models/moeda.dart';
+import 'package:app_gasto/src/module/gasto/models/caixa.dart';
+import 'package:app_gasto/src/module/login/models/moeda.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'classificacao_gasto.dart';
@@ -13,6 +13,7 @@ class Gasto {
   Moeda? moeda;
   double? vlGasto;
   DateTime? dtGasto;
+  DateTime? dtCancelamento;
   String? usuario;
   bool? cancelado;
   String? usuarioCancelamento;
@@ -29,6 +30,7 @@ class Gasto {
     this.cancelado,
     this.usuarioCancelamento,
     this.classificacaoGasto,
+    this.dtCancelamento,
     this.caixa,
   });
 
@@ -46,6 +48,7 @@ class Gasto {
     String? usuarioCancelamento,
     ClassificacaoGasto? classificacaoGasto,
     Caixa? caixa,
+    DateTime? dtCancelamento,
   }) {
     return Gasto(
       id: id ?? this.id,
@@ -58,6 +61,7 @@ class Gasto {
       usuarioCancelamento: usuarioCancelamento ?? this.usuarioCancelamento,
       classificacaoGasto: classificacaoGasto ?? this.classificacaoGasto,
       caixa: caixa ?? this.caixa,
+      dtCancelamento: dtCancelamento ?? this.dtCancelamento,
     );
   }
 

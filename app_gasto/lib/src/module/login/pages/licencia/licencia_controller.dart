@@ -1,5 +1,5 @@
-import 'package:app_venda/src/core/exceptions/service_exception.dart';
-import 'package:app_venda/src/module/login/services/licencia_service.dart';
+import 'package:app_gasto/src/core/exceptions/service_exception.dart';
+import 'package:app_gasto/src/module/login/services/licencia_service.dart';
 import 'package:mobx/mobx.dart';
 
 part 'licencia_controller.g.dart';

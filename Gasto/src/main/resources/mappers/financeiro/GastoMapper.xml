@@ -45,7 +45,8 @@
 		FIN_CLASSIFICACAO_GASTO CG
 		ON CG.ID_CLASSIFICACAO_GASTO =
 		FIN_GASTO.ID_CLASSIFICACAO
-		INNER JOIN FIN_CAIXA C ON C.ID_CAIXA = FIN_GASTO.ID_CAIXA
+		INNER JOIN FIN_CAIXA C ON C.ID_CAIXA =
+		FIN_GASTO.ID_CAIXA
 	</sql>
 
 	<select id="findByCondition" resultMap="resultSimples"
@@ -59,7 +60,7 @@
 	<select id="findGastoByCaixa" resultMap="resultSimples"
 		parameterType="hashMap">
 		<include refid="sqlDefault" />
-		WHERE #{idCaixa}
+		WHERE C.ID_CAIXA = #{idCaixa} AND FIN_GASTO.BO_CANCELADO = FALSE
 	</select>
 
 
@@ -82,15 +83,16 @@
 		INNER JOIN FIN_CAIXA C ON
 		C.ID_CAIXA = G.ID_CAIXA
 		WHERE G.ID_CAIXA =
-		#{idCaixa}
+		#{idCaixa} AND G.BO_CANCELADO
+		= FALSE
 		GROUP BY
 		G.ID_CLASSIFICACAO ORDER BY vlTotal DESC
 	</select>
 
 	<select id="findValorTotalGastoByCaixa" resultType="BigDecimal"
 		parameterType="hashMap">
-		SELECT IFNULL(SUM(g.VL_GASTO),0) FROM fin_gasto g WHERE
-		g.ID_CAIXA = #{idCaixa}
+		SELECT IFNULL(SUM(g.VL_GASTO),0) FROM FIN_GASTO G WHERE
+		g.ID_CAIXA = #{idCaixa} AND G.BO_CANCELADO = FALSE
 	</select>
 
 	<select id="findTotalGastoPorTipoByCaixa"
@@ -110,8 +112,10 @@
 		ON TG.ID_TIPO_GASTO =
 		CG.ID_TIPO_GASTO
 		WHERE G.ID_CAIXA = #{idCaixa}
+		AND G.BO_CANCELADO = FALSE
 		GROUP BY TG.ID_TIPO_GASTO
-		ORDER BY vlTotal DESC
+		ORDER BY vlTotal
+		DESC
 	</select>
 
 

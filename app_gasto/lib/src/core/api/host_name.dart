@@ -1,10 +1,8 @@
 import 'dart:developer';
-import 'dart:io';
 
-import 'package:app_venda/src/core/environments/environments.dart';
-import 'package:app_venda/src/core/global/image_constants.dart';
-import 'package:app_venda/src/core/global/key_constants.dart';
-import 'package:app_venda/src/core/storage/local_storage_service.dart';
+import 'package:app_gasto/src/core/global/image_constants.dart';
+import 'package:app_gasto/src/core/global/key_constants.dart';
+import 'package:app_gasto/src/core/storage/local_storage_service.dart';
 
 class Hostname {
   String ip = "";
@@ -22,12 +20,7 @@ class Hostname {
   init() async {
     String? host = 'localhost:8090';
     //VER PARA CAMBIAR DESPUES
-    if (Platform.isAndroid) {
-      host = await LocalStorageService.instance.get(key: KeyConstants.ip.key);
-    } else {
-      host =
-          "${Environments.param('urlBaseDev')}:${Environments.param('portaDev')}";
-    }
+    host = await LocalStorageService.instance.get(key: KeyConstants.ip.key);
 
     if (host != null) {
       ip = "http://$host$_apiProd/";

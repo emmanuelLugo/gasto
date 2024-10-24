@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:app_venda/src/core/dio/rest_client.dart';
-import 'package:app_venda/src/core/exceptions/repository_exception.dart';
+import 'package:app_gasto/src/core/dio/rest_client.dart';
+import 'package:app_gasto/src/core/exceptions/repository_exception.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 // ignore: depend_on_referenced_packages

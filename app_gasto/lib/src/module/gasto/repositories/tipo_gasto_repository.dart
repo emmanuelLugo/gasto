@@ -1,5 +1,5 @@
-import 'package:app_venda/src/core/dio/rest_client.dart';
-import 'package:app_venda/src/module/gasto/models/tipo_gasto.dart';
+import 'package:app_gasto/src/core/dio/rest_client.dart';
+import 'package:app_gasto/src/module/gasto/models/tipo_gasto.dart';
 
 class TipoGastoRepository {
   final RestClient restClient;

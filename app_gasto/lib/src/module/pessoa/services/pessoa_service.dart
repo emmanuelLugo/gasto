@@ -1,7 +1,7 @@
-import 'package:app_venda/src/core/exceptions/exception_utils.dart';
-import 'package:app_venda/src/core/exceptions/service_exception.dart';
-import 'package:app_venda/src/module/pessoa/models/pessoa.dart';
-import 'package:app_venda/src/module/pessoa/repositories/pessoa_repository.dart';
+import 'package:app_gasto/src/core/exceptions/exception_utils.dart';
+import 'package:app_gasto/src/core/exceptions/service_exception.dart';
+import 'package:app_gasto/src/module/pessoa/models/pessoa.dart';
+import 'package:app_gasto/src/module/pessoa/repositories/pessoa_repository.dart';
 
 class PessoaService {
   final PessoaRepository repository;

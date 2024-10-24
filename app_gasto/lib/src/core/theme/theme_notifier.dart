@@ -1,4 +1,4 @@
-import 'package:app_venda/src/core/storage/local_storage_service.dart';
+import 'package:app_gasto/src/core/storage/local_storage_service.dart';
 import 'package:flutter/material.dart';
 
 class ThemeNotifier extends ChangeNotifier {

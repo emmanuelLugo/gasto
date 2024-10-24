@@ -1,5 +1,5 @@
-import 'package:app_venda/src/module/gasto/models/gasto.dart';
-import 'package:app_venda/src/module/gasto/models/dto/total_classificacao_gasto_dto.dart';
+import 'package:app_gasto/src/module/gasto/models/gasto.dart';
+import 'package:app_gasto/src/module/gasto/models/dto/total_classificacao_gasto_dto.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'gasto_dto.g.dart';

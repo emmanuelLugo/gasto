@@ -1,4 +1,4 @@
-import 'package:app_venda/src/core/components/banderas/bandeiras.dart';
+import 'package:app_gasto/src/core/components/banderas/bandeiras.dart';
 
 class BanderaUtils {
   static bandera(int id) {

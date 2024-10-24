@@ -1,7 +1,7 @@
-import 'package:app_venda/src/core/exceptions/service_exception.dart';
-import 'package:app_venda/src/module/gasto/models/classificacao_gasto.dart';
-import 'package:app_venda/src/module/gasto/models/tipo_gasto.dart';
-import 'package:app_venda/src/module/gasto/services/classificacao_gasto_service.dart';
+import 'package:app_gasto/src/core/exceptions/service_exception.dart';
+import 'package:app_gasto/src/module/gasto/models/classificacao_gasto.dart';
+import 'package:app_gasto/src/module/gasto/models/tipo_gasto.dart';
+import 'package:app_gasto/src/module/gasto/services/classificacao_gasto_service.dart';
 import 'package:mobx/mobx.dart';
 part 'classificacao_gasto_controller.g.dart';
 

@@ -1,0 +1,19 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'empresa.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+Empresa _$EmpresaFromJson(Map<String, dynamic> json) => Empresa(
+      id: (json['id'] as num?)?.toInt(),
+      descricao: json['descricao'] as String?,
+      urlFoto: json['urlFoto'] as String?,
+    );
+
+Map<String, dynamic> _$EmpresaToJson(Empresa instance) => <String, dynamic>{
+      'id': instance.id,
+      'descricao': instance.descricao,
+      'urlFoto': instance.urlFoto,
+    };

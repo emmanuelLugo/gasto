@@ -1,5 +1,5 @@
-import 'package:app_venda/src/module/gasto/models/classificacao_gasto.dart';
-import 'package:app_venda/src/module/gasto/pages/delegate/classificacao_gasto_delegate_controller.dart';
+import 'package:app_gasto/src/module/gasto/models/classificacao_gasto.dart';
+import 'package:app_gasto/src/module/gasto/pages/delegate/classificacao_gasto_delegate_controller.dart';
 import 'package:flutter/material.dart';
 
 class ClassificacaoGastoDelegate extends SearchDelegate<ClassificacaoGasto?> {

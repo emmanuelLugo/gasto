@@ -3,6 +3,7 @@ package com.py.api.service.financeiro;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,11 +20,8 @@ import com.py.api.model.dto.GastoDto;
 import com.py.api.model.dto.TotalClassificacaoGastoDto;
 import com.py.api.model.entity.Caixa;
 import com.py.api.model.entity.Gasto;
-import com.py.api.model.entity.MovimentoCaixa;
 import com.py.api.repository.financeiro.CaixaRepository;
-import com.py.api.repository.financeiro.ClassificacaoGastoRepository;
 import com.py.api.repository.financeiro.GastoRepository;
-import com.py.api.repository.financeiro.MovimentoCaixaRepository;
 
 import lombok.AllArgsConstructor;
 
@@ -33,30 +31,20 @@ import lombok.AllArgsConstructor;
 public class GastoService {
 
 	private GastoRepository gastoRepository;
-//	private CaixaService caixaService;
-	private MovimentoCaixaRepository movimentoCaixaRepository;
 	private GastoMapper gastoMapper;
-	private ClassificacaoGastoRepository classificacaoGastoRepository;
 	private CaixaRepository caixaRepository;
 
 	public Gasto save(Gasto gasto, String usuario) {
-//		Caixa caixa = caixaService.caixaABerto();
-		Caixa caixa = new Caixa();
-		caixa.setId(1L);
-		if(gasto.getDtGasto() == null) {
+		if (gasto.getDtGasto() == null) {
 			gasto.setDtGasto(LocalDateTime.now());
+		} else {
+			LocalDateTime currentDate = gasto.getDtGasto().toLocalDate().atTime(LocalTime.now());
+			gasto.setDtGasto(currentDate);
 		}
-//		gasto.setDtGasto(new Date());
 		gasto.setCancelado(false);
 		gasto.setUsuario(usuario);
-		gasto.setCaixa(caixa);
 
-		gasto = gastoRepository.save(gasto);
-
-//		MovimentoCaixa mov = MovimentoCaixa.byGasto(gasto, caixa);
-//		movimentoCaixaRepository.save(mov);
-//		caixaService.atualizaValoresCaixa(gasto.getCaixa().getId());
-		return gasto;
+		return gastoRepository.save(gasto);
 	}
 
 	public List<Gasto> findByCondition(String condition) {
@@ -69,22 +57,13 @@ public class GastoService {
 		if (gastoOpt.isPresent()) {
 			Gasto gasto = gastoOpt.get();
 			if (gasto.getCancelado()) {
-				throw new AppException("El gasto no existe, vuelva a consultar");
+				throw new AppException("El gasto ya fue cancelado, vuelva a consultar");
 			}
-
-//			caixaService.caixaABertoById(gasto.getCaixa().getId());
 
 			gasto.setCancelado(true);
-			gasto.setDtCancelamento(new Date());
+			gasto.setDtCancelamento(LocalDateTime.now());
 			gasto.setUsuarioCancelamento(usuario);
-			gasto.setDtCancelamento(new Date());
 			gasto = gastoRepository.save(gasto);
-			MovimentoCaixa mov = movimentoCaixaRepository.findOneByGasto(gasto);
-			if (mov != null) {
-				movimentoCaixaRepository.delete(mov);
-			}
-
-//			caixaService.atualizaValoresCaixa(gasto.getCaixa().getId());
 			return gasto;
 
 		}

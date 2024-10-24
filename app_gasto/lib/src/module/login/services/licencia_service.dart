@@ -1,7 +1,7 @@
-import 'package:app_venda/src/core/exceptions/repository_exception.dart';
-import 'package:app_venda/src/core/exceptions/service_exception.dart';
-import 'package:app_venda/src/module/login/models/licencia.dart';
-import 'package:app_venda/src/module/login/repositories/licencia_repository.dart';
+import 'package:app_gasto/src/core/exceptions/repository_exception.dart';
+import 'package:app_gasto/src/core/exceptions/service_exception.dart';
+import 'package:app_gasto/src/module/login/models/licencia.dart';
+import 'package:app_gasto/src/module/login/repositories/licencia_repository.dart';
 
 import '../../../core/exceptions/exception_utils.dart';
 

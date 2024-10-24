@@ -5,5 +5,6 @@ import com.py.api.model.entity.Caixa;
 
 public interface CaixaMapper {
 	List<Caixa> findByCondition(String condition);
-
+	List<Caixa> findByConditionOrderByAbertos(String condition);
+	List<Caixa> findCaixasAbertas();
 }

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:app_venda/src/core/ui/styles/colors_app.dart';
+import 'package:app_gasto/src/core/ui/styles/colors_app.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 

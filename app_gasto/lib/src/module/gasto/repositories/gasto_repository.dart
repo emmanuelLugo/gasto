@@ -1,10 +1,10 @@
-import 'package:app_venda/src/core/dio/rest_client.dart';
-import 'package:app_venda/src/core/exceptions/exception_utils.dart';
-import 'package:app_venda/src/core/exceptions/repository_exception.dart';
-import 'package:app_venda/src/core/exceptions/service_exception.dart';
-import 'package:app_venda/src/module/gasto/models/gasto.dart';
-import 'package:app_venda/src/module/gasto/models/dto/gasto_dto.dart';
-import 'package:app_venda/src/module/gasto/models/dto/total_classificacao_gasto_dto.dart';
+import 'package:app_gasto/src/core/dio/rest_client.dart';
+import 'package:app_gasto/src/core/exceptions/exception_utils.dart';
+import 'package:app_gasto/src/core/exceptions/repository_exception.dart';
+import 'package:app_gasto/src/core/exceptions/service_exception.dart';
+import 'package:app_gasto/src/module/gasto/models/gasto.dart';
+import 'package:app_gasto/src/module/gasto/models/dto/gasto_dto.dart';
+import 'package:app_gasto/src/module/gasto/models/dto/total_classificacao_gasto_dto.dart';
 
 class GastoRepository {
   final RestClient restClient;
@@ -14,13 +14,11 @@ class GastoRepository {
 
   Future<Gasto> insertOrUpdate(Gasto gasto) async {
     try {
-      final response = await restClient.post(
-        '/gasto/save',
-        data: gasto.toJson(),
-      );
+      final response =
+          await restClient.post('/gasto/save', data: gasto.toJson());
       return Gasto.fromJson(response.data);
     } on Exception catch (e) {
-      throw ServiceException(message: ExceptionUtils.getExceptionMessage(e));
+      throw RepositoryException.toException(e);
     }
   }
 
@@ -40,7 +38,11 @@ class GastoRepository {
             (e) => TotalClassificacaoGastoDto.fromJson(e),
           )
           .toList();
-      dto.vlTotal = response.data['vlTotal'];
+      if (response.data['vlTotal'] == 0) {
+        dto.vlTotal = 0.0;
+      } else {
+        dto.vlTotal = response.data['vlTotal'];
+      }
       return dto;
     } on Exception catch (e) {
       throw ServiceException(message: ExceptionUtils.getExceptionMessage(e));
@@ -75,6 +77,15 @@ class GastoRepository {
         queryParameters: {'condition': condition},
       );
       return response.data.map<Gasto>((e) => Gasto.fromJson(e)).toList();
+    } on Exception catch (e) {
+      throw RepositoryException.fromException(e);
+    }
+  }
+
+  Future<Gasto> cancelaGasto(int idGasto) async {
+    try {
+      final response = await restClient.post('gasto/cancelaGasto/$idGasto');
+      return Gasto.fromJson(response.data);
     } on Exception catch (e) {
       throw RepositoryException.fromException(e);
     }

@@ -1,4 +1,4 @@
-import 'package:app_venda/src/module/gasto/models/tipo_gasto.dart';
+import 'package:app_gasto/src/module/gasto/models/tipo_gasto.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'classificacao_gasto.g.dart';

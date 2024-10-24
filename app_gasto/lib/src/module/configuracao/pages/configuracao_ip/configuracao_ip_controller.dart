@@ -1,4 +1,4 @@
-import 'package:app_venda/src/module/configuracao/services/configuracao_service.dart';
+import 'package:app_gasto/src/module/configuracao/services/configuracao_service.dart';
 import 'package:mobx/mobx.dart';
 
 part 'configuracao_ip_controller.g.dart';

@@ -1,4 +1,4 @@
-import 'package:app_venda/src/core/components/fields/unidad_medida/unidad_medida_utils.dart';
+import 'package:app_gasto/src/core/components/fields/unidad_medida/unidad_medida_utils.dart';
 import 'package:intl/intl.dart';
 
 //formata por ejemplo 5000.0 => 5.000,00

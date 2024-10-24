@@ -1,4 +1,4 @@
-import 'package:app_venda/src/core/components/fields/text_form_input/upper_case_text_formatter.dart';
+import 'package:app_gasto/src/core/components/fields/text_form_input/upper_case_text_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

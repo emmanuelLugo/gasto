@@ -26,15 +26,4 @@ class RetryOnConnectionChangeInterceptor extends Interceptor {
     // }
     return handler.next(err);
   }
-
-  bool _shouldRetry(DioException err) {
-    // if (kIsWeb) {
-    // ignore: deprecated_member_use
-    return err.type == DioErrorType.unknown && err.error != null;
-    // } else {
-    //   return err.type == DioErrorType.other &&
-    //       err.error != null &&
-    //       err.error is SocketException;
-    // }
-  }
 }

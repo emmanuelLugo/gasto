@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:app_venda/src/core/exceptions/exception_utils.dart';
-import 'package:app_venda/src/core/exceptions/repository_exception.dart';
-import 'package:app_venda/src/core/exceptions/service_exception.dart';
-import 'package:app_venda/src/module/file/repository/image_repository.dart';
+import 'package:app_gasto/src/core/exceptions/exception_utils.dart';
+import 'package:app_gasto/src/core/exceptions/repository_exception.dart';
+import 'package:app_gasto/src/core/exceptions/service_exception.dart';
+import 'package:app_gasto/src/module/file/repository/image_repository.dart';
 
 class ImageService {
   final ImageRepository _repository;

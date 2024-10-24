@@ -22,7 +22,7 @@ class DropdownButtonGenericWidget<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return DropdownButtonFormField<T>(
       isExpanded: true,
-      value: selectedItem ?? items.first,
+      value: selectedItem,
       decoration: InputDecoration(
         labelText: label,
         border: const OutlineInputBorder(),

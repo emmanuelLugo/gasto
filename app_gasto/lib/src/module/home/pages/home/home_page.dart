@@ -1,13 +1,11 @@
 import 'dart:io';
 
-import 'package:app_venda/src/core/ui/helpers/helpers/loader.dart';
-import 'package:app_venda/src/core/ui/helpers/helpers/snack_bar_manager.dart';
-import 'package:app_venda/src/core/ui/styles/colors_app.dart';
-import 'package:app_venda/src/module/core/shared/data_shared.dart';
-import 'package:app_venda/src/module/core/shared/parametros_shared.dart';
-import 'package:app_venda/src/module/core/shared/telas_shared.dart';
-import 'package:app_venda/src/module/home/pages/home/configuracao_sistema_controller.dart';
-import 'package:app_venda/src/module/home/pages/widgets/home_drawer.dart';
+import 'package:app_gasto/src/core/ui/helpers/helpers/loader.dart';
+import 'package:app_gasto/src/core/ui/helpers/helpers/snack_bar_manager.dart';
+import 'package:app_gasto/src/core/ui/styles/colors_app.dart';
+import 'package:app_gasto/src/module/core/shared/data_shared.dart';
+import 'package:app_gasto/src/module/home/pages/home/configuracao_sistema_controller.dart';
+import 'package:app_gasto/src/module/home/pages/widgets/home_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -21,8 +19,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with Loader, SnackbarManager {
   final DataShared dataShared = Modular.get();
-  final ParametrosShared parametrosShared = Modular.get();
-  final TelasShared telasShared = Modular.get();
   final ConfiguracaoSistemaController controller = Modular.get();
   late final ReactionDisposer statusDisposer;
 
@@ -31,8 +27,8 @@ class _HomePageState extends State<HomePage> with Loader, SnackbarManager {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.findConfiguracoesSistema();
+      _reactionInitializer();
     });
-    reactionInitializer();
   }
 
   @override
@@ -43,24 +39,19 @@ class _HomePageState extends State<HomePage> with Loader, SnackbarManager {
 
   @override
   Widget build(BuildContext context) {
-    // ThemeNotifier theme = context.watch<ThemeNotifier>();
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Bienvenido/a ${dataShared.usuario!.nome}'),
-        ),
-        drawer: HomeDrawer(
-          dataShared: dataShared,
-          telasShared: telasShared,
-          parametrosShared: parametrosShared,
-        ),
-        body: PopScope(
-          canPop: false,
-          onPopInvoked: (didPop) {
-            _showFecharApp();
-          },
-          child: const Center(),
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Bienvenido/a ${dataShared.usuario!.nome}'),
+      ),
+      drawer: HomeDrawer(
+        dataShared: dataShared,
+      ),
+      body: PopScope(
+        canPop: false,
+        onPopInvoked: (didPop) {
+          _showFecharApp();
+        },
+        child: const Center(),
       ),
     );
   }
@@ -102,7 +93,7 @@ class _HomePageState extends State<HomePage> with Loader, SnackbarManager {
     );
   }
 
-  void reactionInitializer() {
+  void _reactionInitializer() {
     statusDisposer = reaction(
       (_) => controller.status,
       (status) {

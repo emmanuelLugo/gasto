@@ -1,5 +1,5 @@
-import 'package:app_venda/src/core/exceptions/service_exception.dart';
-import 'package:app_venda/src/module/home/services/configuracao_sistema_service.dart';
+import 'package:app_gasto/src/core/exceptions/service_exception.dart';
+import 'package:app_gasto/src/module/home/services/configuracao_sistema_service.dart';
 import 'package:mobx/mobx.dart';
 
 part 'configuracao_sistema_controller.g.dart';
@@ -30,22 +30,10 @@ abstract class ConfiguracaoSistemaControllerBase with Store {
   Future<void> findConfiguracoesSistema() async {
     try {
       _status = HomeStatusState.loading;
-      await consultaParametros();
-      _configuracaoSistemaService.configuraIdMoedaPadrao();
-      await _configuracaoSistemaService.consultaCotacaoAtual();
-
+      _configuracaoSistemaService.findCaixasAbertas();
       _status = HomeStatusState.loaded;
     } on ServiceException catch (e) {
       _message = e.toString();
-      _status = HomeStatusState.error;
-    }
-  }
-
-  Future<void> consultaParametros() async {
-    try {
-      await _configuracaoSistemaService.consultaParametros();
-    } on ServiceException catch (e) {
-      _message = e.message;
       _status = HomeStatusState.error;
     }
   }

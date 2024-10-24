@@ -1,4 +1,4 @@
-import 'package:app_venda/src/module/pessoa/models/pessoa.dart';
+import 'package:app_gasto/src/module/pessoa/models/pessoa.dart';
 import 'package:mobx/mobx.dart';
 
 class PessoaPageable {

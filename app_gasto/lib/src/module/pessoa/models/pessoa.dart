@@ -1,4 +1,4 @@
-import 'package:app_venda/src/core/models/i_simple_list_tile.dart';
+import 'package:app_gasto/src/core/models/i_simple_list_tile.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'pessoa.g.dart';
 

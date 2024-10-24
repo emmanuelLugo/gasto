@@ -79,6 +79,14 @@ mixin _$GastoController on GastoControllerBase, Store {
     });
   }
 
+  late final _$cancelaGastoAsyncAction =
+      AsyncAction('GastoControllerBase.cancelaGasto', context: context);
+
+  @override
+  Future<void> cancelaGasto(Gasto gasto) {
+    return _$cancelaGastoAsyncAction.run(() => super.cancelaGasto(gasto));
+  }
+
   @override
   String toString() {
     return '''

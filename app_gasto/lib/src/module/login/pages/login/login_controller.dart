@@ -1,7 +1,7 @@
-import 'package:app_venda/src/core/exceptions/service_exception.dart';
-import 'package:app_venda/src/core/global/key_constants.dart';
-import 'package:app_venda/src/core/storage/local_storage_service.dart';
-import 'package:app_venda/src/module/login/services/login_service.dart';
+import 'package:app_gasto/src/core/exceptions/service_exception.dart';
+import 'package:app_gasto/src/core/global/key_constants.dart';
+import 'package:app_gasto/src/core/storage/local_storage_service.dart';
+import 'package:app_gasto/src/module/login/services/login_service.dart';
 import 'package:flutter/services.dart';
 import 'package:mobx/mobx.dart';
 

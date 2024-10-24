@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:app_venda/src/module/login/models/permissao.dart';
-import 'package:app_venda/src/module/login/models/usuario.dart';
+import 'package:app_gasto/src/module/login/models/permissao.dart';
+import 'package:app_gasto/src/module/login/models/usuario.dart';
 
 part 'usuario_item_permissao.g.dart';
 

@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:app_venda/src/module/login/models/usuario_filial.dart';
-import 'package:app_venda/src/module/login/models/usuario_item_permissao.dart';
+import 'package:app_gasto/src/module/login/models/usuario_filial.dart';
+import 'package:app_gasto/src/module/login/models/usuario_item_permissao.dart';
 
 part 'usuario.g.dart';
 

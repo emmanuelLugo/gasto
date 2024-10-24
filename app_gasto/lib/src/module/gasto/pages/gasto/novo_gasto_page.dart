@@ -1,11 +1,15 @@
-import 'package:app_venda/src/core/components/fields/date_form_input/date_form_input.dart';
-import 'package:app_venda/src/core/components/fields/input_auto_search/input_seach_delegate.dart';
-import 'package:app_venda/src/core/components/fields/number_form_input/number_input_form.dart';
-import 'package:app_venda/src/core/components/fields/text_form_input/text_form_input.dart';
-import 'package:app_venda/src/module/gasto/models/classificacao_gasto.dart';
-import 'package:app_venda/src/module/gasto/pages/delegate/classificacao_gasto_delegate.dart';
-import 'package:app_venda/src/module/gasto/pages/delegate/classificacao_gasto_delegate_controller.dart';
-import 'package:app_venda/src/module/gasto/pages/gasto/gasto_controller.dart';
+import 'package:app_gasto/src/core/components/drop_down_button_generic_widget.dart';
+import 'package:app_gasto/src/core/components/fields/date_form_input/date_form_input.dart';
+import 'package:app_gasto/src/core/components/fields/input_auto_search/input_seach_delegate.dart';
+import 'package:app_gasto/src/core/components/fields/number_form_input/number_input_form.dart';
+import 'package:app_gasto/src/core/components/fields/text_form_input/text_form_input.dart';
+import 'package:app_gasto/src/core/utils/date/date_util.dart';
+import 'package:app_gasto/src/module/core/shared/data_shared.dart';
+import 'package:app_gasto/src/module/gasto/models/caixa.dart';
+import 'package:app_gasto/src/module/gasto/models/classificacao_gasto.dart';
+import 'package:app_gasto/src/module/gasto/pages/delegate/classificacao_gasto_delegate.dart';
+import 'package:app_gasto/src/module/gasto/pages/delegate/classificacao_gasto_delegate_controller.dart';
+import 'package:app_gasto/src/module/gasto/pages/gasto/gasto_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -23,10 +27,13 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
   final _controller = Modular.get<GastoController>();
   final _valorEC = TextEditingController();
   final _descricaoEC = TextEditingController();
+  final _dataShared = Modular.get<DataShared>();
   DateTime selectedDateTime = DateTime.now();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
+    _controller.initGasto();
     super.initState();
   }
 
@@ -48,7 +55,7 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
           height: 10,
         ),
         ElevatedButton.icon(
-          onPressed: () => _controller.save(),
+          onPressed: () => _save(),
           icon: const Icon(Icons.save),
           label: const Text('guardar'),
         ),
@@ -60,53 +67,78 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
   Widget _buildBody() {
     return Padding(
       padding: const EdgeInsets.all(12),
-      child: Column(
-        children: [
-          DateFormInput(
-            date: selectedDateTime.toString(),
-            label: 'Fecha del Gasto',
-            selectedDate: (newDate) {
-              selectedDateTime = newDate;
-              _controller.setDate(newDate);
-            },
+      child: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              DropdownButtonGenericWidget<Caixa>(
+                items: _dataShared.caixasAbertas ?? [],
+                label: 'Caja',
+                hint: 'Seleccione un caja',
+                selectedItem: _controller.currentRecord.caixa,
+                itemToString: (caixa) =>
+                    '${DateUtil.format(caixa.dtAbertura!)} - ${caixa.observacao}',
+                onChanged: (value) {
+                  _controller.setCaixa(value);
+                },
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              DateFormInput(
+                date: selectedDateTime.toString(),
+                label: 'Fecha del Gasto',
+                selectedDate: (newDate) {
+                  selectedDateTime = newDate;
+                  _controller.setDate(newDate);
+                },
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              InputSeachDelegate<ClassificacaoGasto?>(
+                label: 'Clasificación',
+                searchDelegate:
+                    ClassificacaoGastoDelegate(_classificacaoGastoController),
+                controller: _classificacaoGastoEC,
+                onSelected: (value) {
+                  _classificacaoGastoEC.text = value?.descricao ?? '';
+                  _controller.setClassificacao(value);
+                },
+              ),
+              const SizedBox(height: 10),
+              TextInputForm(
+                label: 'Observacion',
+                controller: _descricaoEC,
+                onChanged: (value) {
+                  _descricaoEC.text = value;
+                  _controller.setDescricao(value);
+                },
+              ),
+              const SizedBox(height: 10),
+              NumberInputForm(
+                onChanged: (value) => _controller.setValor(value),
+                controller: _valorEC,
+                label: 'monto',
+                precision: 0,
+                validator: (value) {
+                  if (value == null || value <= 0) {
+                    return 'El monto no puede ser vacío o igual a cero';
+                  }
+                  return null;
+                },
+              ),
+            ],
           ),
-          const SizedBox(
-            height: 10,
-          ),
-          InputSeachDelegate<ClassificacaoGasto?>(
-            label: 'Tipo Gasto',
-            searchDelegate:
-                ClassificacaoGastoDelegate(_classificacaoGastoController),
-            controller: _classificacaoGastoEC,
-            onSelected: (value) {
-              _classificacaoGastoEC.text = value?.descricao ?? '';
-              _controller.setClassificacao(value);
-            },
-          ),
-          const SizedBox(height: 10),
-          TextInputForm(
-            label: 'Observacion',
-            controller: _descricaoEC,
-            onChanged: (value) {
-              _descricaoEC.text = value;
-              _controller.setDescricao(value);
-            },
-          ),
-          const SizedBox(height: 10),
-          NumberInputForm(
-            onChanged: (value) => _controller.setValor(value),
-            controller: _valorEC,
-            label: 'monto',
-            precision: 0,
-            validator: (value) {
-              if (value == null || value <= 0) {
-                return 'El monto no puede ser vacío o igual a cero';
-              }
-              return null;
-            },
-          ),
-        ],
+        ),
       ),
     );
+  }
+
+  _save() {
+    if (_formKey.currentState!.validate()) {
+      _controller.save();
+    }
   }
 }

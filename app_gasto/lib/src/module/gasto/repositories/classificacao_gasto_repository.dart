@@ -1,6 +1,6 @@
-import 'package:app_venda/src/core/dio/rest_client.dart';
-import 'package:app_venda/src/core/exceptions/repository_exception.dart';
-import 'package:app_venda/src/module/gasto/models/classificacao_gasto.dart';
+import 'package:app_gasto/src/core/dio/rest_client.dart';
+import 'package:app_gasto/src/core/exceptions/repository_exception.dart';
+import 'package:app_gasto/src/module/gasto/models/classificacao_gasto.dart';
 
 class ClassificacaoGastoRepository {
   final RestClient restClient;

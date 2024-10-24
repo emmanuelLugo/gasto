@@ -1,4 +1,4 @@
-import 'package:app_venda/src/module/login/models/usuario.dart';
+import 'package:app_gasto/src/module/login/models/usuario.dart';
 import 'package:mobx/mobx.dart';
 
 import 'filial.dart';

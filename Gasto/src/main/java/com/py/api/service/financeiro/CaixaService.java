@@ -36,5 +36,13 @@ public class CaixaService {
 	public List<Caixa> findByCondition(String condition) {
 		return caixaMapper.findByCondition(condition);
 	}
+	public List<Caixa> findByConditionOrderByAbertos(String condition) {
+		return caixaMapper.findByConditionOrderByAbertos(condition);
+	}
+	
+	
+	public List<Caixa> findCaixasAbertas(){
+		return caixaMapper.findCaixasAbertas();
+	}
 
 }

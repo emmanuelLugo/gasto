@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import 'package:app_venda/src/core/api/host_name.dart';
-import 'package:app_venda/src/core/global/key_constants.dart';
-import 'package:app_venda/src/core/storage/local_storage_service.dart';
+import 'package:app_gasto/src/core/api/host_name.dart';
+import 'package:app_gasto/src/core/global/key_constants.dart';
+import 'package:app_gasto/src/core/storage/local_storage_service.dart';
 import 'package:dio/dio.dart';
 
 class AuthInterceptor extends Interceptor {

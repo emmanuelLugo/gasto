@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:app_venda/src/core/api/host_name.dart';
-import 'package:app_venda/src/core/dio/interceptors/auth_interceptor.dart';
+import 'package:app_gasto/src/core/api/host_name.dart';
+import 'package:app_gasto/src/core/dio/interceptors/auth_interceptor.dart';
 import 'package:dio/dio.dart';
 
 import '../exceptions/rest_client_exception.dart';

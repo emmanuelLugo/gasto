@@ -1,16 +1,16 @@
-import 'package:app_venda/src/module/cotacao/models/cotacao/cotacao.dart';
-import 'package:app_venda/src/module/login/models/empresa.dart';
-import 'package:app_venda/src/module/login/models/filial.dart';
-import 'package:app_venda/src/module/login/models/moeda.dart';
-import 'package:app_venda/src/module/login/models/usuario.dart';
+import 'package:app_gasto/src/module/gasto/models/caixa.dart';
+import 'package:app_gasto/src/module/login/models/empresa.dart';
+import 'package:app_gasto/src/module/login/models/filial.dart';
+import 'package:app_gasto/src/module/login/models/moeda.dart';
+import 'package:app_gasto/src/module/login/models/usuario.dart';
 
 class DataShared {
   Usuario? usuario;
   Empresa? empresa;
   Filial? filial;
 
-  Cotacao? cotacao;
   List<Moeda>? moedasDisponiveis;
+  List<Caixa>? caixasAbertas;
 
   int idMoedaBase = 1;
   Moeda? moedaBase = Moeda(id: 1);
@@ -34,6 +34,5 @@ class DataShared {
   void clear() {
     usuario = null;
     //vendedor = null;
-    cotacao = null;
   }
 }

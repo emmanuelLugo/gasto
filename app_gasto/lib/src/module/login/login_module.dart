@@ -1,14 +1,14 @@
-import 'package:app_venda/src/module/core/modules/core_module.dart';
-import 'package:app_venda/src/module/home/home_module.dart';
-import 'package:app_venda/src/module/login/pages/licencia/licencia_controller.dart';
-import 'package:app_venda/src/module/login/pages/licencia/sem_licencia_page.dart';
-import 'package:app_venda/src/module/login/pages/login/login_controller.dart';
-import 'package:app_venda/src/module/login/pages/login/login_page.dart';
-import 'package:app_venda/src/module/login/repositories/licencia_repository.dart';
-import 'package:app_venda/src/module/login/repositories/login_repository.dart';
-import 'package:app_venda/src/module/login/services/licencia_service.dart';
-import 'package:app_venda/src/module/login/services/login_service.dart';
-import 'package:app_venda/src/module/splash_screen/splash_screen_page.dart';
+import 'package:app_gasto/src/module/core/modules/core_module.dart';
+import 'package:app_gasto/src/module/home/home_module.dart';
+import 'package:app_gasto/src/module/login/pages/licencia/licencia_controller.dart';
+import 'package:app_gasto/src/module/login/pages/licencia/sem_licencia_page.dart';
+import 'package:app_gasto/src/module/login/pages/login/login_controller.dart';
+import 'package:app_gasto/src/module/login/pages/login/login_page.dart';
+import 'package:app_gasto/src/module/login/repositories/licencia_repository.dart';
+import 'package:app_gasto/src/module/login/repositories/login_repository.dart';
+import 'package:app_gasto/src/module/login/services/licencia_service.dart';
+import 'package:app_gasto/src/module/login/services/login_service.dart';
+import 'package:app_gasto/src/module/splash_screen/splash_screen_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class LoginModule extends Module {

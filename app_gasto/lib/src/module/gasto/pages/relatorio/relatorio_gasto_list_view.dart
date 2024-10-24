@@ -1,10 +1,10 @@
-import 'package:app_venda/src/core/components/fields/number_form_input/number_format.dart';
-import 'package:app_venda/src/core/ui/helpers/helpers/loader.dart';
-import 'package:app_venda/src/core/ui/helpers/helpers/size_extension.dart';
-import 'package:app_venda/src/core/ui/helpers/helpers/snack_bar_manager.dart';
-import 'package:app_venda/src/module/gasto/pages/widget/grafico_lineal_widget.dart';
-import 'package:app_venda/src/module/gasto/pages/widget/grafico_pie_widget.dart';
-import 'package:app_venda/src/module/gasto/pages/relatorio/relatorio_gasto_controller.dart';
+import 'package:app_gasto/src/core/components/fields/number_form_input/number_format.dart';
+import 'package:app_gasto/src/core/ui/helpers/helpers/loader.dart';
+import 'package:app_gasto/src/core/ui/helpers/helpers/size_extension.dart';
+import 'package:app_gasto/src/core/ui/helpers/helpers/snack_bar_manager.dart';
+import 'package:app_gasto/src/module/gasto/pages/relatorio/widget/grafico_lineal_widget.dart';
+import 'package:app_gasto/src/module/gasto/pages/relatorio/widget/grafico_pie_widget.dart';
+import 'package:app_gasto/src/module/gasto/pages/relatorio/relatorio_gasto_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';

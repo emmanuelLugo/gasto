@@ -1,4 +1,4 @@
-import 'package:app_venda/src/core/ui/styles/theme_config.dart';
+import 'package:app_gasto/src/core/ui/styles/theme_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -13,18 +13,11 @@ class AppWidget extends StatelessWidget {
     Modular.setInitialRoute('/');
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-          // statusBarColor: theme.themeMode == ThemeMode.light
-          //     ? ColorsApp.instance.primary
-          //     : Colors.black87,
-          // systemNavigationBarColor: theme.themeMode == ThemeMode.light
-          //     ? ColorsApp.instance.primary
-          //     : Colors.black87,
-          ));
+      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle());
     });
 
     return MaterialApp.router(
-      title: 'Ventas',
+      title: 'App de Gastos',
       debugShowCheckedModeBanner: false,
       routerConfig: Modular.routerConfig,
       theme: ThemeConfig.theme,

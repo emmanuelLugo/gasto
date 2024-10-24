@@ -1,4 +1,4 @@
-# app_venda
+# app_gasto
 
 A new Flutter project.
 

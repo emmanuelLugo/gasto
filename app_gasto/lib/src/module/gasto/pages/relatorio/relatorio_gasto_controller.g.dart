@@ -75,6 +75,38 @@ mixin _$RelatorioGastoController on RelatorioGastoControllerBase, Store {
     });
   }
 
+  late final _$caixaSelecionadaAtom = Atom(
+      name: 'RelatorioGastoControllerBase.caixaSelecionada', context: context);
+
+  @override
+  Caixa? get caixaSelecionada {
+    _$caixaSelecionadaAtom.reportRead();
+    return super.caixaSelecionada;
+  }
+
+  @override
+  set caixaSelecionada(Caixa? value) {
+    _$caixaSelecionadaAtom.reportWrite(value, super.caixaSelecionada, () {
+      super.caixaSelecionada = value;
+    });
+  }
+
+  late final _$caixasAtom =
+      Atom(name: 'RelatorioGastoControllerBase.caixas', context: context);
+
+  @override
+  List<Caixa>? get caixas {
+    _$caixasAtom.reportRead();
+    return super.caixas;
+  }
+
+  @override
+  set caixas(List<Caixa>? value) {
+    _$caixasAtom.reportWrite(value, super.caixas, () {
+      super.caixas = value;
+    });
+  }
+
   late final _$vlTotalAtom =
       Atom(name: 'RelatorioGastoControllerBase.vlTotal', context: context);
 
@@ -91,12 +123,22 @@ mixin _$RelatorioGastoController on RelatorioGastoControllerBase, Store {
     });
   }
 
+  late final _$initGastoAsyncAction =
+      AsyncAction('RelatorioGastoControllerBase.initGasto', context: context);
+
+  @override
+  Future<void> initGasto() {
+    return _$initGastoAsyncAction.run(() => super.initGasto());
+  }
+
   @override
   String toString() {
     return '''
 message: ${message},
 gastos: ${gastos},
 listDto: ${listDto},
+caixaSelecionada: ${caixaSelecionada},
+caixas: ${caixas},
 vlTotal: ${vlTotal}
     ''';
   }

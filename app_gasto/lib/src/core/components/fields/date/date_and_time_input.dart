@@ -1,4 +1,4 @@
-import 'package:app_venda/src/core/components/behahavior/custom_scroll_behavior.dart';
+import 'package:app_gasto/src/core/components/behahavior/custom_scroll_behavior.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';

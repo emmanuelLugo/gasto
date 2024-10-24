@@ -1,4 +1,4 @@
-import 'package:app_venda/src/module/home/models/usuario/usuario_dto.dart';
+import 'package:app_gasto/src/module/home/models/usuario/usuario_dto.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'grupo_controle_acesso.dart';
 
