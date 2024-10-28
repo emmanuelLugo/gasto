@@ -1,7 +1,7 @@
 package com.py.api.model.entity;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,15 +34,18 @@ public class Caixa {
 	private String observacao;
 
 	@Column(name = "DT_ABERTURA")
-	private Date dtAbertura;
+	private LocalDateTime dtAbertura;
 
 	@Column(name = "BO_ABERTO")
 	private Boolean isAberto;
 
 	@Column(name = "DT_FECHAMENTO")
-	private Date dtFechamento;
+	private LocalDateTime dtFechamento;
 
 	@Column(name = "VL_CAIXA")
 	private BigDecimal vlCaixa;
+	
+	@Column(name = "VL_GASTO")
+	private BigDecimal vlGasto;
 
 }

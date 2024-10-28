@@ -167,7 +167,7 @@ class _LoginFormState extends State<LoginForm> with Loader, SnackbarManager {
                                     height: 20,
                                   ),
                                   SizedBox(
-                                    height: 50,
+                                    height: 54,
                                     width: context.screenWidth,
                                     child: ElevatedButton(
                                       onPressed: () {

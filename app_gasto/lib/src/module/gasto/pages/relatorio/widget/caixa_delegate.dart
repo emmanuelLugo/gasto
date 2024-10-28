@@ -1,8 +1,7 @@
-import 'package:app_gasto/src/core/utils/date/date_util.dart';
 import 'package:app_gasto/src/module/gasto/models/caixa.dart';
+import 'package:app_gasto/src/module/gasto/pages/caixa/widgets/card_caixa_widget.dart';
 import 'package:app_gasto/src/module/gasto/pages/relatorio/widget/caixa_delegate_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class CaixaDelegate extends SearchDelegate<Caixa?> {
   final CaixaDelegateController _controller;
@@ -70,30 +69,11 @@ class CaixaDelegate extends SearchDelegate<Caixa?> {
   }
 
   Widget _buildCard(Caixa caixa, BuildContext context) {
-    return Card(
-      child: ListTile(
-        title: Text('${caixa.id} - ${caixa.observacao}'),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('ESTADO: ${caixa.isAberto! ? 'ABIERTO' : 'CERRADO'}'),
-            Row(
-              children: [
-                Expanded(
-                  child:
-                      Text('APERTURA: ${DateUtil.format(caixa.dtAbertura!)}'),
-                ),
-                Text(caixa.isAberto!
-                    ? ''
-                    : 'CIERRE: ${DateUtil.format(caixa.dtFechamento ?? DateTime.now())}'),
-              ],
-            ),
-          ],
-        ),
-        onTap: () {
-          close(context, caixa);
-        },
-      ),
+    return CardCaixaWidget(
+      caixa: caixa,
+      onTap: () {
+        close(context, caixa);
+      },
     );
   }
 

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.py.api.model.dto.GastoDto;
+import com.py.api.model.dto.GastoPorSemanaDto;
 import com.py.api.model.dto.TotalClassificacaoGastoDto;
 import com.py.api.model.entity.Gasto;
 import com.py.api.service.financeiro.GastoService;
@@ -59,6 +60,12 @@ public class GastoController {
 	@GetMapping("/findTotalGastoPorTipoByCaixa/{idCaixa}")
 	public ResponseEntity<GastoDto> findTotalGastoPorTipoByCaixa(@PathVariable Long idCaixa) {
 		GastoDto gastoDto = gastoService.findTotalGastoPorTipoByCaixa(idCaixa);
+		return ResponseEntity.ok(gastoDto);
+	}
+	
+	@GetMapping("/findTotalGastoPorSemana")
+	public ResponseEntity<List<GastoPorSemanaDto>> findTotalGastoPorSemana() {
+		List<GastoPorSemanaDto> gastoDto = gastoService.findTotalGastoPorSemana();
 		return ResponseEntity.ok(gastoDto);
 	}
 

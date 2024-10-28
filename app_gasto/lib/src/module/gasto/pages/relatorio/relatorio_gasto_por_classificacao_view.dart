@@ -76,7 +76,7 @@ class _RelatorioGastoPorClassificacaoViewState
               height: 10,
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(12),
               child: InputSeachDelegate<Caixa?>(
                 label: 'Caja',
                 searchDelegate: CaixaDelegate(_caixaDelegateController),
@@ -86,6 +86,7 @@ class _RelatorioGastoPorClassificacaoViewState
                   if (value != null) {
                     _gastoController
                         .findTotalGastoPorClassificacaoByCaixa(value.id!);
+                    _gastoController.caixaSelecionada = value;
                   }
                 },
               ),
@@ -114,7 +115,15 @@ class _RelatorioGastoPorClassificacaoViewState
               height: context.screenHeight * 0.40,
               child: Observer(
                 builder: (_) {
-                  return GraficoLinealWidget(listDto: _gastoController.listDto);
+                  if (_gastoController.caixaSelecionada == null) {
+                    return const SizedBox.shrink();
+                  }
+
+                  return GraficoLinealWidget(
+                    listDto: _gastoController.listDto,
+                    gastoController: _gastoController,
+                    caixa: _gastoController.caixaSelecionada!,
+                  );
                 },
               ),
             ),

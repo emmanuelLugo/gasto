@@ -1,5 +1,6 @@
 package com.py.api.service.financeiro;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -24,6 +25,18 @@ public class CaixaService {
 		return caixaRepository.save(caixa);
 	}
 
+	public Caixa atualizaStatusCaixa(Long idCaixa) {
+		Caixa caixa = caixaRepository.findOneById(idCaixa);
+		if (caixa.getIsAberto()) {
+			caixa.setIsAberto(false);
+			caixa.setDtFechamento(LocalDateTime.now());
+		} else {
+			caixa.setIsAberto(true);
+		}
+
+		return caixaRepository.save(caixa);
+	}
+
 	public Caixa caixaABertoById(Long idCaixa) {
 		Caixa caixa = caixaRepository.findOneById(idCaixa);
 		if (caixa == null) {
@@ -36,12 +49,12 @@ public class CaixaService {
 	public List<Caixa> findByCondition(String condition) {
 		return caixaMapper.findByCondition(condition);
 	}
+
 	public List<Caixa> findByConditionOrderByAbertos(String condition) {
 		return caixaMapper.findByConditionOrderByAbertos(condition);
 	}
-	
-	
-	public List<Caixa> findCaixasAbertas(){
+
+	public List<Caixa> findCaixasAbertas() {
 		return caixaMapper.findCaixasAbertas();
 	}
 

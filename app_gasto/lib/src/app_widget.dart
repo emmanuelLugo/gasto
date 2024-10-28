@@ -17,7 +17,7 @@ class AppWidget extends StatelessWidget {
     });
 
     return MaterialApp.router(
-      title: 'App de Gastos',
+      title: 'Gestor de Gastos',
       debugShowCheckedModeBanner: false,
       routerConfig: Modular.routerConfig,
       theme: ThemeConfig.theme,

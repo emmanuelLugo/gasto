@@ -1,12 +1,25 @@
 import 'package:app_gasto/src/core/components/fields/number_form_input/number_format.dart';
+import 'package:app_gasto/src/module/gasto/models/caixa.dart';
 import 'package:app_gasto/src/module/gasto/models/dto/total_classificacao_gasto_dto.dart';
+import 'package:app_gasto/src/module/gasto/pages/gasto/widgets/gasto_por_classificacao_list_view.dart';
 import 'package:app_gasto/src/module/gasto/pages/relatorio/colors_utils.dart';
+import 'package:app_gasto/src/module/gasto/pages/relatorio/relatorio_gasto_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 class GraficoLinealWidget extends StatefulWidget {
   final ObservableList<TotalClassificacaoGastoDto> listDto;
-  const GraficoLinealWidget({super.key, required this.listDto});
+  final RelatorioGastoController gastoController;
+  final Function? onPressed;
+  final Caixa? caixa;
+
+  const GraficoLinealWidget(
+      {super.key,
+      required this.listDto,
+      required this.gastoController,
+      this.onPressed,
+      this.caixa});
 
   @override
   State<GraficoLinealWidget> createState() => _GraficoLinealWidgetState();
@@ -27,31 +40,26 @@ class _GraficoLinealWidgetState extends State<GraficoLinealWidget> {
 
   Widget _buildGastoItem(TotalClassificacaoGastoDto dto, int index) {
     return ListTile(
-      onTap: () {
-        //mostrar detalles en un modal
-        showModalBottomSheet(
-          context: context,
-          builder: (context) {
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text('Detalles'),
-                const SizedBox(height: 16),
-                Text(
-                  'Descripción: ${dto.descricao}',
-                  style: const TextStyle(fontSize: 16),
-                ),
-                Text(
-                  formatCurrency(dto.vlTotal ?? 0.0, 1),
-                  style: const TextStyle(fontSize: 16),
-                ),
-                Text(
-                  'Porcentaje: ${dto.vlPorcentagem}%',
-                  style: const TextStyle(fontSize: 16),
-                ),
-              ],
-            );
-          },
+      onTap: () async {
+        if (dto.idClassificacao == 0) {
+          return;
+        }
+        if (widget.caixa == null) {
+          return;
+        }
+
+        final response = await widget.gastoController.findByCondition(
+            "1 = 1 AND CG.ID_CLASSIFICACAO_GASTO = ${dto.idClassificacao} AND FIN_GASTO.ID_CAIXA = ${widget.caixa!.id!} AND FIN_GASTO.BO_CANCELADO = FALSE");
+
+        Modular.to.push(
+          MaterialPageRoute(
+            builder: (_) {
+              return GastoPorClassificacaoListView(
+                gastos: response,
+                dto: dto,
+              );
+            },
+          ),
         );
       },
       leading: Icon(Icons.circle,

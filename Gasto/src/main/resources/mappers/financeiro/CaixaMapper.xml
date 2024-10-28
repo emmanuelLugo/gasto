@@ -11,6 +11,7 @@
 		<result property="isAberto" column="BO_ABERTO" />
 		<result property="dtFechamento" column="DT_FECHAMENTO" />
 		<result property="vlCaixa" column="VL_CAIXA" />
+		<result property="vlGasto" column="VL_GASTO" />
 
 	</resultMap>
 

@@ -1,3 +1,4 @@
+import 'package:app_gasto/src/core/ui/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -97,60 +98,60 @@ class ThemeConfig {
     ),
   );
 
-  // static final darkTheme = ThemeData(
-  //   brightness: Brightness.dark,
-  //   textSelectionTheme: TextSelectionThemeData(
-  //       cursorColor: ColorsApp.instance.primary,
-  //       selectionColor: ColorsApp.instance.primary,
-  //       selectionHandleColor: ColorsApp.instance.primary),
-  //   textButtonTheme: TextButtonThemeData(
-  //     style: ElevatedButton.styleFrom(
-  //       foregroundColor: ColorsApp.instance.primary,
-  //     ),
-  //   ),
-  //   textTheme: TextTheme(
-  //     bodyLarge: GoogleFonts.poppins(
-  //       fontSize: 16,
-  //     ),
-  //     bodyMedium: GoogleFonts.poppins(
-  //       fontSize: 14,
-  //     ),
-  //     bodySmall: GoogleFonts.poppins(
-  //       fontSize: 12,
-  //     ),
-  //   ),
-  //   listTileTheme: const ListTileThemeData(
-  //     titleTextStyle: TextStyle(
-  //       fontWeight: FontWeight.bold,
-  //       fontSize: 18,
-  //     ),
-  //   ),
-  //   elevatedButtonTheme: ElevatedButtonThemeData(
-  //     style: ElevatedButton.styleFrom(
-  //       textStyle: TextStyles.instance.textButtonLabel,
-  //       foregroundColor: Colors.white,
-  //       padding: const EdgeInsets.all(15.0),
-  //     ),
-  //   ),
-  //   inputDecorationTheme: InputDecorationTheme(
-  //     border: _defaultInputBorder,
-  //     enabledBorder: _defaultInputBorder,
-  //     focusedBorder: _defaultInputBorder,
-  //     disabledBorder: _defaultInputBorder,
-  //     errorBorder: _defaultInputBorder.copyWith(
-  //       borderSide: const BorderSide(
-  //         color: Colors.red,
-  //       ),
-  //     ),
-  //     hintStyle: GoogleFonts.poppins(
-  //       color: Colors.white,
-  //     ),
-  //     labelStyle: GoogleFonts.poppins(
-  //       color: Colors.white,
-  //     ),
-  //     errorStyle: GoogleFonts.poppins(
-  //       color: Colors.red,
-  //     ),
-  //   ),
-  // );
+  static final darkTheme = ThemeData(
+    brightness: Brightness.dark,
+    textSelectionTheme: TextSelectionThemeData(
+        cursorColor: ColorsApp.instance.primary,
+        selectionColor: ColorsApp.instance.primary,
+        selectionHandleColor: ColorsApp.instance.primary),
+    textButtonTheme: TextButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        foregroundColor: ColorsApp.instance.primary,
+      ),
+    ),
+    textTheme: TextTheme(
+      bodyLarge: GoogleFonts.poppins(
+        fontSize: 16,
+      ),
+      bodyMedium: GoogleFonts.poppins(
+        fontSize: 14,
+      ),
+      bodySmall: GoogleFonts.poppins(
+        fontSize: 12,
+      ),
+    ),
+    listTileTheme: const ListTileThemeData(
+      titleTextStyle: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 18,
+      ),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        textStyle: TextStyles.instance.textButtonLabel,
+        foregroundColor: Colors.white,
+        padding: const EdgeInsets.all(15.0),
+      ),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      border: _defaultInputBorder,
+      enabledBorder: _defaultInputBorder,
+      focusedBorder: _defaultInputBorder,
+      disabledBorder: _defaultInputBorder,
+      errorBorder: _defaultInputBorder.copyWith(
+        borderSide: const BorderSide(
+          color: Colors.red,
+        ),
+      ),
+      hintStyle: GoogleFonts.poppins(
+        color: Colors.white,
+      ),
+      labelStyle: GoogleFonts.poppins(
+        color: Colors.white,
+      ),
+      errorStyle: GoogleFonts.poppins(
+        color: Colors.red,
+      ),
+    ),
+  );
 }

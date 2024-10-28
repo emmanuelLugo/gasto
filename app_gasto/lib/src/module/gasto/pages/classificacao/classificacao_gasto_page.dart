@@ -1,10 +1,12 @@
 import 'package:app_gasto/src/core/components/fields/input_auto_search/input_seach_delegate.dart';
+import 'package:app_gasto/src/core/components/fields/input_auto_search/input_test.dart';
 import 'package:app_gasto/src/core/components/fields/text_form_input/text_form_input.dart';
 import 'package:app_gasto/src/module/gasto/models/tipo_gasto.dart';
 import 'package:app_gasto/src/module/gasto/pages/classificacao/classificacao_gasto_controller.dart';
 import 'package:app_gasto/src/module/gasto/pages/delegate/tipo_gasto_delegate.dart';
 import 'package:app_gasto/src/module/gasto/pages/delegate/tipo_gasto_delegate_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:validatorless/validatorless.dart';
 
@@ -55,34 +57,57 @@ class _ClassificacaoGastoPageState extends State<ClassificacaoGastoPage> {
           label: const Text('Guardar'),
         ),
       ],
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            children: [
-              TextInputForm(
-                label: 'Descripción',
-                controller: _descricaoEC,
-                validator: Validatorless.required('El Campo es Requerido'),
-                onChanged: (value) {
-                  _controller.setDescricao(value);
+      body: _buildBody(),
+    );
+  }
+
+  Widget _buildBody() {
+    return Form(
+      key: _formKey,
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          children: [
+            TextInputForm(
+              label: 'Descripción',
+              controller: _descricaoEC,
+              validator: Validatorless.required('El Campo es Requerido'),
+              onChanged: (value) {
+                _controller.setDescricao(value);
+              },
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            SizedBox(
+              height: 40,
+              child: Observer(
+                builder: (_) {
+                  return InputSearchDelegate<TipoGasto?>(
+                    label: 'Tipo Gasto',
+                    searchDelegate: TipoGastoDelegate(_tipoGastoController),
+                    controller: _tipoGastoEC,
+                    onSelected: (value) {
+                      _controller.setTipoGasto(value);
+                      _tipoGastoEC.text = value?.descricao ?? '';
+                    },
+                  );
                 },
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              InputSeachDelegate<TipoGasto?>(
-                label: 'Tipo Gasto',
-                searchDelegate: TipoGastoDelegate(_tipoGastoController),
-                controller: _tipoGastoEC,
-                onSelected: (value) {
-                  _tipoGastoEC.text = value?.descricao ?? '';
-                  _controller.setTipoGasto(value);
-                },
-              ),
-            ],
-          ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            InputSeachDelegate<TipoGasto?>(
+              label: 'Tipo Gasto',
+              searchDelegate: TipoGastoDelegate(_tipoGastoController),
+              controller: _tipoGastoEC,
+              onSelected: (value) {
+                _tipoGastoEC.text = value?.descricao ?? '';
+                _controller.setTipoGasto(value);
+              },
+            ),
+          ],
         ),
       ),
     );

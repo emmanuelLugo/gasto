@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:app_gasto/src/core/global/image_constants.dart';
 import 'package:app_gasto/src/core/global/key_constants.dart';
 import 'package:app_gasto/src/core/storage/local_storage_service.dart';
 import 'package:flutter/material.dart';
@@ -37,13 +38,13 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   Widget build(BuildContext context) {
     // var theme = context.watch<ThemeNotifier>();
     // theme.getTheme();
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-          // child: Image.asset(
-          //   ImageConstants.LOGO,
-          //   width: 200,
-          // ),
-          ),
+        child: Image.asset(
+          ImageConstants.LOGO,
+          width: 200,
+        ),
+      ),
     );
   }
 }

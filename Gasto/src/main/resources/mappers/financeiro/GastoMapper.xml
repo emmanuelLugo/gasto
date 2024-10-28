@@ -118,10 +118,43 @@
 		DESC
 	</select>
 
-
-
-
-
+	<select id="findTotalGastoPorSemana"
+		resultType="GastoPorSemanaDto" parameterType="hashMap">
+		SELECT
+		DAY(g.DT_GASTO) AS
+		diasDaSemana,
+		CASE
+		DAYOFWEEK(g.DT_GASTO)
+		WHEN 1
+		THEN 'Domingo'
+		WHEN 2
+		THEN
+		'Lunes'
+		WHEN 3
+		THEN 'Martes'
+		WHEN 4
+		THEN 'Miércoles'
+		WHEN 5
+		THEN 'Jueves'
+		WHEN 6
+		THEN 'Viernes'
+		WHEN 7
+		THEN 'Sábado'
+		END AS diasDaSemanaString,
+		SUM(g.VL_GASTO) AS vlTotal
+		FROM
+		fin_gasto g
+		WHERE YEARWEEK(g.DT_GASTO, 1)
+		= YEARWEEK(CURDATE(), 1)
+		AND g.BO_CANCELADO = FALSE
+		GROUP BY
+		DAYOFWEEK(g.DT_GASTO)
+		ORDER BY
+		CASE
+		WHEN DAYOFWEEK(g.DT_GASTO) = 1 THEN 7
+		ELSE DAYOFWEEK(g.DT_GASTO) - 1
+		END
+	</select>
 
 
 </mapper>

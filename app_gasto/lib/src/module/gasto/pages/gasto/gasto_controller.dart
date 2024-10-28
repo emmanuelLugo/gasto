@@ -122,5 +122,6 @@ abstract class GastoControllerBase with Store {
     if (_dataShared.caixasAbertas?.length == 1) {
       _currentRecord.caixa = _dataShared.caixasAbertas![0];
     }
+    _currentRecord.dtGasto = DateTime.now();
   }
 }

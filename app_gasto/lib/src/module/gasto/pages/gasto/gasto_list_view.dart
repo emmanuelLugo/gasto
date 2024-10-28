@@ -39,7 +39,6 @@ class _GastoListViewState extends State<GastoListView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.grey[200],
       backgroundColor: const Color(0xFFf9faf4),
       appBar: AppBar(
         title: const Text('Listado de Gastos'),
@@ -91,12 +90,39 @@ class _GastoListViewState extends State<GastoListView>
           CustomSlidableActionWidget(
             label: 'Cancelar',
             icon: Icons.cancel,
-            onPressed: () => _cancelaGasto(gasto),
+            onPressed: () => _showCancelConfirmationDialog(gasto),
           ),
         ],
       ),
       child: CardGastoWidget(gasto: gasto),
     );
+  }
+
+  void _showCancelConfirmationDialog(Gasto gasto) async {
+    final shouldCancel = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirmación'),
+          content:
+              const Text('¿Estás seguro de que deseas cancelar este gasto?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('No'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Sí'),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (shouldCancel ?? false) {
+      _cancelaGasto(gasto);
+    }
   }
 
   void _cancelaGasto(Gasto gasto) async {

@@ -10,6 +10,7 @@ import 'package:app_gasto/src/module/gasto/models/classificacao_gasto.dart';
 import 'package:app_gasto/src/module/gasto/pages/delegate/classificacao_gasto_delegate.dart';
 import 'package:app_gasto/src/module/gasto/pages/delegate/classificacao_gasto_delegate_controller.dart';
 import 'package:app_gasto/src/module/gasto/pages/gasto/gasto_controller.dart';
+import 'package:app_gasto/src/module/gasto/pages/gasto/widgets/add_transaction_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -129,6 +130,8 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
                   return null;
                 },
               ),
+              const SizedBox(height: 10),
+              const AddTransactionPage(),
             ],
           ),
         ),

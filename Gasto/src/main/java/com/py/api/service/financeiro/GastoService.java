@@ -5,7 +5,6 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.py.api.exception.AppException;
 import com.py.api.mapper.financeiro.GastoMapper;
 import com.py.api.model.dto.GastoDto;
+import com.py.api.model.dto.GastoPorSemanaDto;
 import com.py.api.model.dto.TotalClassificacaoGastoDto;
 import com.py.api.model.entity.Caixa;
 import com.py.api.model.entity.Gasto;
@@ -153,6 +153,10 @@ public class GastoService {
 		dto.setClassificacoes(listTotais);
 
 		return dto;
+	}
+
+	public List<GastoPorSemanaDto> findTotalGastoPorSemana() {
+		return gastoMapper.findTotalGastoPorSemana();
 	}
 
 }

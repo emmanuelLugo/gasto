@@ -5,6 +5,7 @@ import 'package:app_gasto/src/core/ui/helpers/helpers/snack_bar_manager.dart';
 import 'package:app_gasto/src/core/ui/styles/colors_app.dart';
 import 'package:app_gasto/src/module/core/shared/data_shared.dart';
 import 'package:app_gasto/src/module/home/pages/home/configuracao_sistema_controller.dart';
+import 'package:app_gasto/src/module/home/pages/home/widgets/home_form_page.dart';
 import 'package:app_gasto/src/module/home/pages/widgets/home_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -19,14 +20,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with Loader, SnackbarManager {
   final DataShared dataShared = Modular.get();
-  final ConfiguracaoSistemaController controller = Modular.get();
+  final ConfiguracaoSistemaController _controller = Modular.get();
   late final ReactionDisposer statusDisposer;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      controller.findConfiguracoesSistema();
+      _controller.findConfiguracoesSistema();
       _reactionInitializer();
     });
   }
@@ -41,20 +42,45 @@ class _HomePageState extends State<HomePage> with Loader, SnackbarManager {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bienvenido/a ${dataShared.usuario!.nome}'),
+        title: Text('Bienvenido/a ${dataShared.usuario?.nome}'),
       ),
       drawer: HomeDrawer(
         dataShared: dataShared,
       ),
-      body: PopScope(
-        canPop: false,
-        onPopInvoked: (didPop) {
-          _showFecharApp();
-        },
-        child: const Center(),
+      body: HomeFormPage(
+        dataShared: dataShared,
+        controller: _controller,
       ),
     );
   }
+// }
+  // body: PopScope(
+  //   canPop: false,
+  //   onPopInvoked: (didPop) {
+  //     _showFecharApp();
+  //   },
+  //   child: Column(
+  //     children: [
+  //       Expanded(
+  //         child: Observer(
+  //           builder: (_) {
+  //             return ListView.builder(
+  //               itemCount: controller.gastos.length,
+  //               itemBuilder: (context, index) {
+  //                 final gastos = controller.gastos[index];
+  //                 return ListTile(
+  //                   title: Text(gastos.diasDaSemanaString ?? ''),
+  //                 );
+  //               },
+  //             );
+  //           },
+  //         ),
+  //       ),
+  //     ],
+  //   ),
+  // ),
+  //   );
+  // }
 
   void _showFecharApp() {
     showDialog(
@@ -95,7 +121,7 @@ class _HomePageState extends State<HomePage> with Loader, SnackbarManager {
 
   void _reactionInitializer() {
     statusDisposer = reaction(
-      (_) => controller.status,
+      (_) => _controller.status,
       (status) {
         switch (status) {
           case HomeStatusState.initial:
@@ -109,7 +135,7 @@ class _HomePageState extends State<HomePage> with Loader, SnackbarManager {
             break;
           case HomeStatusState.error:
             hideLoader();
-            showError(controller.message);
+            showError(_controller.message);
             break;
         }
       },

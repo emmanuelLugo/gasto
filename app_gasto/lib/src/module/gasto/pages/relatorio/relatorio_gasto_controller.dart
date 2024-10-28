@@ -4,6 +4,7 @@ import 'package:app_gasto/src/module/gasto/models/caixa.dart';
 import 'package:app_gasto/src/module/gasto/models/gasto.dart';
 import 'package:app_gasto/src/module/gasto/models/dto/total_classificacao_gasto_dto.dart';
 import 'package:app_gasto/src/module/gasto/repositories/gasto_repository.dart';
+import 'package:app_gasto/src/module/gasto/services/gasto_service.dart';
 import 'package:mobx/mobx.dart';
 
 part 'relatorio_gasto_controller.g.dart';
@@ -20,9 +21,11 @@ class RelatorioGastoController = RelatorioGastoControllerBase
     with _$RelatorioGastoController;
 
 abstract class RelatorioGastoControllerBase with Store {
-  final GastoRepository gastoRepository;
+  final GastoRepository _gastoRepository;
   final DataShared _dataShared;
-  RelatorioGastoControllerBase(this.gastoRepository, this._dataShared);
+  final GastoService _service;
+  RelatorioGastoControllerBase(
+      this._gastoRepository, this._dataShared, this._service);
 
   @readonly
   RelatorioGastoStatusState _status = RelatorioGastoStatusState.initial;
@@ -39,6 +42,7 @@ abstract class RelatorioGastoControllerBase with Store {
 
   @observable
   Caixa? caixaSelecionada;
+
   @observable
   List<Caixa>? caixas;
 
@@ -52,9 +56,9 @@ abstract class RelatorioGastoControllerBase with Store {
       caixaSelecionada = _dataShared.caixasAbertas![0];
       caixas = _dataShared.caixasAbertas ?? [];
 
-      if (caixaSelecionada != null) {
-        await findTotalGastoPorClassificacaoByCaixa(caixaSelecionada!.id!);
-      }
+      // if (caixaSelecionada != null) {
+      //   await findTotalGastoPorClassificacaoByCaixa(caixaSelecionada!.id!);
+      // }
     }
   }
 
@@ -62,7 +66,7 @@ abstract class RelatorioGastoControllerBase with Store {
     _status = RelatorioGastoStatusState.loading;
     try {
       final response =
-          await gastoRepository.findTotalGastoPorTipoByCaixa(idCaixa);
+          await _gastoRepository.findTotalGastoPorTipoByCaixa(idCaixa);
 
       if (response.classificacoes != null) {
         listDto = response.classificacoes!.asObservable();
@@ -78,7 +82,7 @@ abstract class RelatorioGastoControllerBase with Store {
   Future<void> findTotalGastoPorClassificacaoByCaixa(int idCaixa) async {
     _status = RelatorioGastoStatusState.loading;
     try {
-      final response = await gastoRepository.findGastoByCaixa(idCaixa);
+      final response = await _gastoRepository.findGastoByCaixa(idCaixa);
       gastos = response.gastos!.asObservable();
       if (response.classificacoes != null) {
         listDto = response.classificacoes!.asObservable();
@@ -88,6 +92,15 @@ abstract class RelatorioGastoControllerBase with Store {
     } on ServiceException catch (e) {
       message = e.message;
       _status = RelatorioGastoStatusState.error;
+    }
+  }
+
+  Future<List<Gasto>> findByCondition(String condition) async {
+    try {
+      final response = await _service.findByCondition(condition);
+      return response;
+    } on ServiceException catch (e) {
+      throw Future.error('Dio error $e');
     }
   }
 }

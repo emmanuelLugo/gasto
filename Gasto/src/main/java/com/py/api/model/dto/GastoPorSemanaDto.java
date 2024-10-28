@@ -1,9 +1,6 @@
 package com.py.api.model.dto;
 
 import java.math.BigDecimal;
-import java.util.List;
-
-import com.py.api.model.entity.Gasto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,8 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GastoDto {
-	private List<Gasto> gastos;
+public class GastoPorSemanaDto {
 	private BigDecimal vlTotal = BigDecimal.ZERO;
-	private List<TotalClassificacaoGastoDto> classificacoes;
+	private Long diasDaSemana;
+	private String diasDaSemanaString;
 }

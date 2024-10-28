@@ -17,6 +17,7 @@ Caixa _$CaixaFromJson(Map<String, dynamic> json) => Caixa(
           ? null
           : DateTime.parse(json['dtFechamento'] as String),
       vlCaixa: (json['vlCaixa'] as num?)?.toDouble(),
+      vlGasto: (json['vlGasto'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$CaixaToJson(Caixa instance) => <String, dynamic>{
@@ -26,4 +27,5 @@ Map<String, dynamic> _$CaixaToJson(Caixa instance) => <String, dynamic>{
       'isAberto': instance.isAberto,
       'dtFechamento': instance.dtFechamento?.toIso8601String(),
       'vlCaixa': instance.vlCaixa,
+      'vlGasto': instance.vlGasto,
     };

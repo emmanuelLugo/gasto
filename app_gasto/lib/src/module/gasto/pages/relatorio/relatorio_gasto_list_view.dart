@@ -1,7 +1,11 @@
+import 'package:app_gasto/src/core/components/fields/input_auto_search/input_seach_delegate.dart';
 import 'package:app_gasto/src/core/components/fields/number_form_input/number_format.dart';
 import 'package:app_gasto/src/core/ui/helpers/helpers/loader.dart';
 import 'package:app_gasto/src/core/ui/helpers/helpers/size_extension.dart';
 import 'package:app_gasto/src/core/ui/helpers/helpers/snack_bar_manager.dart';
+import 'package:app_gasto/src/module/gasto/models/caixa.dart';
+import 'package:app_gasto/src/module/gasto/pages/relatorio/widget/caixa_delegate.dart';
+import 'package:app_gasto/src/module/gasto/pages/relatorio/widget/caixa_delegate_controller.dart';
 import 'package:app_gasto/src/module/gasto/pages/relatorio/widget/grafico_lineal_widget.dart';
 import 'package:app_gasto/src/module/gasto/pages/relatorio/widget/grafico_pie_widget.dart';
 import 'package:app_gasto/src/module/gasto/pages/relatorio/relatorio_gasto_controller.dart';
@@ -22,17 +26,25 @@ class _RelatorioGastoListViewState extends State<RelatorioGastoListView>
   final _gastoController = Modular.get<RelatorioGastoController>();
   late ReactionDisposer statusReactionDisposer;
   final _scrollController = ScrollController();
+  final _caixaDelegateController = Modular.get<CaixaDelegateController>();
+  final _descricaoEC = TextEditingController();
 
   @override
   void initState() {
-    _gastoController.findTotalGastoPorTipoByCaixa(1);
+    _gastoController.initGasto();
     _initReaction();
+    if (_gastoController.caixaSelecionada != null) {
+      _descricaoEC.text = _gastoController.caixaSelecionada!.observacao ?? '';
+      _gastoController
+          .findTotalGastoPorTipoByCaixa(_gastoController.caixaSelecionada!.id!);
+    }
     super.initState();
   }
 
   @override
   void dispose() {
     statusReactionDisposer();
+    _descricaoEC.dispose();
     super.dispose();
   }
 
@@ -92,6 +104,27 @@ class _RelatorioGastoListViewState extends State<RelatorioGastoListView>
         controller: _scrollController,
         child: Column(
           children: [
+            const SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: InputSeachDelegate<Caixa?>(
+                label: 'Caja',
+                searchDelegate: CaixaDelegate(_caixaDelegateController),
+                controller: _descricaoEC,
+                onSelected: (value) {
+                  _descricaoEC.text = value?.observacao ?? '';
+                  if (value != null) {
+                    _gastoController.findTotalGastoPorTipoByCaixa(value.id!);
+                    _gastoController.caixaSelecionada = value;
+                  }
+                },
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
             SizedBox(
               height: context.screenHeight * 0.40,
               child: Observer(
@@ -106,7 +139,11 @@ class _RelatorioGastoListViewState extends State<RelatorioGastoListView>
               height: context.screenHeight * 0.40,
               child: Observer(
                 builder: (_) {
-                  return GraficoLinealWidget(listDto: _gastoController.listDto);
+                  return GraficoLinealWidget(
+                    listDto: _gastoController.listDto,
+                    gastoController: _gastoController,
+                    caixa: null,
+                  );
                 },
               ),
             ),

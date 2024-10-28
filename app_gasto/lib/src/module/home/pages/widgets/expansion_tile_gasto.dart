@@ -33,6 +33,15 @@ class _ExpansionTileGastoState extends State<ExpansionTileGasto> {
       children: [
         ListTile(
           title: Text(
+            '- Caja',
+            style: widget.titleStyle,
+          ),
+          onTap: () {
+            Modular.to.pushNamed('/home/gasto/caixa');
+          },
+        ),
+        ListTile(
+          title: Text(
             '- Clasificación',
             style: widget.titleStyle,
           ),
