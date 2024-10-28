@@ -8,7 +8,7 @@ class Hostname {
   String ip = "";
 
   //CAMBIAR - NO COMMITAR
-  final String _apiProd = "/GastoSystem/api";
+  final String _apiProd = "/gastoSystem/api";
   String urlServer = "";
 
   Hostname._privateConstructor();
