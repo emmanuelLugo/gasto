@@ -9,14 +9,15 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
-class RelatorioGastoListView extends StatefulWidget {
-  const RelatorioGastoListView({super.key});
+class RelatorioGastoPorTipoView extends StatefulWidget {
+  const RelatorioGastoPorTipoView({super.key});
 
   @override
-  State<RelatorioGastoListView> createState() => _RelatorioGastoListViewState();
+  State<RelatorioGastoPorTipoView> createState() =>
+      _RelatorioGastoPorTipoViewState();
 }
 
-class _RelatorioGastoListViewState extends State<RelatorioGastoListView>
+class _RelatorioGastoPorTipoViewState extends State<RelatorioGastoPorTipoView>
     with Loader, SnackbarManager {
   final _gastoController = Modular.get<RelatorioGastoController>();
   late ReactionDisposer _statusReactionDisposer;
@@ -51,6 +52,12 @@ class _RelatorioGastoListViewState extends State<RelatorioGastoListView>
         caixaDelegateController: _caixaDelegateController,
         gastoController: _gastoController,
         descricaoEC: _descricaoEC,
+        title: 'Distribución de Gastos por Tipo',
+        onCaixaSelected: (value) {
+          _gastoController.caixaSelecionada = value;
+          _gastoController.findTotalGastoPorTipoByCaixa(value!.id!);
+        },
+        caixaSelecionada: null,
       ),
     );
   }

@@ -13,11 +13,17 @@ class RelatorioGastoBodyWidget extends StatefulWidget {
   final CaixaDelegateController caixaDelegateController;
   final RelatorioGastoController gastoController;
   final TextEditingController descricaoEC;
+  final void Function(Caixa?)? onCaixaSelected;
+  final Caixa? caixaSelecionada;
+  final String title;
   const RelatorioGastoBodyWidget({
     super.key,
     required this.caixaDelegateController,
     required this.gastoController,
     required this.descricaoEC,
+    this.onCaixaSelected,
+    this.title = 'Relatorio Gastos',
+    this.caixaSelecionada,
   });
 
   @override
@@ -46,9 +52,7 @@ class _RelatorioGastoBodyWidgetState extends State<RelatorioGastoBodyWidget> {
               onSelected: (value) {
                 widget.descricaoEC.text = value?.observacao ?? '';
                 if (value != null) {
-                  widget.gastoController
-                      .findTotalGastoPorTipoByCaixa(value.id!);
-                  widget.gastoController.caixaSelecionada = value;
+                  widget.onCaixaSelected?.call(value);
                 }
               },
             ),
@@ -62,7 +66,7 @@ class _RelatorioGastoBodyWidgetState extends State<RelatorioGastoBodyWidget> {
               builder: (_) {
                 return GraficoPieWidget(
                     listDto: widget.gastoController.listDto,
-                    title: 'Distribución de Gastos por Tipo');
+                    title: widget.title);
               },
             ),
           ),
@@ -73,7 +77,7 @@ class _RelatorioGastoBodyWidgetState extends State<RelatorioGastoBodyWidget> {
                 return GraficoLinealWidget(
                   listDto: widget.gastoController.listDto,
                   gastoController: widget.gastoController,
-                  caixa: null,
+                  caixa: widget.caixaSelecionada,
                 );
               },
             ),
