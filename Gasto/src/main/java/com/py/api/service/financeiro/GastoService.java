@@ -13,6 +13,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.py.api.exception.AppException;
 import com.py.api.mapper.financeiro.GastoMapper;
 import com.py.api.model.dto.GastoDto;
@@ -50,6 +52,12 @@ public class GastoService {
 	public List<Gasto> findByCondition(String condition) {
 		List<Gasto> gastos = gastoMapper.findByCondition(condition);
 		return gastos;
+	}
+
+	public PageInfo<Gasto> findGastoSimplesByConditionPageInfo(String condition, int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<Gasto> gastos = gastoMapper.findByCondition(condition);
+		return new PageInfo<>(gastos);
 	}
 
 	public Gasto cancelaGastoById(Long id, String usuario) {

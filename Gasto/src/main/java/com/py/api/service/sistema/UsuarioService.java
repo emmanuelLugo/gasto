@@ -23,6 +23,12 @@ public class UsuarioService {
 		return usuarioRepository.save(usuario);
 	}
 
+	public void alteraSenha(Long idUsuario, String novaSenha) {
+		Usuario usuario = usuarioRepository.findById(idUsuario).get();
+		usuario.setSenha(passwordEncoder.encode(novaSenha));
+		usuarioRepository.save(usuario);
+	}
+
 	public Usuario save(Usuario usuario) {
 		return usuarioRepository.save(usuario);
 	}

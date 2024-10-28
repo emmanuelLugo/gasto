@@ -79,6 +79,31 @@ mixin _$GastoController on GastoControllerBase, Store {
     });
   }
 
+  late final _$paginationAtom =
+      Atom(name: 'GastoControllerBase.pagination', context: context);
+
+  @override
+  Pagination get pagination {
+    _$paginationAtom.reportRead();
+    return super.pagination;
+  }
+
+  @override
+  set pagination(Pagination value) {
+    _$paginationAtom.reportWrite(value, super.pagination, () {
+      super.pagination = value;
+    });
+  }
+
+  late final _$findByConditionAsyncAction =
+      AsyncAction('GastoControllerBase.findByCondition', context: context);
+
+  @override
+  Future<void> findByCondition(String condition) {
+    return _$findByConditionAsyncAction
+        .run(() => super.findByCondition(condition));
+  }
+
   late final _$cancelaGastoAsyncAction =
       AsyncAction('GastoControllerBase.cancelaGasto', context: context);
 
@@ -90,7 +115,8 @@ mixin _$GastoController on GastoControllerBase, Store {
   @override
   String toString() {
     return '''
-dataProvider: ${dataProvider}
+dataProvider: ${dataProvider},
+pagination: ${pagination}
     ''';
   }
 }

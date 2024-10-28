@@ -33,12 +33,18 @@ class _RelatorioGastoPorClassificacaoViewState
 
   @override
   void initState() {
+    super.initState();
     _gastoController.initGasto();
     _initReaction();
+    _consultaCaixaCarregada();
+  }
+
+  void _consultaCaixaCarregada() {
     if (_gastoController.caixaSelecionada != null) {
       _descricaoEC.text = _gastoController.caixaSelecionada!.observacao ?? '';
+      _gastoController.findTotalGastoPorClassificacaoByCaixa(
+          _gastoController.caixaSelecionada!.id!);
     }
-    super.initState();
   }
 
   @override

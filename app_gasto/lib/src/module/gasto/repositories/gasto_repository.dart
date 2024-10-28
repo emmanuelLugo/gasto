@@ -1,11 +1,12 @@
 import 'package:app_gasto/src/core/dio/rest_client.dart';
+import 'package:app_gasto/src/core/dio/rest_client_response.dart';
 import 'package:app_gasto/src/core/exceptions/exception_utils.dart';
 import 'package:app_gasto/src/core/exceptions/repository_exception.dart';
 import 'package:app_gasto/src/core/exceptions/service_exception.dart';
-import 'package:app_gasto/src/module/gasto/models/dto/gasto_por_semana_dto.dart';
-import 'package:app_gasto/src/module/gasto/models/gasto.dart';
 import 'package:app_gasto/src/module/gasto/models/dto/gasto_dto.dart';
+import 'package:app_gasto/src/module/gasto/models/dto/gasto_por_semana_dto.dart';
 import 'package:app_gasto/src/module/gasto/models/dto/total_classificacao_gasto_dto.dart';
+import 'package:app_gasto/src/module/gasto/models/gasto.dart';
 
 class GastoRepository {
   final RestClient restClient;
@@ -78,6 +79,23 @@ class GastoRepository {
         queryParameters: {'condition': condition},
       );
       return response.data.map<Gasto>((e) => Gasto.fromJson(e)).toList();
+    } on Exception catch (e) {
+      throw RepositoryException.fromException(e);
+    }
+  }
+
+  Future<RestClientResponse> findByConditionPage(
+      String condition, int pageNum, int pageSize) async {
+    try {
+      final response = await restClient.get(
+        '/gasto/findByConditionPage',
+        queryParameters: {
+          'condition': condition,
+          'pageNum': pageNum,
+          'pageSize': pageSize,
+        },
+      );
+      return response;
     } on Exception catch (e) {
       throw RepositoryException.fromException(e);
     }

@@ -1,3 +1,4 @@
+import 'package:app_gasto/src/core/dio/rest_client_response.dart';
 import 'package:app_gasto/src/core/exceptions/exception_utils.dart';
 import 'package:app_gasto/src/core/exceptions/repository_exception.dart';
 import 'package:app_gasto/src/core/exceptions/service_exception.dart';
@@ -48,6 +49,20 @@ class GastoService {
   Future<List<Gasto>> findByCondition(String condition) async {
     try {
       final response = await _repository.findByCondition(condition);
+      return response;
+    } on RepositoryException catch (e) {
+      throw ServiceException(message: ExceptionUtils.getExceptionMessage(e));
+    }
+  }
+
+  Future<RestClientResponse> findByConditionPage(
+      String condition, int pageNum, int pageSize) async {
+    try {
+      final response = await _repository.findByConditionPage(
+        condition,
+        pageNum,
+        pageSize,
+      );
       return response;
     } on RepositoryException catch (e) {
       throw ServiceException(message: ExceptionUtils.getExceptionMessage(e));

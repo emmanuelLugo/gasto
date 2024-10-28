@@ -53,7 +53,6 @@ public class AuthController {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
 					authenticationRequest.getUsername(), authenticationRequest.getPassword()));
 		} catch (Exception e) {
-//			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Usuario y/o Contraseña Invalidos");
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuario y/o Contraseña Invalidos");
 		}
 

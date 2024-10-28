@@ -46,13 +46,13 @@ class _GastoListViewState extends State<GastoListView>
       persistentFooterButtons: [
         Observer(
           builder: (_) => FooterPaginationBar(
-            paginaAtual: 0,
-            setPagAtual: (i) => 0,
-            pageSize: 0,
-            isLastPage: true,
-            totalRegistros: 0,
-            size: 0,
-            pages: 0,
+            paginaAtual: _controller.pagination.pageNr,
+            setPagAtual: (i) => _controller.setPaginaAtual(i),
+            pageSize: _controller.pagination.pageSize,
+            isLastPage: _controller.pagination.isLastPage,
+            totalRegistros: _controller.pagination.totalRegistros,
+            // size: _controller.pagination.size,
+            pages: _controller.pagination.pages,
           ),
         ),
       ],

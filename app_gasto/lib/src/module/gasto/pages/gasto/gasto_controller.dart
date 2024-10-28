@@ -3,6 +3,8 @@ import 'package:app_gasto/src/module/core/shared/data_shared.dart';
 import 'package:app_gasto/src/module/gasto/models/caixa.dart';
 import 'package:app_gasto/src/module/gasto/models/classificacao_gasto.dart';
 import 'package:app_gasto/src/module/gasto/models/gasto.dart';
+import 'package:app_gasto/src/module/gasto/pages/gasto/page_info_generic.dart';
+import 'package:app_gasto/src/module/gasto/pages/gasto/pagination.dart';
 import 'package:app_gasto/src/module/gasto/services/gasto_service.dart';
 import 'package:mobx/mobx.dart';
 
@@ -40,6 +42,14 @@ abstract class GastoControllerBase with Store {
   @observable
   ObservableList<Gasto> dataProvider = ObservableList<Gasto>();
 
+  @observable
+  Pagination pagination = Pagination(pageSize: 30);
+
+  void setPaginaAtual(int pg) {
+    pagination.pageNr = pg;
+    findByCondition('1 = 1');
+  }
+
   Future<void> save() async {
     _status = GastoStatusState.initial;
     try {
@@ -65,11 +75,23 @@ abstract class GastoControllerBase with Store {
     }
   }
 
+  @action
   Future<void> findByCondition(String condition) async {
     _status = GastoStatusState.loading;
     try {
-      final response = await _service.findByCondition(condition);
-      dataProvider = response.asObservable();
+      final response = await _service.findByConditionPage(
+          condition, pagination.pageNr, pagination.pageSize);
+      if (response.data != null) {
+        final PageInfoGeneric<Gasto> pageInfo =
+            PageInfoGeneric.fromJson(response.data);
+        dataProvider = pageInfo.list!.asObservable();
+        pagination.totalRegistros = pageInfo.total;
+        pagination.pages = pageInfo.pages;
+        pagination.size = pageInfo.size;
+        pagination.pageTotal = pageInfo.total;
+        pagination.isLastPage = pageInfo.isLastPage;
+      }
+
       _status = GastoStatusState.loaded;
     } on ServiceException catch (e) {
       _message = e.message;

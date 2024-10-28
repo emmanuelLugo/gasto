@@ -1,0 +1,134 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'pagination.dart';
+
+// **************************************************************************
+// StoreGenerator
+// **************************************************************************
+
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
+
+mixin _$Pagination on PaginationBase, Store {
+  late final _$isLastPageAtom =
+      Atom(name: 'PaginationBase.isLastPage', context: context);
+
+  @override
+  bool get isLastPage {
+    _$isLastPageAtom.reportRead();
+    return super.isLastPage;
+  }
+
+  @override
+  set isLastPage(bool value) {
+    _$isLastPageAtom.reportWrite(value, super.isLastPage, () {
+      super.isLastPage = value;
+    });
+  }
+
+  late final _$pageNrAtom =
+      Atom(name: 'PaginationBase.pageNr', context: context);
+
+  @override
+  int get pageNr {
+    _$pageNrAtom.reportRead();
+    return super.pageNr;
+  }
+
+  @override
+  set pageNr(int value) {
+    _$pageNrAtom.reportWrite(value, super.pageNr, () {
+      super.pageNr = value;
+    });
+  }
+
+  late final _$pageSizeAtom =
+      Atom(name: 'PaginationBase.pageSize', context: context);
+
+  @override
+  int get pageSize {
+    _$pageSizeAtom.reportRead();
+    return super.pageSize;
+  }
+
+  @override
+  set pageSize(int value) {
+    _$pageSizeAtom.reportWrite(value, super.pageSize, () {
+      super.pageSize = value;
+    });
+  }
+
+  late final _$pageTotalAtom =
+      Atom(name: 'PaginationBase.pageTotal', context: context);
+
+  @override
+  int get pageTotal {
+    _$pageTotalAtom.reportRead();
+    return super.pageTotal;
+  }
+
+  @override
+  set pageTotal(int value) {
+    _$pageTotalAtom.reportWrite(value, super.pageTotal, () {
+      super.pageTotal = value;
+    });
+  }
+
+  late final _$sizeAtom = Atom(name: 'PaginationBase.size', context: context);
+
+  @override
+  int get size {
+    _$sizeAtom.reportRead();
+    return super.size;
+  }
+
+  @override
+  set size(int value) {
+    _$sizeAtom.reportWrite(value, super.size, () {
+      super.size = value;
+    });
+  }
+
+  late final _$pagesAtom = Atom(name: 'PaginationBase.pages', context: context);
+
+  @override
+  int get pages {
+    _$pagesAtom.reportRead();
+    return super.pages;
+  }
+
+  @override
+  set pages(int value) {
+    _$pagesAtom.reportWrite(value, super.pages, () {
+      super.pages = value;
+    });
+  }
+
+  late final _$totalRegistrosAtom =
+      Atom(name: 'PaginationBase.totalRegistros', context: context);
+
+  @override
+  int get totalRegistros {
+    _$totalRegistrosAtom.reportRead();
+    return super.totalRegistros;
+  }
+
+  @override
+  set totalRegistros(int value) {
+    _$totalRegistrosAtom.reportWrite(value, super.totalRegistros, () {
+      super.totalRegistros = value;
+    });
+  }
+
+  @override
+  String toString() {
+    return '''
+isLastPage: ${isLastPage},
+pageNr: ${pageNr},
+pageSize: ${pageSize},
+pageTotal: ${pageTotal},
+size: ${size},
+pages: ${pages},
+totalRegistros: ${totalRegistros}
+    ''';
+  }
+}

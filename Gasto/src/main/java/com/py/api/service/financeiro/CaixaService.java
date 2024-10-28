@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.py.api.exception.AppException;
 import com.py.api.mapper.financeiro.CaixaMapper;
 import com.py.api.model.entity.Caixa;
 import com.py.api.repository.financeiro.CaixaRepository;
@@ -35,15 +34,6 @@ public class CaixaService {
 		}
 
 		return caixaRepository.save(caixa);
-	}
-
-	public Caixa caixaABertoById(Long idCaixa) {
-		Caixa caixa = caixaRepository.findOneById(idCaixa);
-		if (caixa == null) {
-			throw new AppException("No existe un Caja Abierto");
-		}
-
-		return caixa;
 	}
 
 	public List<Caixa> findByCondition(String condition) {

@@ -1,6 +1,6 @@
 class ImageConstants {
   // ignore: constant_identifier_names
-  static const String LOGO = 'assets/logo/flutter-logo.png';
+  static const String LOGO = 'assets/icon/icon-mod.png';
   // ignore: constant_identifier_names
   static const String BANDEIRA_USA = 'assets/flags/us.png';
   // ignore: constant_identifier_names

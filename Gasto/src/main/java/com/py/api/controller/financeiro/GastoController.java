@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.pagehelper.PageInfo;
 import com.py.api.model.dto.GastoDto;
 import com.py.api.model.dto.GastoPorSemanaDto;
 import com.py.api.model.dto.TotalClassificacaoGastoDto;
@@ -31,6 +32,13 @@ public class GastoController {
 	public ResponseEntity<?> save(@RequestBody Gasto gasto, @RequestHeader("usuario") String usuario) {
 		gasto = gastoService.save(gasto, usuario);
 		return ResponseEntity.ok(gasto);
+	}
+	
+	@GetMapping("/findByConditionPage")
+	public ResponseEntity<PageInfo<Gasto>> findGastoSimplesByConditionPageInfo(@RequestParam String condition,
+			@RequestParam int pageNum, @RequestParam int pageSize) {
+		PageInfo<Gasto> list = gastoService.findGastoSimplesByConditionPageInfo(condition, pageNum, pageSize);
+		return ResponseEntity.ok(list);
 	}
 
 	@GetMapping("/findByCondition")
