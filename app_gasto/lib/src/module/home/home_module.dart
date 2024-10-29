@@ -3,8 +3,8 @@ import 'package:app_gasto/src/module/core/modules/core_module.dart';
 import 'package:app_gasto/src/module/gasto/gasto_module.dart';
 import 'package:app_gasto/src/module/gasto/repositories/caixa_repository.dart';
 import 'package:app_gasto/src/module/gasto/repositories/gasto_repository.dart';
-import 'package:app_gasto/src/module/home/pages/home/configuracao_sistema_controller.dart';
-import 'package:app_gasto/src/module/home/pages/home/home_page.dart';
+import 'package:app_gasto/src/module/home/pages/configuracao_sistema_controller.dart';
+import 'package:app_gasto/src/module/home/pages/home_page.dart';
 import 'package:app_gasto/src/module/home/services/configuracao_sistema_service.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 

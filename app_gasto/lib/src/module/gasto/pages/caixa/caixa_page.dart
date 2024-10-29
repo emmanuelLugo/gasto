@@ -78,10 +78,6 @@ class _CaixaPageState extends State<CaixaPage> {
         padding: const EdgeInsets.all(12),
         child: Column(
           children: [
-            Text(
-              'CAJA ${_controller.currentRecord.isAberto}',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
             TextInputForm(
               label: 'Descripción',
               controller: _observacaoEC,
@@ -96,7 +92,9 @@ class _CaixaPageState extends State<CaixaPage> {
             DateFormInput(
               date: _controller.currentRecord.dtAbertura!.toString(),
               label: 'Fecha del Apertura',
-              selectedDate: (newDate) {},
+              selectedDate: (newDate) {
+                _controller.setDtAbertura(newDate);
+              },
             ),
             const SizedBox(
               height: 20,
@@ -108,7 +106,7 @@ class _CaixaPageState extends State<CaixaPage> {
               precision: 0,
               validator: (value) {
                 if (value == null || value <= 0) {
-                  return 'El monto no puede ser vacío o igual a cero';
+                  // return 'El monto no puede ser vacío o igual a cero';
                 }
                 return null;
               },

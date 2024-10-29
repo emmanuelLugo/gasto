@@ -1,5 +1,5 @@
 import 'package:app_gasto/src/module/gasto/models/dto/total_classificacao_gasto_dto.dart';
-import 'package:app_gasto/src/module/gasto/pages/relatorio/colors_utils.dart';
+import 'package:app_gasto/src/core/utils/color/colors_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';

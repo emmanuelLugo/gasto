@@ -102,9 +102,9 @@ mixin _$ConfiguracaoSistemaController
       context: context);
 
   @override
-  Future<void> findConfiguracoesSistema() {
+  Future<void> handleConfiguracoesSistema() {
     return _$findConfiguracoesSistemaAsyncAction
-        .run(() => super.findConfiguracoesSistema());
+        .run(() => super.handleConfiguracoesSistema());
   }
 
   @override

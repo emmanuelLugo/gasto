@@ -39,7 +39,7 @@ abstract class ConfiguracaoSistemaControllerBase with Store {
   );
 
   @action
-  Future<void> findConfiguracoesSistema() async {
+  Future<void> handleConfiguracoesSistema() async {
     try {
       _status = HomeStatusState.loading;
       _configuracaoSistemaService.findCaixasAbertas();

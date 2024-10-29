@@ -16,6 +16,7 @@ public class HostnameUtil {
 		allowedHostnames.add("BFEBFBFF000906E9");
 		allowedHostnames.add("BFEBFBFF000906EA");
 		allowedHostnames.add("BFEBFBFF000906ED");
+		allowedHostnames.add("BFEBFBFF000A0652");
 	}
 
 	public static boolean checkHostname() {

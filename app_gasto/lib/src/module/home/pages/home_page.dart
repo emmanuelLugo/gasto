@@ -4,8 +4,8 @@ import 'package:app_gasto/src/core/ui/helpers/helpers/loader.dart';
 import 'package:app_gasto/src/core/ui/helpers/helpers/snack_bar_manager.dart';
 import 'package:app_gasto/src/core/ui/styles/colors_app.dart';
 import 'package:app_gasto/src/module/core/shared/data_shared.dart';
-import 'package:app_gasto/src/module/home/pages/home/configuracao_sistema_controller.dart';
-import 'package:app_gasto/src/module/home/pages/home/widgets/home_form_page.dart';
+import 'package:app_gasto/src/module/home/pages/configuracao_sistema_controller.dart';
+import 'package:app_gasto/src/module/home/pages/widgets/home_form_page.dart';
 import 'package:app_gasto/src/module/home/pages/widgets/home_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> with Loader, SnackbarManager {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _controller.findConfiguracoesSistema();
+      _controller.handleConfiguracoesSistema();
       _reactionInitializer();
     });
   }
@@ -47,40 +47,16 @@ class _HomePageState extends State<HomePage> with Loader, SnackbarManager {
       drawer: HomeDrawer(
         dataShared: dataShared,
       ),
-      body: HomeFormPage(
-        dataShared: dataShared,
-        controller: _controller,
+      body: PopScope(
+        canPop: false,
+        onPopInvoked: (didPop) => _showFecharApp(),
+        child: HomeFormPage(
+          dataShared: dataShared,
+          controller: _controller,
+        ),
       ),
     );
   }
-// }
-  // body: PopScope(
-  //   canPop: false,
-  //   onPopInvoked: (didPop) {
-  //     _showFecharApp();
-  //   },
-  //   child: Column(
-  //     children: [
-  //       Expanded(
-  //         child: Observer(
-  //           builder: (_) {
-  //             return ListView.builder(
-  //               itemCount: controller.gastos.length,
-  //               itemBuilder: (context, index) {
-  //                 final gastos = controller.gastos[index];
-  //                 return ListTile(
-  //                   title: Text(gastos.diasDaSemanaString ?? ''),
-  //                 );
-  //               },
-  //             );
-  //           },
-  //         ),
-  //       ),
-  //     ],
-  //   ),
-  // ),
-  //   );
-  // }
 
   void _showFecharApp() {
     showDialog(
