@@ -1,0 +1,15 @@
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+Moeda _$MoedaFromJson(Map<String, dynamic> json) => Moeda(
+      id: (json['id'] as num?)?.toInt(),
+      descricao: json['descricao'] as String?,
+      precisao: (json['precisao'] as num?)?.toInt(),
+    );
+
+Map<String, dynamic> _$MoedaToJson(Moeda instance) => <String, dynamic>{
+      'id': instance.id,
+      'descricao': instance.descricao,
+      'precisao': instance.precisao,
+    };

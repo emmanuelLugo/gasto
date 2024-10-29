@@ -62,6 +62,11 @@ abstract class RelatorioGastoControllerBase with Store {
     }
   }
 
+  @action
+  void setCaixaSelecionada(Caixa caixa) {
+    caixaSelecionada = caixa;
+  }
+
   Future<void> findTotalGastoPorTipoByCaixa(int idCaixa) async {
     _status = RelatorioGastoStatusState.loading;
     try {

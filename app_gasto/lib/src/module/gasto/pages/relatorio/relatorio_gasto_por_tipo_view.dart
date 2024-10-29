@@ -57,7 +57,6 @@ class _RelatorioGastoPorTipoViewState extends State<RelatorioGastoPorTipoView>
           _gastoController.caixaSelecionada = value;
           _gastoController.findTotalGastoPorTipoByCaixa(value!.id!);
         },
-        caixaSelecionada: null,
       ),
     );
   }

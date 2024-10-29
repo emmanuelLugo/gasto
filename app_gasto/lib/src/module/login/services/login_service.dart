@@ -5,6 +5,7 @@ import 'package:app_gasto/src/core/global/key_constants.dart';
 import 'package:app_gasto/src/core/storage/local_storage_service.dart';
 import 'package:app_gasto/src/module/core/shared/data_shared.dart';
 import 'package:app_gasto/src/module/login/models/jwt_response.dart';
+import 'package:app_gasto/src/module/login/models/usuario.dart';
 import 'package:app_gasto/src/module/login/repositories/login_repository.dart';
 
 import '../../../core/exceptions/exception_utils.dart';
@@ -32,6 +33,7 @@ class LoginService {
       }
 
       await saveDataInSecure(response, senha);
+      await salvaUsuarioLocalStorage(response.usuario, senha);
       return response;
     } on RepositoryException catch (e) {
       if (e.code == 403) {
@@ -40,6 +42,13 @@ class LoginService {
 
       throw ServiceException(message: ExceptionUtils.getExceptionMessage(e));
     }
+  }
+
+  Future<void> salvaUsuarioLocalStorage(Usuario usuario, String senha) async {
+    await LocalStorageService.instance
+        .write(key: KeyConstants.loginUsuario.key, value: usuario.login);
+    await LocalStorageService.instance
+        .write(key: KeyConstants.loginSenha.key, value: senha);
   }
 
   Future<void> saveDataInSecure(JwtResponse data, String password) async {

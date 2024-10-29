@@ -1,0 +1,17 @@
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+Permissao _$PermissaoFromJson(Map<String, dynamic> json) => Permissao(
+      id: (json['id'] as num?)?.toInt(),
+      codigo: json['codigo'] as String?,
+      descricao: json['descricao'] as String?,
+      observacao: json['observacao'] as String?,
+    );
+
+Map<String, dynamic> _$PermissaoToJson(Permissao instance) => <String, dynamic>{
+      'id': instance.id,
+      'codigo': instance.codigo,
+      'descricao': instance.descricao,
+      'observacao': instance.observacao,
+    };

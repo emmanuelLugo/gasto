@@ -14,7 +14,7 @@ class RelatorioGastoBodyWidget extends StatefulWidget {
   final RelatorioGastoController gastoController;
   final TextEditingController descricaoEC;
   final void Function(Caixa?)? onCaixaSelected;
-  final Caixa? caixaSelecionada;
+  final bool? consultaClassificacao;
   final String title;
   const RelatorioGastoBodyWidget({
     super.key,
@@ -23,7 +23,7 @@ class RelatorioGastoBodyWidget extends StatefulWidget {
     required this.descricaoEC,
     this.onCaixaSelected,
     this.title = 'Relatorio Gastos',
-    this.caixaSelecionada,
+    this.consultaClassificacao = false,
   });
 
   @override
@@ -77,7 +77,9 @@ class _RelatorioGastoBodyWidgetState extends State<RelatorioGastoBodyWidget> {
                 return GraficoLinealWidget(
                   listDto: widget.gastoController.listDto,
                   gastoController: widget.gastoController,
-                  caixa: widget.caixaSelecionada,
+                  caixa: widget.consultaClassificacao!
+                      ? widget.gastoController.caixaSelecionada
+                      : null,
                 );
               },
             ),

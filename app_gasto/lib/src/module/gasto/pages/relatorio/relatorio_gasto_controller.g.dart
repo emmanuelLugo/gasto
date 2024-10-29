@@ -131,6 +131,20 @@ mixin _$RelatorioGastoController on RelatorioGastoControllerBase, Store {
     return _$initGastoAsyncAction.run(() => super.initGasto());
   }
 
+  late final _$RelatorioGastoControllerBaseActionController =
+      ActionController(name: 'RelatorioGastoControllerBase', context: context);
+
+  @override
+  void setCaixaSelecionada(Caixa caixa) {
+    final _$actionInfo = _$RelatorioGastoControllerBaseActionController
+        .startAction(name: 'RelatorioGastoControllerBase.setCaixaSelecionada');
+    try {
+      return super.setCaixaSelecionada(caixa);
+    } finally {
+      _$RelatorioGastoControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

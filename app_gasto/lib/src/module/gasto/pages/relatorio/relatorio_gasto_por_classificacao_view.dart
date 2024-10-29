@@ -60,13 +60,13 @@ class _RelatorioGastoPorClassificacaoViewState
       body: RelatorioGastoBodyWidget(
         caixaDelegateController: _caixaDelegateController,
         gastoController: _gastoController,
-        caixaSelecionada: _gastoController.caixaSelecionada,
         descricaoEC: _descricaoEC,
         title: 'Distribución de Gastos por Clasificación',
         onCaixaSelected: (value) {
-          _gastoController.findTotalGastoPorClassificacaoByCaixa(value!.id!);
-          _gastoController.caixaSelecionada = value;
+          _gastoController.setCaixaSelecionada(value!);
+          _gastoController.findTotalGastoPorClassificacaoByCaixa(value.id!);
         },
+        consultaClassificacao: true,
       ),
     );
   }

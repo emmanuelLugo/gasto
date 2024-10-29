@@ -1,0 +1,1 @@
+ E:\\FlutterProyectos\\GASTO\\app_gasto\\.dart_tool\\flutter_build\\f479cc42480688de402813313f339524\\native_assets.yaml: 
