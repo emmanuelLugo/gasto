@@ -47,9 +47,7 @@ class _ClassificacaoGastoListViewState extends State<ClassificacaoGastoListView>
           onSearch: (value) => _controller.findByCondition(value),
           hintText: 'Buscar'),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _controller.insert(ClassificacaoGasto());
-        },
+        onPressed: () => _controller.insert(ClassificacaoGasto.novo()),
         child: const Icon(Icons.add),
       ),
       body: Column(

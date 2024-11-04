@@ -5,6 +5,7 @@ import 'package:app_gasto/src/module/gasto/pages/classificacao/classificacao_gas
 import 'package:app_gasto/src/module/gasto/pages/delegate/tipo_gasto_delegate.dart';
 import 'package:app_gasto/src/module/gasto/pages/delegate/tipo_gasto_delegate_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:validatorless/validatorless.dart';
 
@@ -66,6 +67,26 @@ class _ClassificacaoGastoPageState extends State<ClassificacaoGastoPage> {
         padding: const EdgeInsets.all(12),
         child: Column(
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Observer(
+                  builder: (_) {
+                    return Switch(
+                        value: _controller.currentRecord.ativo ?? false,
+                        onChanged: _controller.setAtivo);
+                  },
+                ),
+                Observer(
+                  builder: (_) {
+                    return Text(
+                      _controller.currentRecord.status(),
+                    );
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
             TextInputForm(
               label: 'Descripción',
               controller: _descricaoEC,
@@ -74,28 +95,7 @@ class _ClassificacaoGastoPageState extends State<ClassificacaoGastoPage> {
                 _controller.setDescricao(value);
               },
             ),
-            // const SizedBox(
-            //   height: 20,
-            // ),
-            // SizedBox(
-            //   height: 40,
-            //   child: Observer(
-            //     builder: (_) {
-            //       return InputSearchDelegate<TipoGasto?>(
-            //         label: 'Tipo Gasto',
-            //         searchDelegate: TipoGastoDelegate(_tipoGastoController),
-            //         controller: _tipoGastoEC,
-            //         onSelected: (value) {
-            //           _controller.setTipoGasto(value);
-            //           _tipoGastoEC.text = value?.descricao ?? '';
-            //         },
-            //       );
-            //     },
-            //   ),
-            // ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 10),
             InputSeachDelegate<TipoGasto?>(
               label: 'Tipo Gasto',
               searchDelegate: TipoGastoDelegate(_tipoGastoController),

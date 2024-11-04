@@ -33,14 +33,6 @@ class _RelatorioGastoPorClassificacaoViewState
     _consultaCaixaCarregada();
   }
 
-  void _consultaCaixaCarregada() {
-    if (_gastoController.caixaSelecionada != null) {
-      _descricaoEC.text = _gastoController.caixaSelecionada!.observacao ?? '';
-      _gastoController.findTotalGastoPorClassificacaoByCaixa(
-          _gastoController.caixaSelecionada!.id!);
-    }
-  }
-
   @override
   void dispose() {
     statusReactionDisposer();
@@ -52,7 +44,10 @@ class _RelatorioGastoPorClassificacaoViewState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Reporte Gastos'),
+        centerTitle: true,
+        title: const Text(
+          'Grafico de Gastos',
+        ),
       ),
       persistentFooterButtons: [
         _buildPersistentFooter(),
@@ -115,5 +110,13 @@ class _RelatorioGastoPorClassificacaoViewState
         );
       },
     );
+  }
+
+  void _consultaCaixaCarregada() {
+    if (_gastoController.caixaSelecionada != null) {
+      _descricaoEC.text = _gastoController.caixaSelecionada!.observacao ?? '';
+      _gastoController.findTotalGastoPorClassificacaoByCaixa(
+          _gastoController.caixaSelecionada!.id!);
+    }
   }
 }

@@ -9,10 +9,11 @@ class ClassificacaoGastoDelegateController {
     this._service,
   );
 
-  Future<List<ClassificacaoGasto>> findByCondition(String condition) async {
+  Future<List<ClassificacaoGasto>> findByConditionAtivo(
+      String condition) async {
     try {
       List<ClassificacaoGasto> response = [];
-      response = await _service.findByCondition(condition);
+      response = await _service.findByConditionAtivo(condition);
       return response;
     } on ServiceException catch (e) {
       throw ServiceException(message: ExceptionUtils.getExceptionMessage(e));

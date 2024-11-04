@@ -99,7 +99,7 @@ class _LoginFormState extends State<LoginForm> with Loader, SnackbarManager {
                                 children: [
                                   if (context.isMobile)
                                     Container(
-                                      height: 170,
+                                      height: 200,
                                       width: context.screenWidth,
                                       margin: const EdgeInsets.all(10),
                                       child: Image.asset(ImageConstants.LOGO),

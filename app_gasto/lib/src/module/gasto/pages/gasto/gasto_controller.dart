@@ -47,7 +47,7 @@ abstract class GastoControllerBase with Store {
 
   void setPaginaAtual(int pg) {
     pagination.pageNr = pg;
-    findByCondition('1 = 1');
+    findByConditionPage('');
   }
 
   Future<void> save() async {
@@ -76,7 +76,7 @@ abstract class GastoControllerBase with Store {
   }
 
   @action
-  Future<void> findByCondition(String condition) async {
+  Future<void> findByConditionPage(String condition) async {
     _status = GastoStatusState.loading;
     try {
       final response = await _service.findByConditionPage(

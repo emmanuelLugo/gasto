@@ -95,13 +95,13 @@ mixin _$GastoController on GastoControllerBase, Store {
     });
   }
 
-  late final _$findByConditionAsyncAction =
-      AsyncAction('GastoControllerBase.findByCondition', context: context);
+  late final _$findByConditionPageAsyncAction =
+      AsyncAction('GastoControllerBase.findByConditionPage', context: context);
 
   @override
-  Future<void> findByCondition(String condition) {
-    return _$findByConditionAsyncAction
-        .run(() => super.findByCondition(condition));
+  Future<void> findByConditionPage(String condition) {
+    return _$findByConditionPageAsyncAction
+        .run(() => super.findByConditionPage(condition));
   }
 
   late final _$cancelaGastoAsyncAction =

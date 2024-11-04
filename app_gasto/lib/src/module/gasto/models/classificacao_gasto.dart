@@ -40,4 +40,16 @@ class ClassificacaoGasto {
     descricao = '';
     ativo = true;
   }
+
+  String status() {
+    switch (ativo) {
+      case true:
+        return 'Activo';
+      case false:
+        return 'Inactivo';
+      default:
+        ativo = true;
+        return 'Activo';
+    }
+  }
 }

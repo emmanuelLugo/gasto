@@ -31,6 +31,10 @@ class Caixa {
     vlGasto = 0;
   }
 
+  double vlDisponivel() {
+    return (vlCaixa ?? 0) - (vlGasto ?? 0);
+  }
+
   factory Caixa.fromJson(Map<String, dynamic> json) => _$CaixaFromJson(json);
   Map<String, dynamic> toJson() => _$CaixaToJson(this);
 

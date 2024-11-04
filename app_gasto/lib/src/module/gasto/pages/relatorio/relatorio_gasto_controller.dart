@@ -55,10 +55,6 @@ abstract class RelatorioGastoControllerBase with Store {
     if (_dataShared.caixasAbertas?.length == 1) {
       caixaSelecionada = _dataShared.caixasAbertas![0];
       caixas = _dataShared.caixasAbertas ?? [];
-
-      // if (caixaSelecionada != null) {
-      //   await findTotalGastoPorClassificacaoByCaixa(caixaSelecionada!.id!);
-      // }
     }
   }
 
@@ -67,6 +63,7 @@ abstract class RelatorioGastoControllerBase with Store {
     caixaSelecionada = caixa;
   }
 
+  @action
   Future<void> findTotalGastoPorTipoByCaixa(int idCaixa) async {
     _status = RelatorioGastoStatusState.loading;
     try {
@@ -84,6 +81,7 @@ abstract class RelatorioGastoControllerBase with Store {
     }
   }
 
+  @action
   Future<void> findTotalGastoPorClassificacaoByCaixa(int idCaixa) async {
     _status = RelatorioGastoStatusState.loading;
     try {
@@ -100,9 +98,11 @@ abstract class RelatorioGastoControllerBase with Store {
     }
   }
 
+  @action
   Future<List<Gasto>> findByCondition(String condition) async {
     try {
       final response = await _service.findByCondition(condition);
+      gastos = response.asObservable();
       return response;
     } on ServiceException catch (e) {
       throw Future.error('Dio error $e');

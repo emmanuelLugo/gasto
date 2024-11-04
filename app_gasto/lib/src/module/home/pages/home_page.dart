@@ -27,7 +27,6 @@ class _HomePageState extends State<HomePage> with Loader, SnackbarManager {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _controller.handleConfiguracoesSistema();
       _reactionInitializer();
     });
   }
@@ -43,6 +42,13 @@ class _HomePageState extends State<HomePage> with Loader, SnackbarManager {
     return Scaffold(
       appBar: AppBar(
         title: Text('Bienvenido/a ${dataShared.usuario?.nome}'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // _controller.handleConfiguracoesSistema();
+          // Modular.to.pushNamed('/home/gasto/novo');
+        },
+        child: const Icon(Icons.add),
       ),
       drawer: HomeDrawer(
         dataShared: dataShared,

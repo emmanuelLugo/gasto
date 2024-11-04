@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class CaixaListView extends StatefulWidget {
   const CaixaListView({super.key});
@@ -18,7 +19,7 @@ class CaixaListView extends StatefulWidget {
 class _CaixaListViewState extends State<CaixaListView>
     with Loader, SnackbarManager {
   final _controller = Modular.get<CaixaController>();
-  late final ReactionDisposer statusReactionDisposer;
+  late final ReactionDisposer _statusReactionDisposer;
 
   @override
   void initState() {
@@ -30,7 +31,7 @@ class _CaixaListViewState extends State<CaixaListView>
   @override
   void dispose() {
     super.dispose();
-    statusReactionDisposer();
+    _statusReactionDisposer();
   }
 
   @override
@@ -40,9 +41,7 @@ class _CaixaListViewState extends State<CaixaListView>
         title: const Text('Listado de Caja'),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _controller.insert(Caixa.novo());
-        },
+        onPressed: () => _controller.insert(Caixa.novo()),
         child: const Icon(Icons.add),
       ),
       body: _buildBody(),
@@ -55,16 +54,29 @@ class _CaixaListViewState extends State<CaixaListView>
         Expanded(
           child: Observer(
             builder: (_) {
-              return ListView.builder(
-                itemCount: _controller.dataProvider.length,
-                itemBuilder: (context, index) {
-                  final caixa = _controller.dataProvider[index];
-                  return CardCaixaWidget(
-                      caixa: caixa,
-                      onTap: () {
-                        _controller.insert(caixa);
-                      });
-                },
+              return Skeletonizer(
+                enableSwitchAnimation: true,
+                enabled: _controller.status == CaixaStatusState.loading,
+                child: _controller.status == CaixaStatusState.loading
+                    ? ListView.builder(
+                        itemCount: 8,
+                        itemBuilder: (context, index) {
+                          final caixa = Caixa(isAberto: true);
+                          return CardCaixaWidget(
+                            caixa: caixa,
+                          );
+                        },
+                      )
+                    : ListView.builder(
+                        itemCount: _controller.dataProvider.length,
+                        itemBuilder: (context, index) {
+                          final caixa = _controller.dataProvider[index];
+                          return CardCaixaWidget(
+                            caixa: caixa,
+                            onTap: () => _controller.insert(caixa),
+                          );
+                        },
+                      ),
               );
             },
           ),
@@ -76,7 +88,7 @@ class _CaixaListViewState extends State<CaixaListView>
   void _initReaction() {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        statusReactionDisposer = reaction(
+        _statusReactionDisposer = reaction(
           (_) => _controller.status,
           (status) {
             switch (status) {

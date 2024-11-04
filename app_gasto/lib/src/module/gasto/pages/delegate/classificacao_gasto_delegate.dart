@@ -82,7 +82,7 @@ class ClassificacaoGastoDelegate extends SearchDelegate<ClassificacaoGasto?> {
   }
 
   Future<List<ClassificacaoGasto>> _search() async {
-    list = await _controller.findByCondition(query);
+    list = await _controller.findByConditionAtivo(query);
 
     return list;
   }

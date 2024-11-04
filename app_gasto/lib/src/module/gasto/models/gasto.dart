@@ -71,4 +71,17 @@ class Gasto {
     moeda = Moeda.moedas().first;
     classificacaoGasto = null;
   }
+
+  Gasto.skeletonizer() {
+    id = null;
+    descricao = '';
+    dtGasto = DateTime.now();
+    usuario = '';
+    cancelado = false;
+    usuarioCancelamento = '';
+    caixa = Caixa.novo();
+    dtCancelamento = null;
+    moeda = Moeda.moedas().first;
+    classificacaoGasto = null;
+  }
 }

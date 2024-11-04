@@ -90,4 +90,8 @@ abstract class ClassificacaoGastoControllerBase with Store {
   void setTipoGasto(TipoGasto? tipoGasto) {
     _currentRecord = _currentRecord.copyWith(tipoGasto: tipoGasto);
   }
+
+  void setAtivo(bool value) {
+    _currentRecord = _currentRecord.copyWith(ativo: value);
+  }
 }

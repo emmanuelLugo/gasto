@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:app_gasto/src/core/components/fields/input_auto_search/input_seach_delegate.dart';
 import 'package:app_gasto/src/core/ui/helpers/helpers/size_extension.dart';
 import 'package:app_gasto/src/module/gasto/models/caixa.dart';
@@ -36,56 +38,58 @@ class _RelatorioGastoBodyWidgetState extends State<RelatorioGastoBodyWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      controller: _scrollController,
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 10,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        log('${constraints.maxHeight}');
+        return SingleChildScrollView(
+          controller: _scrollController,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: InputSeachDelegate<Caixa?>(
+                  label: 'Caja',
+                  searchDelegate: CaixaDelegate(widget.caixaDelegateController),
+                  controller: widget.descricaoEC,
+                  onSelected: (value) {
+                    widget.descricaoEC.text = value?.observacao ?? '';
+                    if (value != null) {
+                      widget.onCaixaSelected?.call(value);
+                    }
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                height: context.screenHeight * 0.40,
+                child: Observer(
+                  builder: (_) {
+                    return GraficoPieWidget(
+                        listDto: widget.gastoController.listDto,
+                        title: widget.title);
+                  },
+                ),
+              ),
+              SizedBox(
+                height: context.screenHeight * 0.37,
+                child: Observer(
+                  builder: (_) {
+                    return GraficoLinealWidget(
+                      listDto: widget.gastoController.listDto,
+                      gastoController: widget.gastoController,
+                      caixa: widget.consultaClassificacao!
+                          ? widget.gastoController.caixaSelecionada
+                          : null,
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: InputSeachDelegate<Caixa?>(
-              label: 'Caja',
-              searchDelegate: CaixaDelegate(widget.caixaDelegateController),
-              controller: widget.descricaoEC,
-              onSelected: (value) {
-                widget.descricaoEC.text = value?.observacao ?? '';
-                if (value != null) {
-                  widget.onCaixaSelected?.call(value);
-                }
-              },
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          SizedBox(
-            height: context.screenHeight * 0.40,
-            child: Observer(
-              builder: (_) {
-                return GraficoPieWidget(
-                    listDto: widget.gastoController.listDto,
-                    title: widget.title);
-              },
-            ),
-          ),
-          SizedBox(
-            height: context.screenHeight * 0.40,
-            child: Observer(
-              builder: (_) {
-                return GraficoLinealWidget(
-                  listDto: widget.gastoController.listDto,
-                  gastoController: widget.gastoController,
-                  caixa: widget.consultaClassificacao!
-                      ? widget.gastoController.caixaSelecionada
-                      : null,
-                );
-              },
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

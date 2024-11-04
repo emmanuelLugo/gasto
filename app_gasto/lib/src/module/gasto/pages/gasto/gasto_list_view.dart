@@ -2,6 +2,7 @@ import 'package:app_gasto/src/core/pagination/footer_pagination_bar.dart';
 import 'package:app_gasto/src/core/ui/helpers/helpers/loader.dart';
 import 'package:app_gasto/src/core/ui/helpers/helpers/snack_bar_manager.dart';
 import 'package:app_gasto/src/core/ui/widget/custom_slidable_action_widget.dart';
+import 'package:app_gasto/src/core/ui/widget/search_app_bar_widget.dart';
 import 'package:app_gasto/src/module/gasto/models/gasto.dart';
 import 'package:app_gasto/src/module/gasto/pages/gasto/gasto_controller.dart';
 import 'package:app_gasto/src/module/gasto/pages/gasto/widgets/card_gasto_widget.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:mobx/mobx.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class GastoListView extends StatefulWidget {
   const GastoListView({super.key});
@@ -27,7 +29,7 @@ class _GastoListViewState extends State<GastoListView>
   void initState() {
     super.initState();
     _initReaction();
-    _controller.findByCondition('1 = 1');
+    _controller.findByConditionPage('');
   }
 
   @override
@@ -40,9 +42,9 @@ class _GastoListViewState extends State<GastoListView>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFf9faf4),
-      appBar: AppBar(
-        title: const Text('Listado de Gastos'),
-      ),
+      appBar: SearchAppBarWidget(
+          onSearch: (value) => _controller.findByConditionPage(value),
+          hintText: 'Buscar por Descripción'),
       persistentFooterButtons: [
         Observer(
           builder: (_) => FooterPaginationBar(
@@ -51,15 +53,12 @@ class _GastoListViewState extends State<GastoListView>
             pageSize: _controller.pagination.pageSize,
             isLastPage: _controller.pagination.isLastPage,
             totalRegistros: _controller.pagination.totalRegistros,
-            // size: _controller.pagination.size,
             pages: _controller.pagination.pages,
           ),
         ),
       ],
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _controller.insert(Gasto.novo());
-        },
+        onPressed: () => _controller.insert(Gasto.novo()),
         child: const Icon(Icons.add),
       ),
       body: _buildBody(),
@@ -69,12 +68,24 @@ class _GastoListViewState extends State<GastoListView>
   Widget _buildBody() {
     return Observer(
       builder: (_) {
-        return ListView.builder(
-          itemCount: _controller.dataProvider.length,
-          itemBuilder: (context, index) {
-            final gasto = _controller.dataProvider[index];
-            return _buildSlidableItem(gasto, index);
-          },
+        return Skeletonizer(
+          enableSwitchAnimation: true,
+          enabled: _controller.status == GastoStatusState.loading,
+          child: _controller.status == GastoStatusState.loading
+              ? ListView.builder(
+                  itemCount: 8,
+                  itemBuilder: (context, index) {
+                    final gasto = Gasto.skeletonizer();
+                    return _buildSlidableItem(gasto, index);
+                  },
+                )
+              : ListView.builder(
+                  itemCount: _controller.dataProvider.length,
+                  itemBuilder: (context, index) {
+                    final gasto = _controller.dataProvider[index];
+                    return _buildSlidableItem(gasto, index);
+                  },
+                ),
         );
       },
     );

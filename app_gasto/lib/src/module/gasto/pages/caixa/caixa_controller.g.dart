@@ -77,6 +77,15 @@ mixin _$CaixaController on CaixaControllerBase, Store {
     });
   }
 
+  late final _$findByConditionAsyncAction =
+      AsyncAction('CaixaControllerBase.findByCondition', context: context);
+
+  @override
+  Future<void> findByCondition(String condition) {
+    return _$findByConditionAsyncAction
+        .run(() => super.findByCondition(condition));
+  }
+
   late final _$saveAsyncAction =
       AsyncAction('CaixaControllerBase.save', context: context);
 

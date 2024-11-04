@@ -9,7 +9,7 @@ class DateFormInput extends StatefulWidget {
   final ValueChanged<DateTime>? selectedDate;
   final String label;
   final Color? colorFont;
-  final TextEditingController? controller;
+  final TextEditingController controller;
   final String? Function(String?)? validator;
   final double? fontSize;
   final bool? enabled;
@@ -21,7 +21,7 @@ class DateFormInput extends StatefulWidget {
     required this.selectedDate,
     required this.label,
     this.colorFont,
-    this.controller,
+    required this.controller,
     this.validator,
     this.fontSize,
     this.enabled = true,
@@ -34,52 +34,17 @@ class DateFormInput extends StatefulWidget {
 
 class DateFormInputState extends State<DateFormInput> {
   late String formatted = '';
-
-  late TextEditingController controller;
+  var dtSelected = DateTime.now();
 
   @override
   void initState() {
-    if (widget.controller == null) {
-      controller = TextEditingController();
-    } else {
-      controller = widget.controller!;
-    }
-
     if (widget.date.isEmpty) {
       formatted = "";
     } else {
       formatted = formatDateWithLocal(widget.date);
     }
-    controller.text = formatted;
+    widget.controller.text = formatted;
     super.initState();
-  }
-
-  @override
-  void didUpdateWidget(oldWidget) {
-    updateText();
-    super.didUpdateWidget(oldWidget);
-  }
-
-  updateText() {
-    // var t = formatDateWithLocal(widget.date);
-    // Future.delayed(Duration.zero, () {
-    //   if (t.isEmpty) {
-    //     controller.text = '';
-    //   } else {
-    //     controller.value = controller.value.copyWith(
-    //       text: t,
-    //       composing: TextRange.empty,
-    //     );
-    //   }
-    // });
-  }
-
-  @override
-  void dispose() {
-    if (widget.controller == null) {
-      controller.dispose();
-    }
-    super.dispose();
   }
 
   @override
@@ -89,33 +54,19 @@ class DateFormInputState extends State<DateFormInput> {
       child: AbsorbPointer(
         child: TextInputForm(
           enabled: widget.enabled,
-          controller: controller,
+          controller: widget.controller,
           suffixIcon: const Icon(
             Icons.calendar_today_rounded,
             color: Colors.grey,
           ),
-
-          // text: formatted,
-          validator: widget.validator, label: widget.label,
+          validator: widget.validator,
+          label: widget.label,
         ),
       ),
     );
   }
 
   _onPressed() async {
-    // DateTime? picked = await showDatePicker(
-    //   context: context,
-    //   initialDate: DateTime.now(),
-    //   locale: const Locale('es', 'PY'),
-    //   firstDate: widget.firstDate ??
-    //       DateTime(
-    //         DateTime.now().year - 100,
-    //       ),
-    //   lastDate: DateTime(
-    //     DateTime.now().year + 5,
-    //   ),
-    // );
-
     final DateTime? picked = await showDatePicker(
       builder: (context, child) {
         return Theme(
@@ -127,7 +78,7 @@ class DateFormInputState extends State<DateFormInput> {
           child: child!,
         );
       },
-      initialDate: DateTime.now(),
+      initialDate: dtSelected,
       locale: const Locale('es', 'PY'),
       firstDate: widget.firstDate ??
           DateTime(
@@ -144,10 +95,9 @@ class DateFormInputState extends State<DateFormInput> {
     }
 
     final start = picked.toString().replaceRange(10, null, "T00:00:00.000000");
-
     formatted = formatDateWithLocal(start);
-    controller.text = formatted;
-
+    widget.controller.text = formatted;
+    dtSelected = DateTime.parse(start);
     widget.selectedDate!(DateTime.parse(start));
   }
 }

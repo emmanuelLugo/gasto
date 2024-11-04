@@ -10,8 +10,8 @@ import 'package:app_gasto/src/module/gasto/models/classificacao_gasto.dart';
 import 'package:app_gasto/src/module/gasto/pages/delegate/classificacao_gasto_delegate.dart';
 import 'package:app_gasto/src/module/gasto/pages/delegate/classificacao_gasto_delegate_controller.dart';
 import 'package:app_gasto/src/module/gasto/pages/gasto/gasto_controller.dart';
-import 'package:app_gasto/src/module/gasto/pages/gasto/widgets/add_transaction_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class NovoGastoPage extends StatefulWidget {
@@ -29,8 +29,8 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
   final _valorEC = TextEditingController();
   final _descricaoEC = TextEditingController();
   final _dataShared = Modular.get<DataShared>();
-  DateTime selectedDateTime = DateTime.now();
   final _formKey = GlobalKey<FormState>();
+  final _dtGastoEC = TextEditingController();
 
   @override
   void initState() {
@@ -42,6 +42,8 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
   void dispose() {
     super.dispose();
     _valorEC.dispose();
+    _dtGastoEC.dispose();
+    _descricaoEC.dispose();
     _classificacaoGastoEC.dispose();
   }
 
@@ -84,20 +86,20 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
                   _controller.setCaixa(value);
                 },
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              DateFormInput(
-                date: selectedDateTime.toString(),
-                label: 'Fecha del Gasto',
-                selectedDate: (newDate) {
-                  selectedDateTime = newDate;
-                  _controller.setDate(newDate);
+              const SizedBox(height: 10),
+              Observer(
+                builder: (_) {
+                  return DateFormInput(
+                    date: DateTime.now().toString(),
+                    controller: _dtGastoEC,
+                    label: 'Fecha del Gasto',
+                    selectedDate: (newDate) {
+                      _controller.setDate(newDate);
+                    },
+                  );
                 },
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               InputSeachDelegate<ClassificacaoGasto?>(
                 label: 'Clasificación',
                 searchDelegate:
@@ -131,7 +133,7 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
                 },
               ),
               const SizedBox(height: 10),
-              const AddTransactionPage(),
+              // const AddTransactionPage(),
             ],
           ),
         ),
@@ -139,7 +141,7 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
     );
   }
 
-  _save() {
+  void _save() {
     if (_formKey.currentState!.validate()) {
       _controller.save();
     }

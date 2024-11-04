@@ -20,6 +20,7 @@ class _CaixaPageState extends State<CaixaPage> {
   final _observacaoEC = TextEditingController();
   final _dtAberturaEC = TextEditingController();
   final _valorCaixaEC = TextEditingController();
+  final _dtCaixaEC = TextEditingController();
 
   @override
   void initState() {
@@ -43,6 +44,7 @@ class _CaixaPageState extends State<CaixaPage> {
     _observacaoEC.dispose();
     _dtAberturaEC.dispose();
     _valorCaixaEC.dispose();
+    _dtCaixaEC.dispose();
   }
 
   @override
@@ -90,8 +92,9 @@ class _CaixaPageState extends State<CaixaPage> {
               height: 20,
             ),
             DateFormInput(
-              date: _controller.currentRecord.dtAbertura!.toString(),
               label: 'Fecha del Apertura',
+              controller: _dtAberturaEC,
+              date: _controller.currentRecord.dtAbertura!.toString(),
               selectedDate: (newDate) {
                 _controller.setDtAbertura(newDate);
               },

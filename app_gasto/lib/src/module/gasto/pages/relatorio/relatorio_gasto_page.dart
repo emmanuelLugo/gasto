@@ -1,0 +1,65 @@
+import 'package:app_gasto/src/core/pagination/footer_pagination_bar.dart';
+import 'package:app_gasto/src/module/gasto/pages/gasto/widgets/card_gasto_widget.dart';
+import 'package:app_gasto/src/module/gasto/pages/relatorio/relatorio_gasto_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+
+class RelatorioGastoPage extends StatelessWidget {
+  final RelatorioGastoController controller;
+  const RelatorioGastoPage({super.key, required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Reporte'),
+      ),
+      persistentFooterButtons: [
+        Observer(
+          builder: (_) => FooterPaginationBar(
+            paginaAtual: 1,
+            setPagAtual: (i) => 1 + 1,
+            pageSize: 15,
+            isLastPage: true,
+            totalRegistros: 15,
+            pages: 5,
+          ),
+        ),
+      ],
+      body: Column(
+        children: [
+          const SizedBox(
+            height: 20,
+          ),
+          Observer(
+            builder: (_) {
+              return Text(
+                'total de gasto: ${controller.vlTotal}',
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              );
+            },
+          ),
+          const Divider(),
+          Expanded(
+            child: Observer(
+              builder: (_) {
+                return ListView.separated(
+                  shrinkWrap: true,
+                  itemCount: controller.gastos.length,
+                  itemBuilder: (context, index) {
+                    final gasto = controller.gastos[index];
+                    return CardGastoWidget(gasto: gasto);
+                  },
+                  separatorBuilder: (context, index) {
+                    return const Divider();
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

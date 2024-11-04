@@ -62,6 +62,23 @@ mixin _$ConfiguracaoSistemaController
     });
   }
 
+  late final _$caixasAbertasAtom = Atom(
+      name: 'ConfiguracaoSistemaControllerBase.caixasAbertas',
+      context: context);
+
+  @override
+  ObservableList<Caixa> get caixasAbertas {
+    _$caixasAbertasAtom.reportRead();
+    return super.caixasAbertas;
+  }
+
+  @override
+  set caixasAbertas(ObservableList<Caixa> value) {
+    _$caixasAbertasAtom.reportWrite(value, super.caixasAbertas, () {
+      super.caixasAbertas = value;
+    });
+  }
+
   late final _$totalGastoPorSemanaAtom = Atom(
       name: 'ConfiguracaoSistemaControllerBase.totalGastoPorSemana',
       context: context);
@@ -97,22 +114,51 @@ mixin _$ConfiguracaoSistemaController
     });
   }
 
-  late final _$findConfiguracoesSistemaAsyncAction = AsyncAction(
-      'ConfiguracaoSistemaControllerBase.findConfiguracoesSistema',
+  late final _$mostrarValorDeCaixaAtom = Atom(
+      name: 'ConfiguracaoSistemaControllerBase.mostrarValorDeCaixa',
+      context: context);
+
+  @override
+  bool get mostrarValorDeCaixa {
+    _$mostrarValorDeCaixaAtom.reportRead();
+    return super.mostrarValorDeCaixa;
+  }
+
+  @override
+  set mostrarValorDeCaixa(bool value) {
+    _$mostrarValorDeCaixaAtom.reportWrite(value, super.mostrarValorDeCaixa, () {
+      super.mostrarValorDeCaixa = value;
+    });
+  }
+
+  late final _$handleConfiguracoesSistemaAsyncAction = AsyncAction(
+      'ConfiguracaoSistemaControllerBase.handleConfiguracoesSistema',
       context: context);
 
   @override
   Future<void> handleConfiguracoesSistema() {
-    return _$findConfiguracoesSistemaAsyncAction
+    return _$handleConfiguracoesSistemaAsyncAction
         .run(() => super.handleConfiguracoesSistema());
+  }
+
+  late final _$toggleMostrarValorDeCaixaAsyncAction = AsyncAction(
+      'ConfiguracaoSistemaControllerBase.toggleMostrarValorDeCaixa',
+      context: context);
+
+  @override
+  Future<void> toggleMostrarValorDeCaixa() {
+    return _$toggleMostrarValorDeCaixaAsyncAction
+        .run(() => super.toggleMostrarValorDeCaixa());
   }
 
   @override
   String toString() {
     return '''
 gastos: ${gastos},
+caixasAbertas: ${caixasAbertas},
 totalGastoPorSemana: ${totalGastoPorSemana},
-valorMaximoDeGastoPorSemana: ${valorMaximoDeGastoPorSemana}
+valorMaximoDeGastoPorSemana: ${valorMaximoDeGastoPorSemana},
+mostrarValorDeCaixa: ${mostrarValorDeCaixa}
     ''';
   }
 }

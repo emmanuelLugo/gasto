@@ -57,9 +57,10 @@ class GastoService {
 
   Future<RestClientResponse> findByConditionPage(
       String condition, int pageNum, int pageSize) async {
+    String sql = "FIN_GASTO.DS_GASTO LIKE '%$condition%'";
     try {
       final response = await _repository.findByConditionPage(
-        condition,
+        sql,
         pageNum,
         pageSize,
       );

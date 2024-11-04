@@ -19,46 +19,14 @@ class _ExpansionTileGastoState extends State<ExpansionTileGasto> {
   Widget build(BuildContext context) {
     return ExpansionTile(
       title: Text(
-        'Gasto',
+        'Graficos',
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 20,
           color: ColorsApp.instance.primary,
         ),
       ),
-      subtitle: Text(
-        'Modulo gasto',
-        style: Theme.of(context).textTheme.bodyMedium,
-      ),
       children: [
-        ListTile(
-          title: Text(
-            '- Caja',
-            style: widget.titleStyle,
-          ),
-          onTap: () {
-            Modular.to.pushNamed('/home/gasto/caixa');
-          },
-        ),
-        ListTile(
-          title: Text(
-            '- Clasificación',
-            style: widget.titleStyle,
-          ),
-          onTap: () {
-            Modular.to.pushNamed('/home/gasto/classificacao-gasto');
-          },
-        ),
-        ListTile(
-          title: Text(
-            '- Gasto',
-            style: widget.titleStyle,
-          ),
-          onTap: () {
-            Modular.to.pushNamed('/home/gasto/');
-          },
-        ),
-
         ListTile(
           title: Text(
             '- Grafico por Tipo',
@@ -77,25 +45,15 @@ class _ExpansionTileGastoState extends State<ExpansionTileGasto> {
             Modular.to.pushNamed('/home/gasto/relatorio-gasto-classificacao');
           },
         ),
-
-        // ListTile(
-        //   title: Text(
-        //     '- Venta',
-        //     style: widget.titleStyle,
-        //   ),
-        //   onTap: () {
-        //     Modular.to.pushNamed('/home/venda/');
-        //   },
-        // ),
-        // ListTile(
-        //   title: Text(
-        //     '- Reporte de Ventas',
-        //     style: widget.titleStyle,
-        //   ),
-        //   onTap: () {
-        //     Modular.to.pushNamed('/home/venda/relatorio-venda');
-        //   },
-        // ),
+        ListTile(
+          title: Text(
+            '- Reporte de Gasto',
+            style: widget.titleStyle,
+          ),
+          onTap: () {
+            Modular.to.pushNamed('/home/gasto/relatorio-gasto-por-filtro');
+          },
+        ),
       ],
     );
   }

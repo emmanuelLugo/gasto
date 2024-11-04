@@ -11,6 +11,7 @@ import 'package:app_gasto/src/module/gasto/pages/gasto/gasto_controller.dart';
 import 'package:app_gasto/src/module/gasto/pages/gasto/gasto_list_view.dart';
 import 'package:app_gasto/src/module/gasto/pages/gasto/novo_gasto_page.dart';
 import 'package:app_gasto/src/module/gasto/pages/relatorio/relatorio_gasto_controller.dart';
+import 'package:app_gasto/src/module/gasto/pages/relatorio/filtro_relatorio_gasto_por_filtro.dart';
 import 'package:app_gasto/src/module/gasto/pages/relatorio/relatorio_gasto_por_tipo_view.dart';
 import 'package:app_gasto/src/module/gasto/pages/relatorio/relatorio_gasto_por_classificacao_view.dart';
 import 'package:app_gasto/src/module/gasto/pages/relatorio/widget/caixa_delegate_controller.dart';
@@ -61,5 +62,7 @@ class GastoModule extends Module {
         child: (_) => const ClassificacaoGastoListView());
     r.child('/classificacao-gasto/new-classificacao',
         child: (_) => const ClassificacaoGastoPage());
+    r.child('/relatorio-gasto-por-filtro',
+        child: (_) => const FiltroRelatorioGastoPorFiltro());
   }
 }

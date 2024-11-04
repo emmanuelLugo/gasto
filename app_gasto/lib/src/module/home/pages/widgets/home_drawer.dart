@@ -26,8 +26,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
       child: Column(
         children: [
           buildDrawerHeader(),
-          Expanded(child: buildListView()),
-          buildFecharSessao(),
+          Expanded(child: _buildListView()),
+          _buildFecharSessao(),
         ],
       ),
     );
@@ -55,7 +55,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
     );
   }
 
-  Widget buildListView() {
+  Widget _buildListView() {
     final titleStyle = Theme.of(context)
         .textTheme
         .bodyLarge!
@@ -67,6 +67,54 @@ class _HomeDrawerState extends State<HomeDrawer> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
+          ListTile(
+            title: Text(
+              'Gasto',
+              style: titleStyle.copyWith(
+                  color: ColorsApp.instance.primary,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900),
+            ),
+            onTap: () {
+              Modular.to.pushNamed('/home/gasto/');
+            },
+          ),
+          Divider(
+            height: 1,
+            color: dividerColor,
+          ),
+          ListTile(
+            title: Text(
+              'Clasificación',
+              style: titleStyle.copyWith(
+                  color: ColorsApp.instance.primary,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900),
+            ),
+            onTap: () {
+              Modular.to.pushNamed('/home/gasto/classificacao-gasto');
+            },
+          ),
+          Divider(
+            height: 1,
+            color: dividerColor,
+          ),
+          ListTile(
+            title: Text(
+              'Cuentas',
+              style: titleStyle.copyWith(
+                  color: ColorsApp.instance.primary,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w900),
+            ),
+            onTap: () {
+              Modular.to.pushNamed('/home/gasto/caixa');
+            },
+          ),
+          Divider(
+            height: 1,
+            color: dividerColor,
+          ),
           ExpansionTileGasto(
             dataShared: widget.dataShared,
             titleStyle: titleStyle,
@@ -76,7 +124,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
     );
   }
 
-  Widget buildFecharSessao() {
+  Widget _buildFecharSessao() {
     return ListTile(
       title: const Text(
         'Cerrar sesión',

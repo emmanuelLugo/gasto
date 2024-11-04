@@ -37,6 +37,7 @@ abstract class CaixaControllerBase with Store {
   @readonly
   CaixaStatusState _status = CaixaStatusState.initial;
 
+  @action
   Future<void> findByCondition(String condition) async {
     _status = CaixaStatusState.loading;
     try {

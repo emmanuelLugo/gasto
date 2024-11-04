@@ -35,6 +35,8 @@ dependencies:
   google_fonts: ^6.2.1
   flutter_localizations:
     sdk: flutter 
+  skeletonizer: ^1.4.2
+  smooth_page_indicator: ^1.2.0+3
 
 icons_launcher:
   image_path: 'assets/icon/icon-mod.png'
