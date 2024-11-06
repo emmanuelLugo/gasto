@@ -1,13 +1,12 @@
-import 'dart:io';
-
 import 'package:app_gasto/src/core/ui/helpers/helpers/loader.dart';
 import 'package:app_gasto/src/core/ui/helpers/helpers/snack_bar_manager.dart';
 import 'package:app_gasto/src/core/ui/styles/colors_app.dart';
 import 'package:app_gasto/src/module/core/shared/data_shared.dart';
 import 'package:app_gasto/src/module/home/pages/configuracao_sistema_controller.dart';
-import 'package:app_gasto/src/module/home/pages/widgets/home_form_page.dart';
 import 'package:app_gasto/src/module/home/pages/widgets/home_drawer.dart';
+import 'package:app_gasto/src/module/home/pages/widgets/home_form_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
@@ -87,7 +86,7 @@ class _HomePageState extends State<HomePage> with Loader, SnackbarManager {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                exit(0);
+                SystemNavigator.pop();
               },
               child: Text(
                 "Salir",

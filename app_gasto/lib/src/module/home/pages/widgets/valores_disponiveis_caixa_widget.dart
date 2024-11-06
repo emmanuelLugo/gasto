@@ -46,6 +46,9 @@ class ValoresDisponiveisCaixaWidget extends StatelessWidget {
           ),
           Observer(
             builder: (_) {
+              if (controller.caixasAbertas.isEmpty) {
+                return const SizedBox.shrink();
+              }
               return SmoothPageIndicator(
                 controller: pageController,
                 count: controller.caixasAbertas.length,
