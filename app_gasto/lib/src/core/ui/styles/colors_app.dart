@@ -15,6 +15,8 @@ class ColorsApp {
   Color get grey => Colors.grey;
   Color get greyColor => const Color.fromARGB(255, 245, 245, 245);
 
+  Color get scaffoldColor => const Color.fromARGB(255, 212, 222, 226);
+
   Color getPrimaryColor(BuildContext context) {
     return Theme.of(context).brightness == Brightness.dark
         ? Colors.white

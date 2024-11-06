@@ -45,7 +45,7 @@ abstract class ConfiguracaoSistemaControllerBase with Store {
   ConfiguracaoSistemaControllerBase(
     this._configuracaoSistemaService,
   ) {
-    _initialize();
+    // _initialize();
   }
 
   @action

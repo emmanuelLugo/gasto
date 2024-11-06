@@ -28,6 +28,7 @@ class _HomePageState extends State<HomePage> with Loader, SnackbarManager {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _reactionInitializer();
+      _controller.handleConfiguracoesSistema();
     });
   }
 
@@ -41,7 +42,8 @@ class _HomePageState extends State<HomePage> with Loader, SnackbarManager {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bienvenido/a ${dataShared.usuario?.nome}'),
+        backgroundColor: const Color.fromARGB(255, 17, 16, 16),
+        elevation: 0,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

@@ -1,6 +1,8 @@
 import 'package:app_gasto/src/core/components/fields/number_form_input/number_format.dart';
 import 'package:app_gasto/src/module/home/pages/configuracao_sistema_controller.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -24,9 +26,10 @@ class ValoresDisponiveisCaixaWidget extends StatelessWidget {
 
     return Center(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          SizedBox(
-            height: 111,
+          const SizedBox(height: 20),
+          Flexible(
             child: Observer(
               builder: (_) {
                 return PageView.builder(
@@ -41,7 +44,6 @@ class ValoresDisponiveisCaixaWidget extends StatelessWidget {
               },
             ),
           ),
-          const SizedBox(height: 10),
           Observer(
             builder: (_) {
               return SmoothPageIndicator(
@@ -56,6 +58,7 @@ class ValoresDisponiveisCaixaWidget extends StatelessWidget {
               );
             },
           ),
+          const SizedBox(height: 30),
         ],
       ),
     );
@@ -69,8 +72,8 @@ class ValoresDisponiveisCaixaWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Card(
-        elevation: 5,
-        color: const Color.fromARGB(255, 50, 145, 189),
+        elevation: 0,
+        color: Colors.transparent,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
