@@ -50,27 +50,21 @@ class _ClassificacaoGastoListViewState extends State<ClassificacaoGastoListView>
         onPressed: () => _controller.insert(ClassificacaoGasto.novo()),
         child: const Icon(Icons.add),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Observer(
-              builder: (_) {
-                return _controller.dataProvider.isEmpty
-                    ? const EmptyList()
-                    : ListView.builder(
-                        padding: const EdgeInsets.only(top: 5),
-                        itemCount: _controller.dataProvider.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          final ClassificacaoGasto classificacaoGasto =
-                              _controller.dataProvider[index];
-                          return _buildSlidableItem(classificacaoGasto, index);
-                        },
-                      );
-              },
-            ),
-          )
-        ],
+      body: Observer(
+        builder: (_) {
+          return _controller.dataProvider.isEmpty
+              ? const EmptyList()
+              : ListView.builder(
+                  padding: const EdgeInsets.only(top: 5),
+                  itemCount: _controller.dataProvider.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    final ClassificacaoGasto classificacaoGasto =
+                        _controller.dataProvider[index];
+                    return _buildSlidableItem(classificacaoGasto, index);
+                  },
+                );
+        },
       ),
     );
   }

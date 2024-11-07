@@ -1,189 +1,119 @@
-import 'package:app_gasto/src/core/components/behahavior/custom_scroll_behavior.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:intl/intl.dart';
+// import 'package:app_gasto/src/core/components/fields/date_form_input/date_formatted.dart';
+// import 'package:flutter/material.dart';
 
-class DateAndTimeInput extends StatefulWidget {
-  final String label;
-  final bool? enabled;
-  final DateTime? dateTime;
-  final String? Function(String?)? validator;
-  final void Function(DateTime? dateTime)? onChanged;
-  final FocusNode? focusNode;
-  final Function(String)? onFieldSubmitted;
-  const DateAndTimeInput({
-    super.key,
-    required this.label,
-    this.validator,
-    this.onChanged,
-    this.enabled,
-    this.dateTime,
-    this.focusNode,
-    this.onFieldSubmitted,
-  });
+// import '../../../ui/styles/theme_config.dart';
+// import '../text_form_input/text_form_input.dart';
 
-  @override
-  State<DateAndTimeInput> createState() => _DateAndTimeInputState();
-}
+// class DateAndTimeInput extends StatefulWidget {
+//   final String date;
+//   final ValueChanged<DateTime>? selectedDate;
+//   final String label;
+//   final Color? colorFont;
+//   final TextEditingController controller;
+//   final String? Function(String?)? validator;
+//   final double? fontSize;
+//   final bool? enabled;
+//   final DateTime? firstDate;
 
-class _DateAndTimeInputState extends State<DateAndTimeInput> {
-  final _controller = MaskedTextController(mask: '00/00/00 00:00');
+//   const DateAndTimeInput({
+//     super.key,
+//     required this.date,
+//     required this.selectedDate,
+//     required this.label,
+//     this.colorFont,
+//     required this.controller,
+//     this.validator,
+//     this.fontSize,
+//     this.enabled = true,
+//     this.firstDate,
+//   });
 
-  final dateFormatter = DateFormat("dd-MM-yy HH:mm", 'es_PY');
+//   @override
+//   DateAndTimeInputState createState() => DateAndTimeInputState();
+// }
 
-  DateTime? _dateTime;
+// class DateAndTimeInputState extends State<DateAndTimeInput> {
+//   late String formatted = '';
+//   var dtSelected = DateTime.now();
 
-  double finalHeight = 35;
-  late MaterialStatesController _statesController;
+//   @override
+//   void initState() {
+//     if (widget.date.isEmpty) {
+//       formatted = "";
+//     } else {
+//       formatted = formatDateTimeWithLocal(widget.date);
+//     }
+//     widget.controller.text = formatted;
+//     super.initState();
+//   }
 
-  @override
-  void initState() {
-    _statesController = MaterialStatesController();
-    _statesController.addListener(() {
-      Future.delayed(Duration.zero, () {
-        if (_statesController.value.contains(MaterialState.error)) {
-          if (finalHeight <= 35) {
-            setState(() {
-              finalHeight += 20;
-            });
-          }
-        } else {
-          setState(() {
-            finalHeight = 35;
-          });
-        }
-      });
-    });
+//   @override
+//   Widget build(BuildContext context) {
+//     return InkWell(
+//       onTap: widget.enabled == true ? () => _onPressed() : null,
+//       child: AbsorbPointer(
+//         child: TextInputForm(
+//           enabled: widget.enabled,
+//           controller: widget.controller,
+//           suffixIcon: const Icon(
+//             Icons.calendar_today_rounded,
+//             color: Colors.grey,
+//           ),
+//           validator: widget.validator,
+//           label: widget.label,
+//         ),
+//       ),
+//     );
+//   }
 
-    if (widget.dateTime != null) {
-      _dateTime = widget.dateTime;
-      _controller.text = dateFormatter.format(_dateTime!);
-    }
-    super.initState();
-  }
+//   _onPressed() async {
+//     // Selección de fecha
+//     final DateTime? pickedDate = await showDatePicker(
+//       builder: (context, child) {
+//         return Theme(
+//           data: Theme.of(context).copyWith(
+//               colorScheme: ThemeConfig.theme.colorScheme.copyWith(
+//                 onSurface: Colors.grey,
+//               ),
+//               textButtonTheme: ThemeConfig.theme.textButtonTheme),
+//           child: child!,
+//         );
+//       },
+//       initialDate: dtSelected,
+//       locale: const Locale('es', 'PY'),
+//       firstDate: widget.firstDate ?? DateTime(DateTime.now().year - 100),
+//       lastDate: DateTime(DateTime.now().year + 5),
+//       context: context,
+//     );
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+//     if (pickedDate == null) {
+//       return;
+//     }
 
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 150,
-      height: finalHeight,
-      child: TextFormField(
-        focusNode: widget.focusNode,
-        enabled: widget.enabled,
-        controller: _controller,
-        statesController: _statesController,
-        decoration: InputDecoration(
-          labelText: widget.label,
-          hintText: 'dd/mm/yy HH:mm',
-          suffixIcon: InkWell(
-            onTap: widget.enabled == true ? () => _dateTimePicker() : null,
-            child: const Icon(
-              Icons.calendar_month,
-              size: 18.0,
-            ),
-          ),
-          contentPadding: const EdgeInsets.only(
-            left: 8,
-          ),
-        ),
-        keyboardType: TextInputType.datetime,
-        onChanged: (value) {
-          final List<String> parts = value.split(' ');
-          if (parts.length == 2) {
-            final List<String> dateParts = parts[0].split('/');
-            final List<String> timeParts = parts[1].split(':');
-            if (dateParts.length == 3 && timeParts.length == 2) {
-              final int? day = int.tryParse(dateParts[0]);
-              final int? month = int.tryParse(dateParts[1]);
-              final int? year = int.tryParse(dateParts[2]);
-              final int? hour = int.tryParse(timeParts[0]);
-              final int? minute = int.tryParse(timeParts[1]);
+//     // Selección de hora
+//     final TimeOfDay? pickedTime = await showTimePicker(
+//       context: context,
+//       initialTime: TimeOfDay.fromDateTime(dtSelected),
+//     );
 
-              if (day != null &&
-                  month != null &&
-                  year != null &&
-                  hour != null &&
-                  minute != null) {
-                _dateTime = DateTime(year, month, day, hour, minute);
-                widget.onChanged!(_dateTime!);
-              } else {
-                widget.onChanged!(null);
-                _dateTime = null;
-              }
-            } else {
-              widget.onChanged!(null);
-              _dateTime = null;
-            }
-          } else {
-            widget.onChanged!(null);
-            _dateTime = null;
-          }
-        },
-        onFieldSubmitted: widget.onFieldSubmitted,
-        validator: (value) {
-          if (_dateTime == null) {
-            return 'Inválido';
-          }
+//     if (pickedTime == null) {
+//       return;
+//     }
 
-          if (widget.validator != null) {
-            return widget.validator!(value);
-          }
-          return null;
-        },
-      ),
-    );
-  }
+//     // Combina fecha y hora seleccionadas
+//     final DateTime combinedDateTime = DateTime(
+//       pickedDate.year,
+//       pickedDate.month,
+//       pickedDate.day,
+//       pickedTime.hour,
+//       pickedTime.minute,
+//     );
 
-  _dateTimePicker() async {
-    if (widget.dateTime != null) {
-      widget.onChanged!(widget.dateTime!);
-    }
+//     // Formatea fecha y hora para mostrar en el campo de texto
+//     formatted = formatDateAndTimeShort(combinedDateTime);
+//     widget.controller.text = formatted;
 
-    showDialog(
-      context: context,
-      builder: (context) => Dialog(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 300, maxHeight: 300),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Expanded(
-                child: ScrollConfiguration(
-                  behavior: CustomScollBehavior(),
-                  child: CupertinoDatePicker(
-                    mode: CupertinoDatePickerMode
-                        .dateAndTime, // Use dateAndTime mode
-                    initialDateTime: _dateTime,
-                    dateOrder: DatePickerDateOrder.dmy,
-                    use24hFormat: true,
-                    onDateTimeChanged: (val) => _dateTime = val,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextButton(
-                  onPressed: () {
-                    _dateTime ??= DateTime.now();
-                    _controller.text = dateFormatter.format(_dateTime!);
-                    widget.onChanged!(_dateTime);
-                    Modular.to.pop();
-                  },
-                  child: const Text('ACEPTAR'),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+//     dtSelected = combinedDateTime;
+//     widget.selectedDate?.call(combinedDateTime);
+//   }
+// }

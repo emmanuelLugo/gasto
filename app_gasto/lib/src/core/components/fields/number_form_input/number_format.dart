@@ -1,4 +1,3 @@
-import 'package:app_gasto/src/core/components/fields/unidad_medida/unidad_medida_utils.dart';
 import 'package:intl/intl.dart';
 
 //formata por ejemplo 5000.0 => 5.000,00
@@ -46,13 +45,6 @@ String formatCurrency(double? number, int idMoeda) {
     vl = numberFormat.format(number);
   }
   return vl;
-}
-
-String qtdFormatted({
-  required String unidadeMedidaProduto,
-  required double? qtdProduto,
-}) {
-  return UnidadeMedidaUtils.format(unidadeMedidaProduto, qtdProduto ?? 0.0);
 }
 
 String formatNumeroFatura(int nroFatura) {

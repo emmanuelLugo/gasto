@@ -34,8 +34,8 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
 
   @override
   void initState() {
-    _controller.initGasto();
     super.initState();
+    _controller.initGasto();
   }
 
   @override
@@ -52,6 +52,7 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Nuevo Gasto'),
+        centerTitle: true,
       ),
       persistentFooterButtons: [
         const SizedBox(
@@ -82,9 +83,7 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
                 selectedItem: _controller.currentRecord.caixa,
                 itemToString: (caixa) =>
                     '${DateUtil.format(caixa.dtAbertura!)} - ${caixa.observacao}',
-                onChanged: (value) {
-                  _controller.setCaixa(value);
-                },
+                onChanged: _controller.setCaixa,
               ),
               const SizedBox(height: 10),
               Observer(
@@ -93,9 +92,7 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
                     date: DateTime.now().toString(),
                     controller: _dtGastoEC,
                     label: 'Fecha del Gasto',
-                    selectedDate: (newDate) {
-                      _controller.setDate(newDate);
-                    },
+                    selectedDate: _controller.setDate,
                   );
                 },
               ),
@@ -114,14 +111,11 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
               TextInputForm(
                 label: 'Observacion',
                 controller: _descricaoEC,
-                onChanged: (value) {
-                  _descricaoEC.text = value;
-                  _controller.setDescricao(value);
-                },
+                onChanged: _controller.setDescricao,
               ),
               const SizedBox(height: 10),
               NumberInputForm(
-                onChanged: (value) => _controller.setValor(value),
+                onChanged: _controller.setValor,
                 controller: _valorEC,
                 label: 'monto',
                 precision: 0,
@@ -133,7 +127,6 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
                 },
               ),
               const SizedBox(height: 10),
-              // const AddTransactionPage(),
             ],
           ),
         ),

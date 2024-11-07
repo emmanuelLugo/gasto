@@ -45,7 +45,7 @@ abstract class ConfiguracaoSistemaControllerBase with Store {
   ConfiguracaoSistemaControllerBase(
     this._configuracaoSistemaService,
   ) {
-    // _initialize();
+    _initialize();
   }
 
   @action
@@ -93,7 +93,7 @@ abstract class ConfiguracaoSistemaControllerBase with Store {
 
   Future<void> _initialize() async {
     mostrarValorDeCaixa = await _getMostraValorCaixa();
-    await handleConfiguracoesSistema();
+    // await handleConfiguracoesSistema();
   }
 
   Future<bool> _getMostraValorCaixa() async {

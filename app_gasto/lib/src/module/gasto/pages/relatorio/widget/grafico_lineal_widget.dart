@@ -1,8 +1,8 @@
 import 'package:app_gasto/src/core/components/fields/number_form_input/number_format.dart';
+import 'package:app_gasto/src/core/utils/color/colors_utils.dart';
 import 'package:app_gasto/src/module/gasto/models/caixa.dart';
 import 'package:app_gasto/src/module/gasto/models/dto/total_classificacao_gasto_dto.dart';
 import 'package:app_gasto/src/module/gasto/pages/gasto/widgets/gasto_por_classificacao_list_view.dart';
-import 'package:app_gasto/src/core/utils/color/colors_utils.dart';
 import 'package:app_gasto/src/module/gasto/pages/relatorio/relatorio_gasto_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';

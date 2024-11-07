@@ -1,8 +1,7 @@
 import 'package:app_gasto/src/core/components/fields/number_form_input/number_format.dart';
+import 'package:app_gasto/src/module/gasto/models/caixa.dart';
 import 'package:app_gasto/src/module/home/pages/configuracao_sistema_controller.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -69,7 +68,7 @@ class ValoresDisponiveisCaixaWidget extends StatelessWidget {
 
   Widget _buildCaixaCard({
     required ConfiguracaoSistemaController controller,
-    required var caixa,
+    required Caixa caixa,
     required TextStyle caixaTextStyle,
   }) {
     return Padding(
@@ -91,8 +90,8 @@ class ValoresDisponiveisCaixaWidget extends StatelessWidget {
                   builder: (_) {
                     return Text(
                       controller.mostrarValorDeCaixa
-                          ? '   ${formatCurrency(caixa.vlDisponivel(), 1)}'
-                          : r'  ******** G$',
+                          ? '   Gs. ${formatNumberByMoeda(number: caixa.vlDisponivel(), idMoeda: 1)}'
+                          : '   Gs. *********',
                       style: caixaTextStyle,
                     );
                   },

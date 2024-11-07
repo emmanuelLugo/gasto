@@ -7,6 +7,8 @@ extension SizeExtension on BuildContext {
   double get screenShortestSide => MediaQuery.of(this).size.shortestSide;
   double get screenlongestSide => MediaQuery.of(this).size.longestSide;
 
+  double get adjustedHeight => kToolbarHeight - MediaQuery.of(this).padding.top;
+
   double percentWidth(double percent) => screenWidth * percent;
   double percentHeight(double percent) => screenHeight * percent;
 

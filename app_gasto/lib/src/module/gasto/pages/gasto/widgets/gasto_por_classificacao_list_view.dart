@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 class GastoPorClassificacaoListView extends StatefulWidget {
   final TotalClassificacaoGastoDto dto;
   final List<Gasto> gastos;
-  // final RelatorioGastoController gastoController;
   const GastoPorClassificacaoListView({
     super.key,
     required this.dto,
@@ -29,12 +28,21 @@ class _GastoPorClassificacaoListViewState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('${widget.dto.descricao}')),
-      body: ListView.builder(
-        itemCount: widget.gastos.length,
-        itemBuilder: (context, index) {
-          final gasto = widget.gastos[index];
-          return CardGastoWidget(gasto: gasto);
-        },
+      body: Column(
+        children: [
+          const SizedBox(
+            height: 20,
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: widget.gastos.length,
+              itemBuilder: (context, index) {
+                final gasto = widget.gastos[index];
+                return CardGastoWidget(gasto: gasto);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

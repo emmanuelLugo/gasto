@@ -23,7 +23,7 @@ class GastoListView extends StatefulWidget {
 class _GastoListViewState extends State<GastoListView>
     with Loader, SnackbarManager {
   final _controller = Modular.get<GastoController>();
-  late final ReactionDisposer statusReactionDisposer;
+  late final ReactionDisposer _statusReactionDisposer;
 
   @override
   void initState() {
@@ -35,7 +35,7 @@ class _GastoListViewState extends State<GastoListView>
   @override
   void dispose() {
     super.dispose();
-    statusReactionDisposer();
+    _statusReactionDisposer();
   }
 
   @override
@@ -143,7 +143,7 @@ class _GastoListViewState extends State<GastoListView>
   void _initReaction() {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        statusReactionDisposer = reaction(
+        _statusReactionDisposer = reaction(
           (_) => _controller.status,
           (status) {
             switch (status) {

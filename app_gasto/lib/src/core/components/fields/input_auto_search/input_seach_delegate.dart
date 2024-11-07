@@ -51,19 +51,6 @@ class InputSeachDelegate<T> extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                // IconButton(
-                //   onPressed: () async {
-                //     if (enabled) {
-                //       final data = await showSearch(
-                //         context: context,
-                //         delegate: searchDelegate,
-                //       );
-
-                //       if (onSelected != null) onSelected!(data);
-                //     }
-                //   },
-                //   icon: const Icon(Icons.search, color: Colors.grey),
-                // ),
                 const SizedBox(
                   width: 10,
                 ),

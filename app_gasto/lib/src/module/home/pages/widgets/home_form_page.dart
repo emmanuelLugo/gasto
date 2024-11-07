@@ -48,6 +48,22 @@ class _HomeFormPageState extends State<HomeFormPage> {
     return Stack(
       children: [
         _buildBackgroundContainer(context),
+        Positioned(
+          top: -50,
+          left: -50,
+          child: CircleAvatar(
+            radius: 100,
+            backgroundColor: Colors.white.withOpacity(0.05),
+          ),
+        ),
+        Positioned(
+          top: 100,
+          right: -30,
+          child: CircleAvatar(
+            radius: 80,
+            backgroundColor: Colors.white.withOpacity(0.08),
+          ),
+        ),
         _buildValoresDisponiveisCaixa(context),
         _buildExpenseChartContainer(context),
       ],
