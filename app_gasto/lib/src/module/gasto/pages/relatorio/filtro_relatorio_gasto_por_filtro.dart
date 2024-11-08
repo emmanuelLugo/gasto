@@ -18,7 +18,7 @@ class FiltroRelatorioGastoPorFiltro extends StatefulWidget {
 class _FiltroRelatorioGastoPorFiltroState
     extends State<FiltroRelatorioGastoPorFiltro> {
   final _caixaDelegateController = Modular.get<CaixaDelegateController>();
-  final _descricaoEC = TextEditingController();
+  final _caixaEC = TextEditingController();
   final _controller = Modular.get<RelatorioGastoController>();
 
   @override
@@ -37,25 +37,11 @@ class _FiltroRelatorioGastoPorFiltroState
               InputSeachDelegate<Caixa?>(
                 label: 'Caja',
                 searchDelegate: CaixaDelegate(_caixaDelegateController),
-                controller: _descricaoEC,
+                controller: _caixaEC,
                 onSelected: (value) {
-                  // widget.descricaoEC.text = value?.observacao ?? '';
+                  _caixaEC.text = value?.observacao ?? '';
                   if (value != null) {
-                    // widget.onCaixaSelected?.call(value);
-                  }
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              InputSeachDelegate<Caixa?>(
-                label: 'Caja',
-                searchDelegate: CaixaDelegate(_caixaDelegateController),
-                controller: _descricaoEC,
-                onSelected: (value) {
-                  // widget.descricaoEC.text = value?.observacao ?? '';
-                  if (value != null) {
-                    // widget.onCaixaSelected?.call(value);
+                    _controller.setCaixaSelecionada(value);
                   }
                 },
               ),
@@ -94,7 +80,7 @@ class _FiltroRelatorioGastoPorFiltroState
   }
 
   _geraRelatorio() async {
-    await _controller.findByCondition('1 = 1 ');
+    await _controller.findByConditionCompleto('1 = 1 ');
     Modular.to.push(
       MaterialPageRoute(
           builder: (context) => RelatorioGastoPage(
