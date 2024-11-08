@@ -95,6 +95,15 @@
 		g.ID_CAIXA = #{idCaixa} AND G.BO_CANCELADO = FALSE
 	</select>
 
+	<select id="findValorTotalGastoByCondition"
+		resultType="BigDecimal" parameterType="hashMap">
+		SELECT
+		IFNULL(SUM(FIN_GASTO.VL_GASTO),0)
+		FROM FIN_GASTO FIN_GASTO
+		WHERE
+		${condition} AND FIN_GASTO.BO_CANCELADO = FALSE
+	</select>
+
 	<select id="findTotalGastoPorTipoByCaixa"
 		resultType="TotalClassificacaoGastoDto" parameterType="hashMap">
 		select

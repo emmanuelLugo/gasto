@@ -78,7 +78,7 @@ public class GastoService {
 		throw new AppException("El gasto no existe, vuelva a consultar");
 	}
 
-	public GastoDto findGastoByCaixa(Long idCaixa) {
+	public GastoDto findGastoByCaixa(Long idCaixa, Boolean mostraValorSemGastar) {
 		Optional<Caixa> caixaSelecionada = caixaRepository.findById(idCaixa);
 		BigDecimal vlCaixa = caixaSelecionada.get().getVlCaixa();
 		BigDecimal vlTotalGasto = gastoMapper.findValorTotalGastoByCaixa(idCaixa);
@@ -101,11 +101,13 @@ public class GastoService {
 		List<TotalClassificacaoGastoDto> classificacoesDto = new ArrayList<>();
 
 		// GENERA RESTANTE
-		if (vlSobrante.doubleValue() > 0) {
+
+		if (vlSobrante.doubleValue() > 0 && mostraValorSemGastar) {
 			TotalClassificacaoGastoDto clasificacionDto = new TotalClassificacaoGastoDto();
 			clasificacionDto.setIdClassificacao(0L);
 			clasificacionDto.setVlTotal(vlSobrante);
-			BigDecimal porcentaje = vlSobrante.multiply(BigDecimal.valueOf(100)).divide(vlCaixa, 2,
+			vlTotal = vlTotal.add(vlSobrante);
+			BigDecimal porcentaje = vlSobrante.multiply(BigDecimal.valueOf(100)).divide(vlTotal, 2,
 					RoundingMode.HALF_UP);
 
 			clasificacionDto.setVlPorcentagem(porcentaje);
@@ -118,7 +120,7 @@ public class GastoService {
 			BigDecimal totalClasificacion = entry.getValue();
 			String descricao = descricaoPorClasificacion.get(idClasificacion);
 
-			BigDecimal porcentaje = totalClasificacion.multiply(BigDecimal.valueOf(100)).divide(vlCaixa, 2,
+			BigDecimal porcentaje = totalClasificacion.multiply(BigDecimal.valueOf(100)).divide(vlTotal, 2,
 					RoundingMode.HALF_UP);
 
 			TotalClassificacaoGastoDto clasificacionDto = new TotalClassificacaoGastoDto();
@@ -165,6 +167,18 @@ public class GastoService {
 
 	public List<GastoPorSemanaDto> findTotalGastoPorSemana() {
 		return gastoMapper.findTotalGastoPorSemana();
+	}
+
+	public GastoDto findRelatorioGastoByCondition(String condition, int pageNum, int pageSize) {
+//		PageHelper.startPage(pageNum, pageSize);
+		BigDecimal vlTotalGasto = gastoMapper.findValorTotalGastoByCondition(condition);
+		
+//		relatorio.setRelatorio(new PageInfo<Venda>(vendas));
+
+		GastoDto dto = new GastoDto();
+//		dto.setGastos(listTotais);
+		dto.setVlTotal(vlTotalGasto);
+		return dto;
 	}
 
 }

@@ -99,6 +99,24 @@ abstract class RelatorioGastoControllerBase with Store {
   }
 
   @action
+  Future<void> findRelatorioGastoByCondition(String condition) async {
+    _status = RelatorioGastoStatusState.loading;
+    try {
+      final response = await _gastoRepository.findRelatorioGastoByCondition(
+          condition, 1, 10);
+      // gastos = response.gastos!.asObservable();
+      if (response.classificacoes != null) {
+        listDto = response.classificacoes!.asObservable();
+      }
+      vlTotal = response.vlTotal;
+      _status = RelatorioGastoStatusState.loaded;
+    } on ServiceException catch (e) {
+      message = e.message;
+      _status = RelatorioGastoStatusState.error;
+    }
+  }
+
+  @action
   Future<List<Gasto>> findByCondition(String condition) async {
     try {
       final response = await _service.findByCondition(condition);

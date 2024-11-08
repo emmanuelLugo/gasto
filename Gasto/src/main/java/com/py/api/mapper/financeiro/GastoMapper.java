@@ -20,4 +20,10 @@ public interface GastoMapper {
 	List<TotalClassificacaoGastoDto> findTotalGastoPorTipoByCaixa(Long idCaixa);
 
 	BigDecimal findValorTotalGastoByCaixa(Long idCaixa);
+	
+	BigDecimal findValorTotalGastoByCondition(String condition);
+
+
+	
+	
 }

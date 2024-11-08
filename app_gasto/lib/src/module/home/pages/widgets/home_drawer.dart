@@ -45,7 +45,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 color: const Color(0XFFEEEEEE),
                 height: 100,
                 width: 100,
-                child: customImageWidget(widget.dataShared.empresa!.urlFoto),
+                // child: customImageWidget(widget.dataShared.empresa!.urlFoto),
               ),
             ),
             Text('Saludos, ${widget.dataShared.usuario?.nome!}'),

@@ -33,12 +33,19 @@ public class GastoController {
 		gasto = gastoService.save(gasto, usuario);
 		return ResponseEntity.ok(gasto);
 	}
-	
+
 	@GetMapping("/findByConditionPage")
 	public ResponseEntity<PageInfo<Gasto>> findGastoSimplesByConditionPageInfo(@RequestParam String condition,
 			@RequestParam int pageNum, @RequestParam int pageSize) {
 		PageInfo<Gasto> list = gastoService.findGastoSimplesByConditionPageInfo(condition, pageNum, pageSize);
 		return ResponseEntity.ok(list);
+	}
+
+	@GetMapping("/findRelatorioGastoByCondition")
+	public ResponseEntity<GastoDto> findRelatorioGastoByCondition(@RequestParam String condition,
+			@RequestParam int pageNum, @RequestParam int pageSize) {
+		GastoDto dto = gastoService.findRelatorioGastoByCondition(condition, pageNum, pageSize);
+		return ResponseEntity.ok(dto);
 	}
 
 	@GetMapping("/findByCondition")
@@ -55,7 +62,7 @@ public class GastoController {
 
 	@GetMapping("/findGastoByCaixa/{idCaixa}")
 	public ResponseEntity<GastoDto> findGastoByCaixa(@PathVariable Long idCaixa) {
-		GastoDto gastoDto = gastoService.findGastoByCaixa(idCaixa);
+		GastoDto gastoDto = gastoService.findGastoByCaixa(idCaixa, false);
 		return ResponseEntity.ok(gastoDto);
 	}
 
@@ -70,7 +77,7 @@ public class GastoController {
 		GastoDto gastoDto = gastoService.findTotalGastoPorTipoByCaixa(idCaixa);
 		return ResponseEntity.ok(gastoDto);
 	}
-	
+
 	@GetMapping("/findTotalGastoPorSemana")
 	public ResponseEntity<List<GastoPorSemanaDto>> findTotalGastoPorSemana() {
 		List<GastoPorSemanaDto> gastoDto = gastoService.findTotalGastoPorSemana();

@@ -151,6 +151,16 @@ mixin _$RelatorioGastoController on RelatorioGastoControllerBase, Store {
         .run(() => super.findTotalGastoPorClassificacaoByCaixa(idCaixa));
   }
 
+  late final _$findRelatorioGastoByConditionAsyncAction = AsyncAction(
+      'RelatorioGastoControllerBase.findRelatorioGastoByCondition',
+      context: context);
+
+  @override
+  Future<void> findRelatorioGastoByCondition(String condition) {
+    return _$findRelatorioGastoByConditionAsyncAction
+        .run(() => super.findRelatorioGastoByCondition(condition));
+  }
+
   late final _$findByConditionAsyncAction = AsyncAction(
       'RelatorioGastoControllerBase.findByCondition',
       context: context);

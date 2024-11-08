@@ -17,20 +17,27 @@ String formatDate(String? date) {
   return dtFormatedd;
 }
 
+String formatDateSql(String? date) {
+  if (date == null || date.isEmpty) {
+    return '';
+  }
+  late DateTime dateTime;
+  if (date.contains(" ")) {
+    date = date.split(" ")[0];
+    dateTime = DateFormat("yyyy-MM-dd").parse(date, true);
+  } else {
+    dateTime = DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(date, true);
+  }
+  final dateFormatter = DateFormat('yyyy-MM-dd', 'es_PY');
+  final dtFormatedd = dateFormatter.format(dateTime.toLocal());
+  return dtFormatedd;
+}
+
 String formatDateTime(DateTime? date) {
   if (date == null) {
     return '';
   }
   final dateFormatter = DateFormat('dd/MM/yyyy', 'es_PY');
-  final dtFormatedd = dateFormatter.format(date.toLocal());
-  return dtFormatedd;
-}
-
-String formatDateAndTime(DateTime? date) {
-  if (date == null) {
-    return '';
-  }
-  final dateFormatter = DateFormat('dd/MM/yyyy HH:mm:ss', 'es_PY');
   final dtFormatedd = dateFormatter.format(date.toLocal());
   return dtFormatedd;
 }
@@ -41,17 +48,6 @@ String formatDateAndTimeShort(DateTime? date) {
   }
   final dateFormatter = DateFormat('dd/MM/yyyy HH:mm', 'es_PY');
   final dtFormatedd = dateFormatter.format(date.toLocal());
-  return dtFormatedd;
-}
-
-String formatDateNameFoto(String? date) {
-  if (date == null || date.isEmpty) {
-    return '';
-  }
-  // var dateTime = DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(date, true);
-  final dateTime = DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(date, true);
-  final dateFormatter = DateFormat('dd MM yy HH mm ss', 'es_PY');
-  final dtFormatedd = dateFormatter.format(dateTime.toLocal());
   return dtFormatedd;
 }
 

@@ -1,3 +1,4 @@
+import 'package:app_gasto/src/core/components/fields/number_form_input/number_format.dart';
 import 'package:app_gasto/src/core/pagination/footer_pagination_bar.dart';
 import 'package:app_gasto/src/module/gasto/pages/gasto/widgets/card_gasto_widget.dart';
 import 'package:app_gasto/src/module/gasto/pages/relatorio/relatorio_gasto_controller.dart';
@@ -34,7 +35,7 @@ class RelatorioGastoPage extends StatelessWidget {
           Observer(
             builder: (_) {
               return Text(
-                'total de gasto: ${controller.vlTotal}',
+                'total de gasto: ${formatCurrency(controller.vlTotal, 1)}',
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               );

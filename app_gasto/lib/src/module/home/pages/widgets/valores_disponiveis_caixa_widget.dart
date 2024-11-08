@@ -82,6 +82,7 @@ class ValoresDisponiveisCaixaWidget extends StatelessWidget {
             Text(
               caixa.observacao ?? '',
               style: caixaTextStyle,
+              textAlign: TextAlign.center,
             ),
             Row(
               mainAxisSize: MainAxisSize.min,

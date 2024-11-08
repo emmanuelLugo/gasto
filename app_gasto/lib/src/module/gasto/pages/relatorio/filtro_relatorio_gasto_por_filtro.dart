@@ -1,3 +1,4 @@
+import 'package:app_gasto/src/core/components/fields/date_form_input/date_formatted.dart';
 import 'package:app_gasto/src/core/components/fields/input_auto_search/input_seach_delegate.dart';
 import 'package:app_gasto/src/module/gasto/models/caixa.dart';
 import 'package:app_gasto/src/module/gasto/pages/relatorio/relatorio_gasto_controller.dart';
@@ -80,7 +81,10 @@ class _FiltroRelatorioGastoPorFiltroState
                   Expanded(
                     child: ElevatedButton(
                         onPressed: () {
-                          _geraRelatorio();
+                          DateTime dt = DateTime.now();
+                          String condition =
+                              "1 = 1 AND DATE(FIN_GASTO.DT_GASTO) BETWEEN DATE('${formatDateSql(dt.toString())}') AND DATE('${formatDateSql(dt.toString())}')";
+                          _geraRelatorio(condition);
                         },
                         child: const Text('hoy')),
                   ),
@@ -93,8 +97,8 @@ class _FiltroRelatorioGastoPorFiltroState
     );
   }
 
-  _geraRelatorio() async {
-    await _controller.findByCondition('1 = 1 ');
+  _geraRelatorio(String condition) async {
+    await _controller.findRelatorioGastoByCondition(condition);
     Modular.to.push(
       MaterialPageRoute(
           builder: (context) => RelatorioGastoPage(
