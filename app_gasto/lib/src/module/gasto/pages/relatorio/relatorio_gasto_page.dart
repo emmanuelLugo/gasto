@@ -18,12 +18,12 @@ class RelatorioGastoPage extends StatelessWidget {
       persistentFooterButtons: [
         Observer(
           builder: (_) => FooterPaginationBar(
-            paginaAtual: 1,
-            setPagAtual: (i) => 1 + 1,
-            pageSize: 15,
-            isLastPage: true,
-            totalRegistros: 15,
-            pages: 5,
+            paginaAtual: controller.pagination.pageNr,
+            setPagAtual: (i) => controller.setPaginaAtual(i),
+            pageSize: controller.pagination.pageSize,
+            isLastPage: controller.pagination.isLastPage,
+            totalRegistros: controller.pagination.totalRegistros,
+            pages: controller.pagination.pages,
           ),
         ),
       ],
@@ -45,6 +45,9 @@ class RelatorioGastoPage extends StatelessWidget {
           Expanded(
             child: Observer(
               builder: (_) {
+                if (controller.status == RelatorioGastoStatusState.loading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
                 return ListView.separated(
                   shrinkWrap: true,
                   itemCount: controller.gastos.length,

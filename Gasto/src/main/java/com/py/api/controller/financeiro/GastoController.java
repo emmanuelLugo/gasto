@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.pagehelper.PageInfo;
 import com.py.api.model.dto.GastoDto;
 import com.py.api.model.dto.GastoPorSemanaDto;
+import com.py.api.model.dto.RelatorioGastoDto;
 import com.py.api.model.dto.TotalClassificacaoGastoDto;
 import com.py.api.model.entity.Gasto;
 import com.py.api.service.financeiro.GastoService;
@@ -42,9 +43,9 @@ public class GastoController {
 	}
 
 	@GetMapping("/findRelatorioGastoByCondition")
-	public ResponseEntity<GastoDto> findRelatorioGastoByCondition(@RequestParam String condition,
+	public ResponseEntity<RelatorioGastoDto> findRelatorioGastoByCondition(@RequestParam String condition,
 			@RequestParam int pageNum, @RequestParam int pageSize) {
-		GastoDto dto = gastoService.findRelatorioGastoByCondition(condition, pageNum, pageSize);
+		RelatorioGastoDto dto = gastoService.findRelatorioGastoByCondition(condition, pageNum, pageSize);
 		return ResponseEntity.ok(dto);
 	}
 

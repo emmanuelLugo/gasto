@@ -84,9 +84,7 @@ class _CaixaPageState extends State<CaixaPage> {
               label: 'Descripción',
               controller: _observacaoEC,
               validator: Validatorless.required('El Campo es Requerido'),
-              onChanged: (value) {
-                _controller.setObservacao(value);
-              },
+              onChanged: _controller.setObservacao,
             ),
             const SizedBox(
               height: 20,
@@ -95,18 +93,17 @@ class _CaixaPageState extends State<CaixaPage> {
               label: 'Fecha del Apertura',
               controller: _dtAberturaEC,
               date: _controller.currentRecord.dtAbertura!.toString(),
-              selectedDate: (newDate) {
-                _controller.setDtAbertura(newDate);
-              },
+              selectedDate: _controller.setDtAbertura,
             ),
             const SizedBox(
               height: 20,
             ),
             NumberInputForm(
-              onChanged: (value) => _controller.setVlCaixa(value),
+          
               controller: _valorCaixaEC,
               label: 'Valor apertura',
               precision: 0,
+                  onChanged: (value) => _controller.setVlCaixa(value),
               validator: (value) {
                 if (value == null || value <= 0) {
                   // return 'El monto no puede ser vacío o igual a cero';

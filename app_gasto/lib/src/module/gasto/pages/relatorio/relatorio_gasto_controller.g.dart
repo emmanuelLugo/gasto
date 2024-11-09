@@ -123,6 +123,38 @@ mixin _$RelatorioGastoController on RelatorioGastoControllerBase, Store {
     });
   }
 
+  late final _$paginationAtom =
+      Atom(name: 'RelatorioGastoControllerBase.pagination', context: context);
+
+  @override
+  Pagination get pagination {
+    _$paginationAtom.reportRead();
+    return super.pagination;
+  }
+
+  @override
+  set pagination(Pagination value) {
+    _$paginationAtom.reportWrite(value, super.pagination, () {
+      super.pagination = value;
+    });
+  }
+
+  late final _$conditionAtom =
+      Atom(name: 'RelatorioGastoControllerBase.condition', context: context);
+
+  @override
+  String get condition {
+    _$conditionAtom.reportRead();
+    return super.condition;
+  }
+
+  @override
+  set condition(String value) {
+    _$conditionAtom.reportWrite(value, super.condition, () {
+      super.condition = value;
+    });
+  }
+
   late final _$initGastoAsyncAction =
       AsyncAction('RelatorioGastoControllerBase.initGasto', context: context);
 
@@ -156,9 +188,9 @@ mixin _$RelatorioGastoController on RelatorioGastoControllerBase, Store {
       context: context);
 
   @override
-  Future<void> findRelatorioGastoByCondition(String condition) {
+  Future<void> findRelatorioGastoByCondition() {
     return _$findRelatorioGastoByConditionAsyncAction
-        .run(() => super.findRelatorioGastoByCondition(condition));
+        .run(() => super.findRelatorioGastoByCondition());
   }
 
   late final _$findByConditionAsyncAction = AsyncAction(
@@ -193,7 +225,9 @@ gastos: ${gastos},
 listDto: ${listDto},
 caixaSelecionada: ${caixaSelecionada},
 caixas: ${caixas},
-vlTotal: ${vlTotal}
+vlTotal: ${vlTotal},
+pagination: ${pagination},
+condition: ${condition}
     ''';
   }
 }

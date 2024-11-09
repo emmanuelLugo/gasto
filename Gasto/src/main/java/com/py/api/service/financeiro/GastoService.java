@@ -19,6 +19,7 @@ import com.py.api.exception.AppException;
 import com.py.api.mapper.financeiro.GastoMapper;
 import com.py.api.model.dto.GastoDto;
 import com.py.api.model.dto.GastoPorSemanaDto;
+import com.py.api.model.dto.RelatorioGastoDto;
 import com.py.api.model.dto.TotalClassificacaoGastoDto;
 import com.py.api.model.entity.Caixa;
 import com.py.api.model.entity.Gasto;
@@ -101,7 +102,6 @@ public class GastoService {
 		List<TotalClassificacaoGastoDto> classificacoesDto = new ArrayList<>();
 
 		// GENERA RESTANTE
-
 		if (vlSobrante.doubleValue() > 0 && mostraValorSemGastar) {
 			TotalClassificacaoGastoDto clasificacionDto = new TotalClassificacaoGastoDto();
 			clasificacionDto.setIdClassificacao(0L);
@@ -169,14 +169,13 @@ public class GastoService {
 		return gastoMapper.findTotalGastoPorSemana();
 	}
 
-	public GastoDto findRelatorioGastoByCondition(String condition, int pageNum, int pageSize) {
-//		PageHelper.startPage(pageNum, pageSize);
+	public RelatorioGastoDto findRelatorioGastoByCondition(String condition, int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<Gasto> gastos = gastoMapper.findByCondition(condition);
+		PageInfo<Gasto> listGastos = new PageInfo<>(gastos);
 		BigDecimal vlTotalGasto = gastoMapper.findValorTotalGastoByCondition(condition);
-		
-//		relatorio.setRelatorio(new PageInfo<Venda>(vendas));
-
-		GastoDto dto = new GastoDto();
-//		dto.setGastos(listTotais);
+		RelatorioGastoDto dto = new RelatorioGastoDto();
+		dto.setRelatorio(listGastos);
 		dto.setVlTotal(vlTotalGasto);
 		return dto;
 	}

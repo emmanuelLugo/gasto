@@ -4,6 +4,7 @@ import 'package:app_gasto/src/core/exceptions/repository_exception.dart';
 import 'package:app_gasto/src/core/exceptions/service_exception.dart';
 import 'package:app_gasto/src/module/gasto/models/gasto.dart';
 import 'package:app_gasto/src/module/gasto/repositories/gasto_repository.dart';
+import 'package:dio/dio.dart';
 
 class GastoService {
   final GastoRepository _repository;
@@ -61,6 +62,20 @@ class GastoService {
     try {
       final response = await _repository.findByConditionPage(
         sql,
+        pageNum,
+        pageSize,
+      );
+      return response;
+    } on RepositoryException catch (e) {
+      throw ServiceException(message: ExceptionUtils.getExceptionMessage(e));
+    }
+  }
+
+  Future<RestClientResponse> findRelatorioGastoByCondition(
+      String condition, int pageNum, int pageSize) async {
+    try {
+      final response = await _repository.findRelatorioGastoByCondition(
+        condition,
         pageNum,
         pageSize,
       );

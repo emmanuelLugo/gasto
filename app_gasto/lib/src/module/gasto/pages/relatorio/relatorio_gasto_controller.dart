@@ -1,8 +1,10 @@
 import 'package:app_gasto/src/core/exceptions/service_exception.dart';
 import 'package:app_gasto/src/module/core/shared/data_shared.dart';
 import 'package:app_gasto/src/module/gasto/models/caixa.dart';
-import 'package:app_gasto/src/module/gasto/models/gasto.dart';
 import 'package:app_gasto/src/module/gasto/models/dto/total_classificacao_gasto_dto.dart';
+import 'package:app_gasto/src/module/gasto/models/gasto.dart';
+import 'package:app_gasto/src/module/gasto/pages/gasto/page_info_generic.dart';
+import 'package:app_gasto/src/module/gasto/pages/gasto/pagination.dart';
 import 'package:app_gasto/src/module/gasto/repositories/gasto_repository.dart';
 import 'package:app_gasto/src/module/gasto/services/gasto_service.dart';
 import 'package:mobx/mobx.dart';
@@ -49,6 +51,12 @@ abstract class RelatorioGastoControllerBase with Store {
   @observable
   double? vlTotal = 0.0;
 
+  @observable
+  Pagination pagination = Pagination(pageSize: 30);
+
+  @observable
+  String condition = '';
+
   @action
   Future<void> initGasto() async {
     caixas = _dataShared.caixasAbertas ?? [];
@@ -56,6 +64,11 @@ abstract class RelatorioGastoControllerBase with Store {
       caixaSelecionada = _dataShared.caixasAbertas![0];
       caixas = _dataShared.caixasAbertas ?? [];
     }
+  }
+
+  void setPaginaAtual(int pg) {
+    pagination.pageNr = pg;
+    findRelatorioGastoByCondition();
   }
 
   @action
@@ -99,16 +112,24 @@ abstract class RelatorioGastoControllerBase with Store {
   }
 
   @action
-  Future<void> findRelatorioGastoByCondition(String condition) async {
+  Future<void> findRelatorioGastoByCondition() async {
     _status = RelatorioGastoStatusState.loading;
     try {
-      final response = await _gastoRepository.findRelatorioGastoByCondition(
-          condition, 1, 10);
-      // gastos = response.gastos!.asObservable();
-      if (response.classificacoes != null) {
-        listDto = response.classificacoes!.asObservable();
+      final response = await _service.findRelatorioGastoByCondition(
+          condition, pagination.pageNr, pagination.pageSize);
+
+      if (response.data != null) {
+        vlTotal = response.data!['vlTotal'];
       }
-      vlTotal = response.vlTotal;
+      final PageInfoGeneric<Gasto> relatorio =
+          PageInfoGeneric.fromJson(response.data['relatorio']);
+      gastos = relatorio.list!.asObservable();
+      pagination.totalRegistros = relatorio.total;
+      pagination.pages = relatorio.pages;
+      pagination.size = relatorio.size;
+      pagination.pageTotal = relatorio.total;
+      pagination.isLastPage = relatorio.isLastPage;
+
       _status = RelatorioGastoStatusState.loaded;
     } on ServiceException catch (e) {
       message = e.message;

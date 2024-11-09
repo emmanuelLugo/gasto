@@ -51,28 +51,16 @@ class GastoRepository {
     }
   }
 
-  Future<GastoDto> findRelatorioGastoByCondition(
+  Future<RestClientResponse> findRelatorioGastoByCondition(
       String condition, int pageNum, int pageSize) async {
     try {
-      final dto = GastoDto();
-
       final response = await restClient
           .get('/gasto/findRelatorioGastoByCondition', queryParameters: {
         'condition': condition,
         'pageNum': pageNum,
         'pageSize': pageSize,
       });
-      final gastos = response.data['gastos'];
-      if (gastos != null) {
-        dto.gastos = gastos.map<Gasto>((e) => Gasto.fromJson(e)).toList();
-      }
-
-      if (response.data['vlTotal'] == 0) {
-        dto.vlTotal = 0.0;
-      } else {
-        dto.vlTotal = response.data['vlTotal'];
-      }
-      return dto;
+      return response;
     } on Exception catch (e) {
       throw ServiceException(message: ExceptionUtils.getExceptionMessage(e));
     }

@@ -24,9 +24,9 @@ String formatDateSql(String? date) {
   late DateTime dateTime;
   if (date.contains(" ")) {
     date = date.split(" ")[0];
-    dateTime = DateFormat("yyyy-MM-dd").parse(date, true);
+    dateTime = DateFormat("yyyy-MM-dd").parse(date);
   } else {
-    dateTime = DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(date, true);
+    dateTime = DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(date);
   }
   final dateFormatter = DateFormat('yyyy-MM-dd', 'es_PY');
   final dtFormatedd = dateFormatter.format(dateTime.toLocal());
@@ -262,6 +262,13 @@ String getDay(String date) {
 String convertToNamedMonth(String mes) {
   final dateTime = DateFormat("yyyy-MM-dd").parse(mes, true);
   final dateFormatter = DateFormat('MMM/yy', 'es_PY');
+  final dtFormatedd = dateFormatter.format(dateTime);
+  return dtFormatedd.toUpperCase();
+}
+
+String getMonthString(String date) {
+  final dateTime = DateFormat("yyyy-MM-dd").parse(date, true);
+  final dateFormatter = DateFormat('MMMM', 'es_PY');
   final dtFormatedd = dateFormatter.format(dateTime);
   return dtFormatedd.toUpperCase();
 }

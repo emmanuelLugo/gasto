@@ -5,7 +5,7 @@ mixin SnackbarManager<T extends StatefulWidget> on State<T> {
   static const int defaultDuration = 2500;
 
   void showSuccess(String? text,
-      {bool behaviorFloating = true,
+      {bool behaviorFloating = false,
       int durationMilliSecond = defaultDuration}) {
     _show(
       text ?? defaultMessage,
@@ -52,7 +52,8 @@ mixin SnackbarManager<T extends StatefulWidget> on State<T> {
       int durationMilliSecond) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     final snackBar = SnackBar(
-      behavior: SnackBarBehavior.floating,
+      behavior:
+          behaviorFloating ? SnackBarBehavior.floating : SnackBarBehavior.fixed,
       content: Text(
         text,
         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
