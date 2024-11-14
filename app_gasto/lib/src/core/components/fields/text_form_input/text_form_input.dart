@@ -16,6 +16,7 @@ class TextInputForm extends StatelessWidget {
   final bool? enabled;
   final TextAlign? textAlign;
   final Widget? suffixIcon;
+  final Widget? prefixIcon;
   final String? initialValue;
   final int? maxLines;
   final int? maxLength;
@@ -46,6 +47,7 @@ class TextInputForm extends StatelessWidget {
     this.contentPadding,
     this.maxLength,
     this.suffixText,
+    this.prefixIcon,
   });
 
   @override
@@ -70,6 +72,7 @@ class TextInputForm extends StatelessWidget {
         suffixIcon: suffixIcon,
         alignLabelWithHint: true,
         suffixText: suffixText,
+        prefixIcon: prefixIcon,
       ),
       validator: validator,
       controller: controller,

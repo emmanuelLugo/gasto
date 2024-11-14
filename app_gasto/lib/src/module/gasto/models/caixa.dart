@@ -40,6 +40,8 @@ class Caixa {
 
   String get status => isAberto! ? 'ABiERTO' : 'CERRADO';
 
+  String get statusCaixa => isAberto! ? 'Cuenta Abierta' : 'Cuenta Cerrada';
+
   Caixa copyWith({
     int? id,
     String? observacao,

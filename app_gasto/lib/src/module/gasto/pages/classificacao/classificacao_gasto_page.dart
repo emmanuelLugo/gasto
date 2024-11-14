@@ -1,5 +1,7 @@
 import 'package:app_gasto/src/core/components/fields/input_auto_search/input_seach_delegate.dart';
 import 'package:app_gasto/src/core/components/fields/text_form_input/text_form_input.dart';
+import 'package:app_gasto/src/core/ui/styles/colors_app.dart';
+import 'package:app_gasto/src/core/ui/widget/custom_app_bar.dart';
 import 'package:app_gasto/src/module/gasto/models/tipo_gasto.dart';
 import 'package:app_gasto/src/module/gasto/pages/classificacao/classificacao_gasto_controller.dart';
 import 'package:app_gasto/src/module/gasto/pages/delegate/tipo_gasto_delegate.dart';
@@ -46,16 +48,15 @@ class _ClassificacaoGastoPageState extends State<ClassificacaoGastoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Nueva Clasificación Gasto'),
+      appBar: const CustomAppBarWidget(
+        title: 'Nueva Clasificación Gasto',
       ),
-      persistentFooterButtons: [
-        ElevatedButton.icon(
-          onPressed: () => _save(),
-          icon: const Icon(Icons.save),
-          label: const Text('Guardar'),
-        ),
-      ],
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: ColorsApp.instance.primary,
+        onPressed: () => _save(),
+        label: const Text('Guardar', style: TextStyle(color: Colors.white)),
+        icon: const Icon(Icons.save, color: Colors.white),
+      ),
       body: _buildBody(),
     );
   }
@@ -64,27 +65,28 @@ class _ClassificacaoGastoPageState extends State<ClassificacaoGastoPage> {
     return Form(
       key: _formKey,
       child: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Observer(
-                  builder: (_) {
-                    return Switch(
-                        value: _controller.currentRecord.ativo ?? false,
-                        onChanged: _controller.setAtivo);
-                  },
-                ),
-                Observer(
-                  builder: (_) {
-                    return Text(
-                      _controller.currentRecord.status(),
-                    );
-                  },
-                ),
-              ],
+            Observer(
+              builder: (_) {
+                return ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: const Text(
+                    'Estado',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text(
+                    _controller.currentRecord.status(),
+                    style: const TextStyle(fontSize: 14),
+                  ),
+                  trailing: Switch(
+                    value: _controller.currentRecord.ativo ?? false,
+                    // activeColor: Colors.blueAccent,
+                    onChanged: _controller.setAtivo,
+                  ),
+                );
+              },
             ),
             const SizedBox(height: 10),
             TextInputForm(

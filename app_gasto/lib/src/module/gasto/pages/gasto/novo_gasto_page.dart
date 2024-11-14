@@ -3,6 +3,8 @@ import 'package:app_gasto/src/core/components/fields/date_form_input/date_form_i
 import 'package:app_gasto/src/core/components/fields/input_auto_search/input_seach_delegate.dart';
 import 'package:app_gasto/src/core/components/fields/number_form_input/number_input_form.dart';
 import 'package:app_gasto/src/core/components/fields/text_form_input/text_form_input.dart';
+import 'package:app_gasto/src/core/ui/styles/colors_app.dart';
+import 'package:app_gasto/src/core/ui/widget/custom_app_bar.dart';
 import 'package:app_gasto/src/core/utils/date/date_util.dart';
 import 'package:app_gasto/src/module/core/shared/data_shared.dart';
 import 'package:app_gasto/src/module/gasto/models/caixa.dart';
@@ -50,27 +52,22 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Nuevo Gasto'),
-        centerTitle: true,
+      appBar: const CustomAppBarWidget(
+        title: 'Nuevo Gasto',
       ),
-      persistentFooterButtons: [
-        const SizedBox(
-          height: 10,
-        ),
-        ElevatedButton.icon(
-          onPressed: () => _save(),
-          icon: const Icon(Icons.save),
-          label: const Text('guardar'),
-        ),
-      ],
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: ColorsApp.instance.primary,
+        onPressed: () => _save(),
+        label: const Text('Guardar', style: TextStyle(color: Colors.white)),
+        icon: const Icon(Icons.save, color: Colors.white),
+      ),
       body: _buildBody(),
     );
   }
 
   Widget _buildBody() {
     return Padding(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(20),
       child: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -85,7 +82,7 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
                     '${DateUtil.format(caixa.dtAbertura!)} - ${caixa.observacao}',
                 onChanged: _controller.setCaixa,
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 12),
               Observer(
                 builder: (_) {
                   return DateFormInput(
@@ -96,7 +93,7 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
                   );
                 },
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 12),
               InputSeachDelegate<ClassificacaoGasto?>(
                 label: 'Clasificación',
                 searchDelegate:
@@ -107,13 +104,13 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
                   _controller.setClassificacao(value);
                 },
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 12),
               TextInputForm(
                 label: 'Observacion',
                 controller: _descricaoEC,
                 onChanged: _controller.setDescricao,
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 12),
               NumberInputForm(
                 onChanged: _controller.setValor,
                 controller: _valorEC,
@@ -134,9 +131,9 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
     );
   }
 
-  void _save() {
+  Future<void> _save() async {
     if (_formKey.currentState!.validate()) {
-      _controller.save();
+      await _controller.save();
     }
   }
 }

@@ -2,6 +2,7 @@ import 'package:app_gasto/src/core/components/fields/date_form_input/date_form_i
 import 'package:app_gasto/src/core/components/fields/number_form_input/number_format.dart';
 import 'package:app_gasto/src/core/components/fields/number_form_input/number_input_form.dart';
 import 'package:app_gasto/src/core/components/fields/text_form_input/text_form_input.dart';
+import 'package:app_gasto/src/core/ui/widget/custom_app_bar.dart';
 import 'package:app_gasto/src/module/gasto/pages/caixa/caixa_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -20,7 +21,6 @@ class _CaixaPageState extends State<CaixaPage> {
   final _observacaoEC = TextEditingController();
   final _dtAberturaEC = TextEditingController();
   final _valorCaixaEC = TextEditingController();
-  final _dtCaixaEC = TextEditingController();
 
   @override
   void initState() {
@@ -30,9 +30,9 @@ class _CaixaPageState extends State<CaixaPage> {
 
   void _carregaDatos() {
     if (_controller.currentRecord.id != null) {
-      _observacaoEC.text = _controller.currentRecord.observacao!;
+      _observacaoEC.text = _controller.currentRecord.observacao ?? '';
       _dtAberturaEC.text =
-          _controller.currentRecord.dtAbertura!.toString().split(' ')[0];
+          _controller.currentRecord.dtAbertura?.toString().split(' ')[0] ?? '';
       _valorCaixaEC.text = formatNumberByMoeda(
           number: _controller.currentRecord.vlCaixa ?? 0, idMoeda: 1);
     }
@@ -44,75 +44,100 @@ class _CaixaPageState extends State<CaixaPage> {
     _observacaoEC.dispose();
     _dtAberturaEC.dispose();
     _valorCaixaEC.dispose();
-    _dtCaixaEC.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-            '${_controller.currentRecord.id != null ? 'Editar' : 'Nueva'} '),
+      appBar: CustomAppBarWidget(
+        title: _controller.currentRecord.id != null
+            ? 'Editar Cuenta'
+            : 'Nueva Cuenta',
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh, color: Colors.white),
+            onPressed: _carregaDatos,
+          ),
+        ],
       ),
       persistentFooterButtons: [
-        OutlinedButton.icon(
-          onPressed: () =>
-              _controller.atualizaStatusCaixa(_controller.currentRecord),
-          icon: const Icon(Icons.close),
-          label:
-              Text(_controller.currentRecord.isAberto! ? 'Cerrar' : 'Reabrir'),
-        ),
-        if (_controller.currentRecord.isAberto!)
-          ElevatedButton.icon(
-            onPressed: () => _save(),
-            icon: const Icon(Icons.save),
-            label: const Text('Guardar'),
+        if (_controller.currentRecord.id != null)
+          OutlinedButton.icon(
+            onPressed: () =>
+                _controller.atualizaStatusCaixa(_controller.currentRecord),
+            icon: Icon(
+              _controller.currentRecord.isAberto!
+                  ? Icons.lock_open
+                  : Icons.lock,
+              color: _controller.currentRecord.isAberto!
+                  ? Colors.green
+                  : Colors.red,
+            ),
+            label: Text(
+                _controller.currentRecord.isAberto! ? 'Cerrar' : 'Reabrir'),
           ),
+        ElevatedButton.icon(
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+            // shape: RoundedRectangleBorder(
+            //   borderRadius: BorderRadius.circular(30),
+            // ),
+          ),
+          onPressed: _controller.currentRecord.isAberto! ? _save : null,
+          icon: const Icon(Icons.save),
+          label: const Text('Guardar'),
+        ),
       ],
       body: _buildBody(),
     );
   }
 
   Widget _buildBody() {
-    return Form(
-      key: _formKey,
+    return SingleChildScrollView(
+      child: Form(
+        key: _formKey,
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildStatusInfo(),
+              const SizedBox(height: 20),
+              _buildInputFields(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStatusInfo() {
+    return Card(
+      color: _controller.currentRecord.isAberto!
+          ? Colors.green[100]
+          : Colors.red[100],
       child: Padding(
         padding: const EdgeInsets.all(12),
-        child: Column(
+        child: Row(
           children: [
-            TextInputForm(
-              label: 'Descripción',
-              controller: _observacaoEC,
-              validator: Validatorless.required('El Campo es Requerido'),
-              onChanged: _controller.setObservacao,
+            Icon(
+              _controller.currentRecord.isAberto!
+                  ? Icons.check_circle
+                  : Icons.warning,
+              color: _controller.currentRecord.isAberto!
+                  ? Colors.green
+                  : Colors.red,
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            DateFormInput(
-              label: 'Fecha del Apertura',
-              controller: _dtAberturaEC,
-              date: _controller.currentRecord.dtAbertura!.toString(),
-              selectedDate: _controller.setDtAbertura,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            NumberInputForm(
-          
-              controller: _valorCaixaEC,
-              label: 'Valor apertura',
-              precision: 0,
-                  onChanged: (value) => _controller.setVlCaixa(value),
-              validator: (value) {
-                if (value == null || value <= 0) {
-                  // return 'El monto no puede ser vacío o igual a cero';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(
-              height: 20,
+            const SizedBox(width: 10),
+            Text(
+              _controller.currentRecord.statusCaixa,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: _controller.currentRecord.isAberto!
+                    ? Colors.green
+                    : Colors.red,
+              ),
             ),
           ],
         ),
@@ -120,9 +145,46 @@ class _CaixaPageState extends State<CaixaPage> {
     );
   }
 
-  void _save() {
+  Widget _buildInputFields() {
+    return Column(
+      children: [
+        TextInputForm(
+          label: 'Descripción',
+          controller: _observacaoEC,
+          validator: Validatorless.required('El Campo es Requerido'),
+          onChanged: _controller.setObservacao,
+          prefixIcon: const Icon(Icons.description),
+        ),
+        const SizedBox(height: 20),
+        DateFormInput(
+          label: 'Fecha de Apertura',
+          controller: _dtAberturaEC,
+          date: _controller.currentRecord.dtAbertura?.toString() ?? '',
+          selectedDate: _controller.setDtAbertura,
+          prefixIcon: const Icon(Icons.date_range),
+        ),
+        const SizedBox(height: 20),
+        NumberInputForm(
+          controller: _valorCaixaEC,
+          label: 'Valor Apertura',
+          precision: 0,
+          onChanged: _controller.setVlCaixa,
+          validator: (value) {
+            if (value == null || value <= 0) {
+              // return 'El monto no puede ser vacío o igual a cero';
+            }
+            return null;
+          },
+          prefixIcon: const Icon(Icons.monetization_on),
+        ),
+        const SizedBox(height: 20),
+      ],
+    );
+  }
+
+  Future<void> _save() async {
     if (_formKey.currentState!.validate()) {
-      _controller.save();
+      await _controller.save();
     }
   }
 }

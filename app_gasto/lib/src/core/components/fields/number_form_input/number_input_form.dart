@@ -18,6 +18,7 @@ class NumberInputForm extends StatefulWidget {
   final int precision;
   final TextEditingController? controller;
   final double? initialValue;
+  final Widget? prefixIcon;
 
   const NumberInputForm({
     super.key,
@@ -35,6 +36,7 @@ class NumberInputForm extends StatefulWidget {
     this.validator,
     this.controller,
     this.initialValue,
+    this.prefixIcon,
   });
 
   @override
@@ -97,6 +99,7 @@ class NumberFormInputState extends State<NumberInputForm> {
         }
         return null;
       },
+      prefixIcon: widget.prefixIcon,
     );
   }
 

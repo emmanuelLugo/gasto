@@ -17,8 +17,8 @@ class RestClient implements IRestClient {
   final BaseOptions _baseOptions = BaseOptions(
     baseUrl: Hostname.instance.ip,
     followRedirects: false,
-    connectTimeout: const Duration(seconds: 120),
-    receiveTimeout: const Duration(seconds: 30),
+    connectTimeout: const Duration(seconds: 10),
+    receiveTimeout: const Duration(seconds: 10),
   );
 
   RestClient() {

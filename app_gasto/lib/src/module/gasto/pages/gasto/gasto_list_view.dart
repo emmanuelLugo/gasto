@@ -41,7 +41,6 @@ class _GastoListViewState extends State<GastoListView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFf9faf4),
       appBar: SearchAppBarWidget(
           onSearch: (value) => _controller.findByConditionPage(value),
           hintText: 'Buscar por Descripción'),

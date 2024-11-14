@@ -14,9 +14,6 @@ class CardGastoWidget extends StatelessWidget {
       color: isCancelado ? Colors.red : Colors.black,
     );
     return Card(
-      elevation: 2,
-      color: Colors.white,
-      surfaceTintColor: Colors.white,
       child: ListTile(
         title: Row(
           children: [

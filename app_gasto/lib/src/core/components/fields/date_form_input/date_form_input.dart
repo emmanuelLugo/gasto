@@ -14,6 +14,7 @@ class DateFormInput extends StatefulWidget {
   final double? fontSize;
   final bool? enabled;
   final DateTime? firstDate;
+  final Widget? prefixIcon;
 
   const DateFormInput({
     super.key,
@@ -26,6 +27,7 @@ class DateFormInput extends StatefulWidget {
     this.fontSize,
     this.enabled = true,
     this.firstDate,
+    this.prefixIcon,
   });
 
   @override
@@ -53,12 +55,13 @@ class DateFormInputState extends State<DateFormInput> {
       onTap: widget.enabled == true ? () => _onPressed() : null,
       child: AbsorbPointer(
         child: TextInputForm(
+          prefixIcon: widget.prefixIcon,
           enabled: widget.enabled,
           controller: widget.controller,
-          suffixIcon: const Icon(
-            Icons.calendar_today_rounded,
-            color: Colors.grey,
-          ),
+          // suffixIcon: const Icon(
+          //   Icons.calendar_today_rounded,
+          //   color: Colors.grey,
+          // ),
           validator: widget.validator,
           label: widget.label,
         ),
