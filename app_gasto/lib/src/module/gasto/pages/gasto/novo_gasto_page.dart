@@ -1,6 +1,6 @@
 import 'package:app_gasto/src/core/components/drop_down_button_generic_widget.dart';
 import 'package:app_gasto/src/core/components/fields/date/date_and_time_input.dart';
-import 'package:app_gasto/src/core/components/fields/date_form_input/date_formatted.dart';
+import 'package:app_gasto/src/core/components/fields/date_form_input/date_formatter.dart';
 import 'package:app_gasto/src/core/components/fields/input_auto_search/input_seach_delegate.dart';
 import 'package:app_gasto/src/core/components/fields/number_form_input/number_input_form.dart';
 import 'package:app_gasto/src/core/components/fields/text_form_input/text_form_input.dart';

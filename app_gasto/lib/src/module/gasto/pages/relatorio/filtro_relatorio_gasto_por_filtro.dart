@@ -1,4 +1,4 @@
-import 'package:app_gasto/src/core/components/fields/date_form_input/date_formatted.dart';
+import 'package:app_gasto/src/core/components/fields/date_form_input/date_formatter.dart';
 import 'package:app_gasto/src/core/components/fields/date_form_input/date_range_picker_field.dart';
 import 'package:app_gasto/src/core/components/fields/input_auto_search/input_seach_delegate.dart';
 import 'package:app_gasto/src/module/gasto/models/caixa.dart';

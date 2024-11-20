@@ -5,7 +5,6 @@ class DateFormatter {
   // Formato: jueves, 15 noviembre 2024 13:30
   static String formatFullDate(DateTime? date) {
     if (date == null) return '';
-
     final dateFormatter = DateFormat('EEEE, d MMMM yyyy HH:mm', defaultLocale);
     return dateFormatter.format(date);
   }
@@ -42,7 +41,7 @@ class DateFormatter {
     return dateFormatter.format(date);
   }
 
-// Formato: 15/11/2024
+  // Formato: 15/11/2024
   static String formatDateWithLocal(String? date) {
     if (date == null || date.isEmpty) return '';
 

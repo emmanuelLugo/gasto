@@ -40,10 +40,11 @@ public class GastoService {
 	public Gasto save(Gasto gasto, String usuario) {
 		if (gasto.getDtGasto() == null) {
 			gasto.setDtGasto(LocalDateTime.now());
-		} else {
-			LocalDateTime currentDate = gasto.getDtGasto().toLocalDate().atTime(LocalTime.now());
-			gasto.setDtGasto(currentDate);
-		}
+		} 
+//		else {
+//			LocalDateTime currentDate = gasto.getDtGasto().toLocalDate().atTime(LocalTime.now());
+//			gasto.setDtGasto(currentDate);
+//		}
 		gasto.setCancelado(false);
 		gasto.setUsuario(usuario);
 
