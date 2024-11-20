@@ -48,8 +48,10 @@ class _ClassificacaoGastoPageState extends State<ClassificacaoGastoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBarWidget(
-        title: 'Nueva Clasificación Gasto',
+      appBar: CustomAppBarWidget(
+        title: _controller.currentRecord.id == null
+            ? 'Nueva Clasificación'
+            : 'Editar Clasificación',
       ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: ColorsApp.instance.primary,

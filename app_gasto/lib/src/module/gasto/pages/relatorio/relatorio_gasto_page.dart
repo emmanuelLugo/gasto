@@ -48,15 +48,12 @@ class RelatorioGastoPage extends StatelessWidget {
                 if (controller.status == RelatorioGastoStatusState.loading) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                return ListView.separated(
+                return ListView.builder(
                   shrinkWrap: true,
                   itemCount: controller.gastos.length,
                   itemBuilder: (context, index) {
                     final gasto = controller.gastos[index];
                     return CardGastoWidget(gasto: gasto);
-                  },
-                  separatorBuilder: (context, index) {
-                    return const Divider();
                   },
                 );
               },

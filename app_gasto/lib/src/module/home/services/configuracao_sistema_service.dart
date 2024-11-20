@@ -1,3 +1,5 @@
+import 'package:app_gasto/src/core/exceptions/repository_exception.dart';
+import 'package:app_gasto/src/core/exceptions/service_exception.dart';
 import 'package:app_gasto/src/module/core/shared/data_shared.dart';
 import 'package:app_gasto/src/module/gasto/models/caixa.dart';
 import 'package:app_gasto/src/module/gasto/models/dto/gasto_por_semana_dto.dart';
@@ -16,9 +18,13 @@ class ConfiguracaoSistemaService {
   );
 
   Future<List<Caixa>> findCaixasAbertas() async {
-    final response = await _caixaRepository.findCaixasAbertas();
-    _dataShared.caixasAbertas = response;
-    return response;
+    try {
+      final response = await _caixaRepository.findCaixasAbertas();
+      _dataShared.caixasAbertas = response;
+      return response;
+    } on RepositoryException catch (e) {
+      throw ServiceException(message: e.message ?? 'Error al obtener cuentas');
+    }
   }
 
   Future<List<GastoPorSemanaDto>> findTotalGastoPorSemana() async {

@@ -1,11 +1,11 @@
 import 'package:app_gasto/src/core/components/drop_down_button_generic_widget.dart';
-import 'package:app_gasto/src/core/components/fields/date_form_input/date_form_input.dart';
+import 'package:app_gasto/src/core/components/fields/date/date_and_time_input.dart';
+import 'package:app_gasto/src/core/components/fields/date_form_input/date_formatted.dart';
 import 'package:app_gasto/src/core/components/fields/input_auto_search/input_seach_delegate.dart';
 import 'package:app_gasto/src/core/components/fields/number_form_input/number_input_form.dart';
 import 'package:app_gasto/src/core/components/fields/text_form_input/text_form_input.dart';
 import 'package:app_gasto/src/core/ui/styles/colors_app.dart';
 import 'package:app_gasto/src/core/ui/widget/custom_app_bar.dart';
-import 'package:app_gasto/src/core/utils/date/date_util.dart';
 import 'package:app_gasto/src/module/core/shared/data_shared.dart';
 import 'package:app_gasto/src/module/gasto/models/caixa.dart';
 import 'package:app_gasto/src/module/gasto/models/classificacao_gasto.dart';
@@ -79,14 +79,14 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
                 hint: 'Seleccione un caja',
                 selectedItem: _controller.currentRecord.caixa,
                 itemToString: (caixa) =>
-                    '${DateUtil.format(caixa.dtAbertura!)} - ${caixa.observacao}',
+                    '${DateFormatter.formatShortDate(caixa.dtAbertura!)} - ${caixa.observacao}',
                 onChanged: _controller.setCaixa,
               ),
               const SizedBox(height: 12),
               Observer(
                 builder: (_) {
-                  return DateFormInput(
-                    date: DateTime.now().toString(),
+                  return DateAndTimeInput(
+                    date: DateTime.now(),
                     controller: _dtGastoEC,
                     label: 'Fecha del Gasto',
                     selectedDate: _controller.setDate,

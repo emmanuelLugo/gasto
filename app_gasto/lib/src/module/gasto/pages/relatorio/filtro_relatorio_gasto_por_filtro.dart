@@ -97,7 +97,8 @@ class _FiltroRelatorioGastoPorFiltroState
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         _buildFilterButton(
-            getMonthString(DateTime.now().toString()), _filtroPorMesAtual),
+            DateFormatter.getMonthString(DateTime.now().toString()),
+            _filtroPorMesAtual),
         const SizedBox(width: 10),
         _buildFilterButton('Ayer', _filtroPorOntem),
         const SizedBox(width: 10),
@@ -130,8 +131,8 @@ class _FiltroRelatorioGastoPorFiltroState
   }
 
   String _generateFilterCondition(DateTime startDate, DateTime endDate) {
-    String start = formatDateSql(startDate.toString());
-    String end = formatDateSql(endDate.toString());
+    String start = DateFormatter.formatDateSql(startDate.toString());
+    String end = DateFormatter.formatDateSql(endDate.toString());
 
     String condition =
         "1 = 1 AND FIN_GASTO.BO_CANCELADO = 0 AND DATE(FIN_GASTO.DT_GASTO) BETWEEN DATE('$start') AND DATE('$end')";

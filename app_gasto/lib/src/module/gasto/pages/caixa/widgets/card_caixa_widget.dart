@@ -38,11 +38,11 @@ class CardCaixaWidget extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                      'APERTURA: ${formatDateAndTimeShort(caixa.dtAbertura)}'),
+                      'APERTURA: ${DateFormatter.formatDateTime(caixa.dtAbertura)}'),
                 ),
                 Text(caixa.isAberto!
                     ? ''
-                    : 'CIERRE: ${formatDateAndTimeShort(caixa.dtFechamento)}'),
+                    : 'CIERRE: ${DateFormatter.formatDateTime(caixa.dtFechamento)}'),
               ],
             ),
           ],

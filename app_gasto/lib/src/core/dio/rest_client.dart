@@ -18,7 +18,8 @@ class RestClient implements IRestClient {
     baseUrl: Hostname.instance.ip,
     followRedirects: false,
     connectTimeout: const Duration(seconds: 10),
-    receiveTimeout: const Duration(seconds: 10),
+    receiveTimeout: const Duration(seconds: 20),
+    sendTimeout: const Duration(seconds: 20),
   );
 
   RestClient() {
@@ -38,13 +39,6 @@ class RestClient implements IRestClient {
   }
 
   updateURL() {
-    // _baseOptions = BaseOptions(
-    //   baseUrl: Hostname.instance.ip,
-    //   followRedirects: false,
-    //   connectTimeout: const Duration(seconds: 120),
-    //   receiveTimeout: const Duration(seconds: 10),
-    // );
-    // _dio.options = _baseOptions;
     _baseOptions.baseUrl = Hostname.instance.ip;
     _dio.options = _baseOptions;
   }

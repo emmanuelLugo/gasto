@@ -18,10 +18,11 @@ class CardGastoWidget extends StatelessWidget {
         title: Row(
           children: [
             Expanded(
-                child: Text(
-              gasto.descricao ?? '',
-              style: style,
-            )),
+              child: Text(
+                gasto.descricao ?? '',
+                style: style,
+              ),
+            ),
             Text(
               formatCurrency(gasto.vlGasto ?? 0, 1),
               style: style.copyWith(
@@ -47,13 +48,13 @@ class CardGastoWidget extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    formatDateAndTimeShort(gasto.dtGasto),
+                    DateFormatter.formatFullDate(gasto.dtGasto),
                     style: style,
                   ),
                 ),
                 Text(
                   isCancelado
-                      ? 'cancelado el ${formatDateAndTimeShort(gasto.dtCancelamento)}'
+                      ? 'cancelado el ${DateFormatter.formatDateTime(gasto.dtCancelamento)}'
                       : '',
                   style: style,
                 ),

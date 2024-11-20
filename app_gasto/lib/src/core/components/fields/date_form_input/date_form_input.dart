@@ -43,7 +43,7 @@ class DateFormInputState extends State<DateFormInput> {
     if (widget.date.isEmpty) {
       formatted = "";
     } else {
-      formatted = formatDateWithLocal(widget.date);
+      formatted = DateFormatter.formatDateWithLocal(widget.date);
     }
     widget.controller.text = formatted;
     super.initState();
@@ -58,10 +58,6 @@ class DateFormInputState extends State<DateFormInput> {
           prefixIcon: widget.prefixIcon,
           enabled: widget.enabled,
           controller: widget.controller,
-          // suffixIcon: const Icon(
-          //   Icons.calendar_today_rounded,
-          //   color: Colors.grey,
-          // ),
           validator: widget.validator,
           label: widget.label,
         ),
@@ -98,7 +94,7 @@ class DateFormInputState extends State<DateFormInput> {
     }
 
     final start = picked.toString().replaceRange(10, null, "T00:00:00.000000");
-    formatted = formatDateWithLocal(start);
+    formatted = DateFormatter.formatDateWithLocal(start);
     widget.controller.text = formatted;
     dtSelected = DateTime.parse(start);
     widget.selectedDate!(DateTime.parse(start));

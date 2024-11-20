@@ -97,14 +97,18 @@ class ValoresDisponiveisCaixaWidget extends StatelessWidget {
                     );
                   },
                 ),
-                IconButton(
-                  onPressed: controller.toggleMostrarValorDeCaixa,
-                  icon: Icon(
-                    controller.mostrarValorDeCaixa
-                        ? Icons.visibility_off
-                        : Icons.visibility,
-                    color: Colors.white,
-                  ),
+                Observer(
+                  builder: (_) {
+                    return IconButton(
+                      onPressed: controller.toggleMostrarValorDeCaixa,
+                      icon: Icon(
+                        controller.mostrarValorDeCaixa
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                        color: Colors.white,
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
