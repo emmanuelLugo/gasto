@@ -16,8 +16,7 @@ class GastoDto {
     this.classificacoes,
   });
 
-  factory GastoDto.fromJson(Map<String, dynamic> json) =>
-      _$GastoDtoFromJson(json);
+  factory GastoDto.fromJson(Map<String, dynamic> json) => _$GastoDtoFromJson(json);
   Map<String, dynamic> toJson() => _$GastoDtoToJson(this);
 
   GastoDto copyWith({

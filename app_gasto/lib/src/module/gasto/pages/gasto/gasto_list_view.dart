@@ -20,8 +20,7 @@ class GastoListView extends StatefulWidget {
   State<GastoListView> createState() => _GastoListViewState();
 }
 
-class _GastoListViewState extends State<GastoListView>
-    with Loader, SnackbarManager {
+class _GastoListViewState extends State<GastoListView> with Loader, SnackbarManager {
   final _controller = Modular.get<GastoController>();
   late final ReactionDisposer _statusReactionDisposer;
 
@@ -42,8 +41,7 @@ class _GastoListViewState extends State<GastoListView>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SearchAppBarWidget(
-          onSearch: (value) => _controller.findByConditionPage(value),
-          hintText: 'Buscar por Descripción'),
+          onSearch: (value) => _controller.findByConditionPage(value), hintText: 'Buscar por Descripción'),
       persistentFooterButtons: [
         Observer(
           builder: (_) => FooterPaginationBar(
@@ -114,8 +112,7 @@ class _GastoListViewState extends State<GastoListView>
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Confirmación'),
-          content:
-              const Text('¿Estás seguro de que deseas cancelar este gasto?'),
+          content: const Text('¿Estás seguro de que deseas cancelar este gasto?'),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),

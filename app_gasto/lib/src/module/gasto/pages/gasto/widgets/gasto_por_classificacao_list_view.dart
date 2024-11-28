@@ -13,12 +13,10 @@ class GastoPorClassificacaoListView extends StatefulWidget {
   });
 
   @override
-  State<GastoPorClassificacaoListView> createState() =>
-      _GastoPorClassificacaoListViewState();
+  State<GastoPorClassificacaoListView> createState() => _GastoPorClassificacaoListViewState();
 }
 
-class _GastoPorClassificacaoListViewState
-    extends State<GastoPorClassificacaoListView> {
+class _GastoPorClassificacaoListViewState extends State<GastoPorClassificacaoListView> {
   @override
   void initState() {
     super.initState();

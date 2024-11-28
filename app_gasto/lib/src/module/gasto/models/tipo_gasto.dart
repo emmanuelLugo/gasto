@@ -12,7 +12,6 @@ class TipoGasto {
     this.descricao,
   });
 
-  factory TipoGasto.fromJson(Map<String, dynamic> json) =>
-      _$TipoGastoFromJson(json);
+  factory TipoGasto.fromJson(Map<String, dynamic> json) => _$TipoGastoFromJson(json);
   Map<String, dynamic> toJson() => _$TipoGastoToJson(this);
 }

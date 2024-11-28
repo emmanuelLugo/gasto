@@ -3,7 +3,7 @@ import 'package:app_gasto/src/module/core/shared/data_shared.dart';
 import 'package:app_gasto/src/module/gasto/models/caixa.dart';
 import 'package:app_gasto/src/module/gasto/models/dto/total_classificacao_gasto_dto.dart';
 import 'package:app_gasto/src/module/gasto/models/gasto.dart';
-import 'package:app_gasto/src/module/gasto/pages/gasto/page_info_generic.dart';
+import 'package:app_gasto/src/module/gasto/pages/gasto/page_info_gasto.dart';
 import 'package:app_gasto/src/module/gasto/pages/gasto/pagination.dart';
 import 'package:app_gasto/src/module/gasto/repositories/gasto_repository.dart';
 import 'package:app_gasto/src/module/gasto/services/gasto_service.dart';
@@ -19,15 +19,13 @@ enum RelatorioGastoStatusState {
   error,
 }
 
-class RelatorioGastoController = RelatorioGastoControllerBase
-    with _$RelatorioGastoController;
+class RelatorioGastoController = RelatorioGastoControllerBase with _$RelatorioGastoController;
 
 abstract class RelatorioGastoControllerBase with Store {
   final GastoRepository _gastoRepository;
   final DataShared _dataShared;
   final GastoService _service;
-  RelatorioGastoControllerBase(
-      this._gastoRepository, this._dataShared, this._service);
+  RelatorioGastoControllerBase(this._gastoRepository, this._dataShared, this._service);
 
   @readonly
   RelatorioGastoStatusState _status = RelatorioGastoStatusState.initial;
@@ -39,8 +37,7 @@ abstract class RelatorioGastoControllerBase with Store {
   ObservableList<Gasto> gastos = ObservableList<Gasto>();
 
   @observable
-  ObservableList<TotalClassificacaoGastoDto> listDto =
-      ObservableList<TotalClassificacaoGastoDto>();
+  ObservableList<TotalClassificacaoGastoDto> listDto = ObservableList<TotalClassificacaoGastoDto>();
 
   @observable
   Caixa? caixaSelecionada;
@@ -80,8 +77,7 @@ abstract class RelatorioGastoControllerBase with Store {
   Future<void> findTotalGastoPorTipoByCaixa(int idCaixa) async {
     _status = RelatorioGastoStatusState.loading;
     try {
-      final response =
-          await _gastoRepository.findTotalGastoPorTipoByCaixa(idCaixa);
+      final response = await _gastoRepository.findTotalGastoPorTipoByCaixa(idCaixa);
 
       if (response.classificacoes != null) {
         listDto = response.classificacoes!.asObservable();
@@ -115,14 +111,12 @@ abstract class RelatorioGastoControllerBase with Store {
   Future<void> findRelatorioGastoByCondition() async {
     _status = RelatorioGastoStatusState.loading;
     try {
-      final response = await _service.findRelatorioGastoByCondition(
-          condition, pagination.pageNr, pagination.pageSize);
+      final response = await _service.findRelatorioGastoByCondition(condition, pagination.pageNr, pagination.pageSize);
 
       if (response.data != null) {
         vlTotal = response.data!['vlTotal'];
       }
-      final PageInfoGeneric<Gasto> relatorio =
-          PageInfoGeneric.fromJson(response.data['relatorio']);
+      final PageInfoGasto<Gasto> relatorio = PageInfoGasto.fromJson(response.data['relatorio']);
       gastos = relatorio.list!.asObservable();
       pagination.totalRegistros = relatorio.total;
       pagination.pages = relatorio.pages;

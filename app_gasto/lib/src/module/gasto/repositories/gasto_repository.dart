@@ -16,8 +16,7 @@ class GastoRepository {
 
   Future<Gasto> insertOrUpdate(Gasto gasto) async {
     try {
-      final response =
-          await restClient.post('/gasto/save', data: gasto.toJson());
+      final response = await restClient.post('/gasto/save', data: gasto.toJson());
       return Gasto.fromJson(response.data);
     } on Exception catch (e) {
       throw RepositoryException.toException(e);
@@ -35,11 +34,8 @@ class GastoRepository {
       final classificacoes = response.data['classificacoes'];
       dto.gastos = gastos.map<Gasto>((e) => Gasto.fromJson(e)).toList();
 
-      dto.classificacoes = classificacoes
-          .map<TotalClassificacaoGastoDto>(
-            (e) => TotalClassificacaoGastoDto.fromJson(e),
-          )
-          .toList();
+      dto.classificacoes =
+          classificacoes.map<TotalClassificacaoGastoDto>((e) => TotalClassificacaoGastoDto.fromJson(e)).toList();
       if (response.data['vlTotal'] == 0) {
         dto.vlTotal = 0.0;
       } else {
@@ -51,11 +47,9 @@ class GastoRepository {
     }
   }
 
-  Future<RestClientResponse> findRelatorioGastoByCondition(
-      String condition, int pageNum, int pageSize) async {
+  Future<RestClientResponse> findRelatorioGastoByCondition(String condition, int pageNum, int pageSize) async {
     try {
-      final response = await restClient
-          .get('/gasto/findRelatorioGastoByCondition', queryParameters: {
+      final response = await restClient.get('/gasto/findRelatorioGastoByCondition', queryParameters: {
         'condition': condition,
         'pageNum': pageNum,
         'pageSize': pageSize,
@@ -99,8 +93,7 @@ class GastoRepository {
     }
   }
 
-  Future<RestClientResponse> findByConditionPage(
-      String condition, int pageNum, int pageSize) async {
+  Future<RestClientResponse> findByConditionPage(String condition, int pageNum, int pageSize) async {
     try {
       final response = await restClient.get(
         '/gasto/findByConditionPage',
@@ -121,9 +114,7 @@ class GastoRepository {
       final response = await restClient.get(
         '/gasto/findTotalGastoPorSemana',
       );
-      return response.data
-          .map<GastoPorSemanaDto>((e) => GastoPorSemanaDto.fromJson(e))
-          .toList();
+      return response.data.map<GastoPorSemanaDto>((e) => GastoPorSemanaDto.fromJson(e)).toList();
     } on Exception catch (e) {
       throw RepositoryException.fromException(e);
     }

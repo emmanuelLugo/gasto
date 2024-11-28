@@ -24,8 +24,7 @@ class NovoGastoPage extends StatefulWidget {
 }
 
 class _NovoGastoPageState extends State<NovoGastoPage> {
-  final _classificacaoGastoController =
-      Modular.get<ClassificacaoGastoDelegateController>();
+  final _classificacaoGastoController = Modular.get<ClassificacaoGastoDelegateController>();
   final _classificacaoGastoEC = TextEditingController();
   final _controller = Modular.get<GastoController>();
   final _valorEC = TextEditingController();
@@ -78,8 +77,7 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
                 label: 'Caja',
                 hint: 'Seleccione un caja',
                 selectedItem: _controller.currentRecord.caixa,
-                itemToString: (caixa) =>
-                    '${DateFormatter.formatShortDate(caixa.dtAbertura!)} - ${caixa.observacao}',
+                itemToString: (caixa) => '${DateFormatter.formatShortDate(caixa.dtAbertura!)} - ${caixa.observacao}',
                 onChanged: _controller.setCaixa,
               ),
               const SizedBox(height: 12),
@@ -96,8 +94,7 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
               const SizedBox(height: 12),
               InputSeachDelegate<ClassificacaoGasto?>(
                 label: 'Clasificación',
-                searchDelegate:
-                    ClassificacaoGastoDelegate(_classificacaoGastoController),
+                searchDelegate: ClassificacaoGastoDelegate(_classificacaoGastoController),
                 controller: _classificacaoGastoEC,
                 onSelected: (value) {
                   _classificacaoGastoEC.text = value?.descricao ?? '';

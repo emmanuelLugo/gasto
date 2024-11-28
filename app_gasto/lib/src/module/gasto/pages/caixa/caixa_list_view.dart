@@ -16,8 +16,7 @@ class CaixaListView extends StatefulWidget {
   State<CaixaListView> createState() => _CaixaListViewState();
 }
 
-class _CaixaListViewState extends State<CaixaListView>
-    with Loader, SnackbarManager {
+class _CaixaListViewState extends State<CaixaListView> with Loader, SnackbarManager {
   final _controller = Modular.get<CaixaController>();
   late final ReactionDisposer _statusReactionDisposer;
 

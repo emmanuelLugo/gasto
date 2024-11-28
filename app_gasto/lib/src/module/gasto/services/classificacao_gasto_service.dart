@@ -13,16 +13,14 @@ class ClassificacaoGastoService {
 
   Future<List<ClassificacaoGasto>> findByCondition(String condition) async {
     try {
-      final sql =
-          " FIN_CLASSIFICACAO_GASTO.DS_CLASSIFICACAO_GASTO LIKE '%$condition%' ";
+      final sql = " FIN_CLASSIFICACAO_GASTO.DS_CLASSIFICACAO_GASTO LIKE '%$condition%' ";
       return await _repository.findByCondition(sql);
     } on RepositoryException catch (e) {
       throw ServiceException(message: ExceptionUtils.getExceptionMessage(e));
     }
   }
 
-  Future<List<ClassificacaoGasto>> findByConditionAtivo(
-      String condition) async {
+  Future<List<ClassificacaoGasto>> findByConditionAtivo(String condition) async {
     try {
       final sql =
           " FIN_CLASSIFICACAO_GASTO.DS_CLASSIFICACAO_GASTO LIKE '%$condition%' AND FIN_CLASSIFICACAO_GASTO.BO_ATIVO = 1";

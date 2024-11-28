@@ -3,7 +3,7 @@ import 'package:app_gasto/src/module/core/shared/data_shared.dart';
 import 'package:app_gasto/src/module/gasto/models/caixa.dart';
 import 'package:app_gasto/src/module/gasto/models/classificacao_gasto.dart';
 import 'package:app_gasto/src/module/gasto/models/gasto.dart';
-import 'package:app_gasto/src/module/gasto/pages/gasto/page_info_generic.dart';
+import 'package:app_gasto/src/module/gasto/pages/gasto/page_info_gasto.dart';
 import 'package:app_gasto/src/module/gasto/pages/gasto/pagination.dart';
 import 'package:app_gasto/src/module/gasto/services/gasto_service.dart';
 import 'package:mobx/mobx.dart';
@@ -65,8 +65,7 @@ abstract class GastoControllerBase with Store {
   }
 
   Future<void> _atualizaGastoNaList(Gasto gasto) async {
-    final int index =
-        dataProvider.indexWhere((element) => element.id == gasto.id);
+    final int index = dataProvider.indexWhere((element) => element.id == gasto.id);
 
     if (index != -1) {
       dataProvider[index] = gasto.copyWith();
@@ -79,17 +78,11 @@ abstract class GastoControllerBase with Store {
   Future<void> findByConditionPage(String condition) async {
     _status = GastoStatusState.loading;
     try {
-      final response = await _service.findByConditionPage(
-          condition, pagination.pageNr, pagination.pageSize);
+      final response = await _service.findByConditionPage(condition, pagination.pageNr, pagination.pageSize);
       if (response.data != null) {
-        final PageInfoGeneric<Gasto> pageInfo =
-            PageInfoGeneric.fromJson(response.data);
+        final PageInfoGasto<Gasto> pageInfo = PageInfoGasto.fromJson(response.data);
         dataProvider = pageInfo.list!.asObservable();
-        pagination.totalRegistros = pageInfo.total;
-        pagination.pages = pageInfo.pages;
-        pagination.size = pageInfo.size;
-        pagination.pageTotal = pageInfo.total;
-        pagination.isLastPage = pageInfo.isLastPage;
+        _updatePagination(pageInfo);
       }
 
       _status = GastoStatusState.loaded;
@@ -119,6 +112,14 @@ abstract class GastoControllerBase with Store {
     }
   }
 
+  void _updatePagination(PageInfoGasto<Gasto> pageInfo) {
+    pagination.totalRegistros = pageInfo.total;
+    pagination.pages = pageInfo.pages;
+    pagination.size = pageInfo.size;
+    pagination.pageTotal = pageInfo.total;
+    pagination.isLastPage = pageInfo.isLastPage;
+  }
+
   void setValor(double? valor) {
     _currentRecord = _currentRecord.copyWith(vlGasto: valor);
   }
@@ -128,8 +129,7 @@ abstract class GastoControllerBase with Store {
   }
 
   void setClassificacao(ClassificacaoGasto? classificacaoGasto) {
-    _currentRecord =
-        _currentRecord.copyWith(classificacaoGasto: classificacaoGasto);
+    _currentRecord = _currentRecord.copyWith(classificacaoGasto: classificacaoGasto);
   }
 
   void setDate(DateTime? date) {

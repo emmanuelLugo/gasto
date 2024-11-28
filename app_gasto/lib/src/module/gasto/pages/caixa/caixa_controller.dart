@@ -78,8 +78,7 @@ abstract class CaixaControllerBase with Store {
   }
 
   Future<void> _atualizaCaixaNaList(Caixa caixa) async {
-    final int index =
-        dataProvider.indexWhere((element) => element.id == caixa.id);
+    final int index = dataProvider.indexWhere((element) => element.id == caixa.id);
 
     if (index != -1) {
       dataProvider[index] = caixa.copyWith();

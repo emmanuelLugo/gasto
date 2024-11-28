@@ -10,7 +10,7 @@ RelatorioGastoDto _$RelatorioGastoDtoFromJson(Map<String, dynamic> json) =>
     RelatorioGastoDto(
       relatorio: json['relatorio'] == null
           ? null
-          : PageInfoGeneric<Gasto>.fromJson(
+          : PageInfoGasto<Gasto>.fromJson(
               json['relatorio'] as Map<String, dynamic>),
       vlTotal: (json['vlTotal'] as num?)?.toDouble(),
     );

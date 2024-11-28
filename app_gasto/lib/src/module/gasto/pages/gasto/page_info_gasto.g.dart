@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'page_info_generic.dart';
+part of 'page_info_gasto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-PageInfoGeneric<T> _$PageInfoGenericFromJson<T>(Map<String, dynamic> json) =>
-    PageInfoGeneric<T>(
+PageInfoGasto<T> _$PageInfoGastoFromJson<T>(Map<String, dynamic> json) =>
+    PageInfoGasto<T>(
       total: (json['total'] as num).toInt(),
       list: (json['list'] as List<dynamic>?)
           ?.map((e) => Gasto.fromJson(e as Map<String, dynamic>))
@@ -22,7 +22,7 @@ PageInfoGeneric<T> _$PageInfoGenericFromJson<T>(Map<String, dynamic> json) =>
       hasNextPage: json['hasNextPage'] as bool,
     );
 
-Map<String, dynamic> _$PageInfoGenericToJson<T>(PageInfoGeneric<T> instance) =>
+Map<String, dynamic> _$PageInfoGastoToJson<T>(PageInfoGasto<T> instance) =>
     <String, dynamic>{
       'total': instance.total,
       'pageNum': instance.pageNum,

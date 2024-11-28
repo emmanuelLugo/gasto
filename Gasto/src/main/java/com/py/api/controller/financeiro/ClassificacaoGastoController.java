@@ -2,8 +2,6 @@ package com.py.api.controller.financeiro;
 
 import java.util.List;
 
-import org.springframework.dao.DataAccessException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,12 +26,8 @@ public class ClassificacaoGastoController {
 
 	@PostMapping("/save")
 	public ResponseEntity<?> save(@RequestBody ClassificacaoGasto classificacaoGasto) {
-		try {
-			classificacaoGasto = classificacaoGastoService.save(classificacaoGasto);
-			return ResponseEntity.ok(classificacaoGasto);
-		} catch (DataAccessException ex) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getCause().getCause().getMessage());
-		}
+		classificacaoGasto = classificacaoGastoService.save(classificacaoGasto);
+		return ResponseEntity.ok(classificacaoGasto);
 	}
 
 	@GetMapping("/findByCondition")

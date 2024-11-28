@@ -10,8 +10,7 @@ class ClassificacaoGastoRepository {
 
   Future<ClassificacaoGasto> save(ClassificacaoGasto classificacaoGasto) async {
     try {
-      final response = await restClient.post('/classificacaoGasto/save',
-          data: classificacaoGasto.toJson());
+      final response = await restClient.post('/classificacaoGasto/save', data: classificacaoGasto.toJson());
       return ClassificacaoGasto.fromJson(response.data);
     } on Exception catch (e) {
       throw RepositoryException.fromException(e);
@@ -21,12 +20,9 @@ class ClassificacaoGastoRepository {
   Future<List<ClassificacaoGasto>> findByCondition(String condition) async {
     try {
       List<ClassificacaoGasto> list = [];
-      final response = await restClient.get(
-          '/classificacaoGasto/findByCondition',
-          queryParameters: {'condition': condition});
-      list = response.data
-          .map<ClassificacaoGasto>((e) => ClassificacaoGasto.fromJson(e))
-          .toList();
+      final response =
+          await restClient.get('/classificacaoGasto/findByCondition', queryParameters: {'condition': condition});
+      list = response.data.map<ClassificacaoGasto>((e) => ClassificacaoGasto.fromJson(e)).toList();
       return list;
     } on Exception catch (e) {
       throw RepositoryException.fromException(e);

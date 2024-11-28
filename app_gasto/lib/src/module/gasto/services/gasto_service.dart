@@ -55,8 +55,7 @@ class GastoService {
     }
   }
 
-  Future<RestClientResponse> findByConditionPage(
-      String condition, int pageNum, int pageSize) async {
+  Future<RestClientResponse> findByConditionPage(String condition, int pageNum, int pageSize) async {
     String sql = "FIN_GASTO.DS_GASTO LIKE '%$condition%'";
     try {
       final response = await _repository.findByConditionPage(
@@ -70,8 +69,7 @@ class GastoService {
     }
   }
 
-  Future<RestClientResponse> findRelatorioGastoByCondition(
-      String condition, int pageNum, int pageSize) async {
+  Future<RestClientResponse> findRelatorioGastoByCondition(String condition, int pageNum, int pageSize) async {
     try {
       final response = await _repository.findRelatorioGastoByCondition(
         condition,

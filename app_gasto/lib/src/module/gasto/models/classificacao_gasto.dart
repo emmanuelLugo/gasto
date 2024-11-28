@@ -31,8 +31,7 @@ class ClassificacaoGasto {
     );
   }
 
-  factory ClassificacaoGasto.fromJson(Map<String, dynamic> json) =>
-      _$ClassificacaoGastoFromJson(json);
+  factory ClassificacaoGasto.fromJson(Map<String, dynamic> json) => _$ClassificacaoGastoFromJson(json);
   Map<String, dynamic> toJson() => _$ClassificacaoGastoToJson(this);
 
   ClassificacaoGasto.novo() {

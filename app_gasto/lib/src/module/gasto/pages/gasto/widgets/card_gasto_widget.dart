@@ -26,10 +26,7 @@ class CardGastoWidget extends StatelessWidget {
             Text(
               formatCurrency(gasto.vlGasto ?? 0, 1),
               style: style.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: isCancelado
-                      ? Colors.red
-                      : const Color.fromARGB(255, 6, 133, 12)),
+                  fontWeight: FontWeight.bold, color: isCancelado ? Colors.red : const Color.fromARGB(255, 6, 133, 12)),
             ),
           ],
         ),
@@ -53,9 +50,7 @@ class CardGastoWidget extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  isCancelado
-                      ? 'cancelado el ${DateFormatter.formatDateTime(gasto.dtCancelamento)}'
-                      : '',
+                  isCancelado ? 'cancelado el ${DateFormatter.formatDateTime(gasto.dtCancelamento)}' : '',
                   style: style,
                 ),
               ],

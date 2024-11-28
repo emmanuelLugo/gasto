@@ -1,10 +1,10 @@
 import 'package:app_gasto/src/module/gasto/models/gasto.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'page_info_generic.g.dart';
+part 'page_info_gasto.g.dart';
 
 @JsonSerializable()
-class PageInfoGeneric<T> {
+class PageInfoGasto<T> {
   final int total;
 
   final int pageNum;
@@ -17,7 +17,7 @@ class PageInfoGeneric<T> {
   final bool hasNextPage;
   List<Gasto>? list = [];
 
-  PageInfoGeneric({
+  PageInfoGasto({
     required this.total,
     this.list,
     required this.pageNum,
@@ -30,7 +30,6 @@ class PageInfoGeneric<T> {
     required this.hasNextPage,
   });
 
-  factory PageInfoGeneric.fromJson(Map<String, dynamic> json) =>
-      _$PageInfoGenericFromJson(json);
-  Map<String, dynamic> toJson() => _$PageInfoGenericToJson(this);
+  factory PageInfoGasto.fromJson(Map<String, dynamic> json) => _$PageInfoGastoFromJson(json);
+  Map<String, dynamic> toJson() => _$PageInfoGastoToJson(this);
 }
