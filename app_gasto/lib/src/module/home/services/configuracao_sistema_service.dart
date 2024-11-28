@@ -28,6 +28,11 @@ class ConfiguracaoSistemaService {
   }
 
   Future<List<GastoPorSemanaDto>> findTotalGastoPorSemana() async {
-    return await _gastoRepository.findTotalGastoPorSemana();
+    try {
+      final response = await _gastoRepository.findTotalGastoPorSemana();
+      return response;
+    } on RepositoryException catch (e) {
+      throw ServiceException(message: e.message ?? 'Error al obtener cuentas');
+    }
   }
 }

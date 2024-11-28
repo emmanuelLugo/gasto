@@ -32,12 +32,16 @@ class CaixaRepository {
   }
 
   Future<List<Caixa>> findCaixasAbertas() async {
-    List<Caixa> list = [];
-    final response = await restClient.get(
-      '/caixa/findCaixasAbertas',
-    );
-    list = response.data.map<Caixa>((e) => Caixa.fromJson(e)).toList();
-    return list;
+    try {
+      List<Caixa> list = [];
+      final response = await restClient.get(
+        '/caixa/findCaixasAbertas',
+      );
+      list = response.data.map<Caixa>((e) => Caixa.fromJson(e)).toList();
+      return list;
+    } on Exception catch (e) {
+      throw RepositoryException.fromException(e);
+    }
   }
 
   Future<List<Caixa>> findByConditionOrderByAbertos(String condition) async {

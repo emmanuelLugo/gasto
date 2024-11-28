@@ -4,6 +4,7 @@ import 'package:app_gasto/src/core/components/fields/number_form_input/number_in
 import 'package:app_gasto/src/core/components/fields/text_form_input/text_form_input.dart';
 import 'package:app_gasto/src/core/ui/widget/custom_app_bar.dart';
 import 'package:app_gasto/src/module/gasto/pages/caixa/caixa_controller.dart';
+import 'package:app_gasto/src/module/gasto/pages/caixa/widgets/status_info_caixa_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:validatorless/validatorless.dart';
@@ -79,9 +80,6 @@ class _CaixaPageState extends State<CaixaPage> {
         ElevatedButton.icon(
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-            // shape: RoundedRectangleBorder(
-            //   borderRadius: BorderRadius.circular(30),
-            // ),
           ),
           onPressed: _controller.currentRecord.isAberto! ? _save : null,
           icon: const Icon(Icons.save),
@@ -101,45 +99,11 @@ class _CaixaPageState extends State<CaixaPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildStatusInfo(),
+              StatusInfoCaixaWidget(caixa: _controller.currentRecord),
               const SizedBox(height: 20),
               _buildInputFields(),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildStatusInfo() {
-    return Card(
-      color: _controller.currentRecord.isAberto!
-          ? Colors.green[100]
-          : Colors.red[100],
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Row(
-          children: [
-            Icon(
-              _controller.currentRecord.isAberto!
-                  ? Icons.check_circle
-                  : Icons.warning,
-              color: _controller.currentRecord.isAberto!
-                  ? Colors.green
-                  : Colors.red,
-            ),
-            const SizedBox(width: 10),
-            Text(
-              _controller.currentRecord.statusCaixa,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: _controller.currentRecord.isAberto!
-                    ? Colors.green
-                    : Colors.red,
-              ),
-            ),
-          ],
         ),
       ),
     );

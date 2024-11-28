@@ -27,6 +27,7 @@ class RestClient implements IRestClient {
     _dio.interceptors.addAll([
       ErrorInterceptor(),
       NoAuthInterceptor(),
+      // LogInterceptor(requestBody: true, responseBody: true, error: true),
     ]);
   }
 
@@ -35,6 +36,7 @@ class RestClient implements IRestClient {
     _dio.interceptors.addAll([
       ErrorInterceptor(),
       AuthInterceptor(),
+      // LogInterceptor(requestBody: true, responseBody: true, error: true),
     ]);
   }
 

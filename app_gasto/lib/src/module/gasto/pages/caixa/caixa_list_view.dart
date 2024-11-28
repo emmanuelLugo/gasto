@@ -37,7 +37,7 @@ class _CaixaListViewState extends State<CaixaListView> with Loader, SnackbarMana
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Listado de Caja'),
+        title: const Text('Listado de Cuentas'),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _controller.insert(Caixa.novo()),
