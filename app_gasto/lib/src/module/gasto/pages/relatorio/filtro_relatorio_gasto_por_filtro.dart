@@ -16,15 +16,12 @@ class FiltroRelatorioGastoPorFiltro extends StatefulWidget {
   const FiltroRelatorioGastoPorFiltro({super.key});
 
   @override
-  State<FiltroRelatorioGastoPorFiltro> createState() =>
-      _FiltroRelatorioGastoPorFiltroState();
+  State<FiltroRelatorioGastoPorFiltro> createState() => _FiltroRelatorioGastoPorFiltroState();
 }
 
-class _FiltroRelatorioGastoPorFiltroState
-    extends State<FiltroRelatorioGastoPorFiltro> {
+class _FiltroRelatorioGastoPorFiltroState extends State<FiltroRelatorioGastoPorFiltro> {
   final _caixaDelegateController = Modular.get<CaixaDelegateController>();
-  final _classificacaoDelegateController =
-      Modular.get<ClassificacaoGastoDelegateController>();
+  final _classificacaoDelegateController = Modular.get<ClassificacaoGastoDelegateController>();
 
   final _caixaEC = TextEditingController();
   final _classificacaoEC = TextEditingController();
@@ -82,8 +79,7 @@ class _FiltroRelatorioGastoPorFiltroState
   Widget _buildClassificacaoInputSearch() {
     return InputSeachDelegate<ClassificacaoGasto?>(
       label: 'Clasificación',
-      searchDelegate:
-          ClassificacaoGastoDelegate(_classificacaoDelegateController),
+      searchDelegate: ClassificacaoGastoDelegate(_classificacaoDelegateController),
       controller: _classificacaoEC,
       onSelected: (value) {
         _classificacaoEC.text = value?.descricao ?? '';
@@ -96,9 +92,7 @@ class _FiltroRelatorioGastoPorFiltroState
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        _buildFilterButton(
-            DateFormatter.getMonthString(DateTime.now().toString()),
-            _filtroPorMesAtual),
+        _buildFilterButton(DateFormatter.getMonthString(DateTime.now().toString()), _filtroPorMesAtual),
         const SizedBox(width: 10),
         _buildFilterButton('Ayer', _filtroPorOntem),
         const SizedBox(width: 10),
@@ -131,8 +125,8 @@ class _FiltroRelatorioGastoPorFiltroState
   }
 
   String _generateFilterCondition(DateTime startDate, DateTime endDate) {
-    String start = DateFormatter.formatDateSql(startDate.toString());
-    String end = DateFormatter.formatDateSql(endDate.toString());
+    final String start = DateFormatter.formatDateSql(startDate.toString());
+    final String end = DateFormatter.formatDateSql(endDate.toString());
 
     String condition =
         "1 = 1 AND FIN_GASTO.BO_CANCELADO = 0 AND DATE(FIN_GASTO.DT_GASTO) BETWEEN DATE('$start') AND DATE('$end')";
@@ -142,36 +136,35 @@ class _FiltroRelatorioGastoPorFiltroState
     }
 
     if (_classificacaoSelecionada != null) {
-      condition +=
-          " AND FIN_GASTO.ID_CLASSIFICACAO = '${_classificacaoSelecionada!.id}'";
+      condition += " AND FIN_GASTO.ID_CLASSIFICACAO = '${_classificacaoSelecionada!.id}'";
     }
 
     return condition;
   }
 
   void _filtroPorHoje() {
-    DateTime date = DateTime.now();
-    String condition = _generateFilterCondition(date, date);
+    final DateTime date = DateTime.now();
+    final String condition = _generateFilterCondition(date, date);
     _prepareAndNavigateToRelatorio(condition);
   }
 
   void _filtroPorOntem() {
-    DateTime date = DateTime.now().subtract(const Duration(days: 1));
-    String condition = _generateFilterCondition(date, date);
+    final DateTime date = DateTime.now().subtract(const Duration(days: 1));
+    final String condition = _generateFilterCondition(date, date);
     _prepareAndNavigateToRelatorio(condition);
   }
 
   void _filtroPorMesAtual() {
-    DateTime now = DateTime.now();
-    DateTime startOfMonth = DateTime(now.year, now.month, 1);
-    DateTime endOfMonth = DateTime(now.year, now.month + 1, 0);
-    String condition = _generateFilterCondition(startOfMonth, endOfMonth);
+    final DateTime now = DateTime.now();
+    final DateTime startOfMonth = DateTime(now.year, now.month, 1);
+    final DateTime endOfMonth = DateTime(now.year, now.month + 1, 0);
+    final String condition = _generateFilterCondition(startOfMonth, endOfMonth);
     _prepareAndNavigateToRelatorio(condition);
   }
 
   void _filtroPorRange(DateTimeRange? date) async {
     if (date != null) {
-      String condition = _generateFilterCondition(date.start, date.end);
+      final String condition = _generateFilterCondition(date.start, date.end);
       _prepareAndNavigateToRelatorio(condition);
     }
   }

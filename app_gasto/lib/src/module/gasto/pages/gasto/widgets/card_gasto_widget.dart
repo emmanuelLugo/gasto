@@ -9,7 +9,7 @@ class CardGastoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isCancelado = gasto.cancelado ?? false;
+    final bool isCancelado = gasto.cancelado ?? false;
     final style = TextStyle(
       color: isCancelado ? Colors.red : Colors.black,
     );
