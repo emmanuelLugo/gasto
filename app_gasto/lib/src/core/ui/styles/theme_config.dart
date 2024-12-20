@@ -40,8 +40,7 @@ class ThemeConfig {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: AppStyles.instance.primaryElevatedButtonStyle,
     ),
-    outlinedButtonTheme: OutlinedButtonThemeData(
-        style: AppStyles.instance.primaryOutlinedButtonStyle),
+    outlinedButtonTheme: OutlinedButtonThemeData(style: AppStyles.instance.primaryOutlinedButtonStyle),
     textTheme: TextTheme(
       bodyLarge: GoogleFonts.poppins(
         color: labelColor,
@@ -70,8 +69,7 @@ class ThemeConfig {
     ),
     listTileTheme: ListTileThemeData(
       textColor: labelColor,
-      titleTextStyle: GoogleFonts.poppins(
-          color: labelColor, fontWeight: FontWeight.bold, fontSize: 18),
+      titleTextStyle: GoogleFonts.poppins(color: labelColor, fontWeight: FontWeight.bold, fontSize: 18),
     ),
     inputDecorationTheme: InputDecorationTheme(
       fillColor: Colors.white,

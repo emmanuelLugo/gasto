@@ -51,8 +51,8 @@ abstract class GastoControllerBase with Store {
   }
 
   Future<void> save() async {
-    _status = GastoStatusState.initial;
     try {
+      _status = GastoStatusState.loading;
       final response = await _service.save(_currentRecord);
       _currentRecord = Gasto.novo();
       await _atualizaGastoNaList(response);

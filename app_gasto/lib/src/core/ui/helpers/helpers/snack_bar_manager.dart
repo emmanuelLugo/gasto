@@ -1,66 +1,58 @@
+import 'package:app_gasto/src/core/ui/helpers/helpers/colors_app_extension.dart';
+import 'package:app_gasto/src/core/ui/helpers/helpers/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 mixin SnackbarManager<T extends StatefulWidget> on State<T> {
-  static const String defaultMessage = 'Sin Descripcion';
-  static const int defaultDuration = 2500;
+  static const String _defaultMessage = 'Sin Descripcion';
+  static const int _defaultDuration = 2500;
 
-  void showSuccess(String? text,
-      {bool behaviorFloating = false,
-      int durationMilliSecond = defaultDuration}) {
+  void showSuccess(String? text, {bool behaviorFloating = false, int durationMilliSecond = _defaultDuration}) {
     _show(
-      text ?? defaultMessage,
-      const Color.fromARGB(255, 72, 170, 72),
+      text ?? _defaultMessage,
+      context.successColor,
       behaviorFloating,
       durationMilliSecond,
     );
   }
 
-  void showError(String? text,
-      {bool behaviorFloating = false,
-      int durationMilliSecond = defaultDuration}) {
+  void showError(String? text, {bool behaviorFloating = false, int durationMilliSecond = _defaultDuration}) {
     _show(
-      text ?? defaultMessage,
-      const Color(0xFFBB2124),
+      text ?? _defaultMessage,
+      context.errorColor,
       behaviorFloating,
       durationMilliSecond,
     );
   }
 
-  void showInfo(String? text,
-      {bool behaviorFloating = false,
-      int durationMilliSecond = defaultDuration}) {
+  void showInfo(String? text, {bool behaviorFloating = false, int durationMilliSecond = _defaultDuration}) {
     _show(
-      text ?? defaultMessage,
-      const Color(0xFF5bc0de),
+      text ?? _defaultMessage,
+      context.infoColor,
       behaviorFloating,
       durationMilliSecond,
     );
   }
 
-  void showWarning(String? text,
-      {bool behaviorFloating = false,
-      int durationMilliSecond = defaultDuration}) {
+  void showWarning(String? text, {bool behaviorFloating = false, int durationMilliSecond = _defaultDuration}) {
     _show(
-      text ?? defaultMessage,
-      const Color(0xFFF0AD4E),
+      text ?? _defaultMessage,
+      context.warningColor,
       behaviorFloating,
       durationMilliSecond,
     );
   }
 
-  void _show(String text, Color backgroundColor, bool behaviorFloating,
-      int durationMilliSecond) {
+  void _show(String text, Color backgroundColor, bool behaviorFloating, int durationMilliSecond) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     final snackBar = SnackBar(
-      behavior:
-          behaviorFloating ? SnackBarBehavior.floating : SnackBarBehavior.fixed,
+      behavior: behaviorFloating ? SnackBarBehavior.floating : SnackBarBehavior.fixed,
       content: Text(
         text,
-        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+        style: context.bodyLarge.copyWith(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 18,
+        ),
       ),
       duration: Duration(milliseconds: durationMilliSecond),
       dismissDirection: DismissDirection.up,

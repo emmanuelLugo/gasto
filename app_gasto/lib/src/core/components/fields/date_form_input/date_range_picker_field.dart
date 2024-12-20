@@ -35,6 +35,7 @@ class _DateRangePickerFieldState extends State<DateRangePickerField> {
 
   Future<void> _selectDateRange(BuildContext context) async {
     final DateTimeRange? picked = await showDateRangePicker(
+      locale: const Locale('es', 'PY'),
       context: context,
       firstDate: DateTime(2020),
       lastDate: DateTime.now(),

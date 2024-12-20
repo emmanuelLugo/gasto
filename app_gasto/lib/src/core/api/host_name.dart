@@ -8,8 +8,8 @@ class Hostname {
   String ip = "";
 
   //CAMBIAR - NO COMMITAR
-  // final String _apiProd = "/gastoSystem/api";
-  final String _apiProd = "/api";
+  final String _apiProd = "/gastoSystem/api";
+  // final String _apiProd = "/api";
   String urlServer = "";
 
   Hostname._privateConstructor();

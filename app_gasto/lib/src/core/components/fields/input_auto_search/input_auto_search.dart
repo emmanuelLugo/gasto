@@ -1,4 +1,4 @@
-import 'package:app_gasto/src/core/ui/styles/colors_app.dart';
+import 'package:app_gasto/src/core/ui/helpers/helpers/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 import 'debouncer.dart';
@@ -33,47 +33,41 @@ class InputAutoSearchState extends State<InputAutoSearch> {
     return TextField(
       onChanged: (value) {
         _conditionEC.text = value;
-        onSearchDebouncer.debounce(() {
-          widget.search!(value);
-        });
+        onSearchDebouncer.debounce(() => widget.search!(value));
       },
       autofocus: false,
-      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-            color: Theme.of(context).canvasColor,
-          ),
+      style: context.bodyLarge.copyWith(
+        fontWeight: FontWeight.bold,
+        fontSize: 16,
+        color: context.canvasColor,
+      ),
       decoration: InputDecoration(
-        fillColor: ColorsApp.instance.primary,
+        fillColor: context.primaryColor,
         hintText: widget.hintText,
         suffixIcon: IconButton(
           icon: Icon(
             Icons.search,
-            color: Theme.of(context).canvasColor,
+            color: context.canvasColor,
             size: 21,
           ),
-          onPressed: () {
-            search();
-          },
+          onPressed: () => _search(),
         ),
-        hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-              color: Theme.of(context).canvasColor,
-            ),
+        hintStyle: context.bodyMedium.copyWith(
+          fontWeight: FontWeight.bold,
+          fontSize: 16,
+          color: context.canvasColor,
+        ),
         border: InputBorder.none,
         errorBorder: InputBorder.none,
         enabledBorder: InputBorder.none,
         focusedBorder: InputBorder.none,
       ),
       textInputAction: TextInputAction.search,
-      onSubmitted: (value) {
-        search();
-      },
+      onSubmitted: (value) => _search(),
     );
   }
 
-  void search() async {
+  void _search() async {
     onSearchDebouncer.cancel();
     await widget.search!(_conditionEC.text);
   }

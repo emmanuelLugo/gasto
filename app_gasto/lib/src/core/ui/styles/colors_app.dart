@@ -17,19 +17,17 @@ class ColorsApp {
 
   Color get scaffoldColor => const Color.fromARGB(255, 212, 222, 226);
 
+  // System
+  Color get error => const Color(0xFFBB2124);
+  Color get success => const Color.fromARGB(255, 72, 170, 72);
+  Color get warning => const Color(0xFFF0AD4E);
+  Color get info => const Color(0xFF5bc0de);
+
   Color getPrimaryColor(BuildContext context) {
-    return Theme.of(context).brightness == Brightness.dark
-        ? Colors.white
-        : primary;
+    return Theme.of(context).brightness == Brightness.dark ? Colors.white : primary;
   }
 
   Color getSecondaryColor(BuildContext context) {
-    return Theme.of(context).brightness == Brightness.dark
-        ? Theme.of(context).primaryColor
-        : Colors.white;
+    return Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColor : Colors.white;
   }
-}
-
-extension ColorsAppExceptions on BuildContext {
-  ColorsApp get colors => ColorsApp.instance;
 }
