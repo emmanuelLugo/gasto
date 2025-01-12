@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> with Loader, SnackbarManager {
   final DataShared dataShared = Modular.get();
   final ConfiguracaoSistemaController _controller = Modular.get();
   late final ReactionDisposer statusDisposer;
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -40,6 +41,7 @@ class _HomePageState extends State<HomePage> with Loader, SnackbarManager {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 17, 16, 16),
         elevation: 0,
@@ -66,13 +68,18 @@ class _HomePageState extends State<HomePage> with Loader, SnackbarManager {
   }
 
   void _showFecharApp() {
+    if (scaffoldKey.currentState!.isDrawerOpen) {
+      scaffoldKey.currentState!.closeDrawer();
+      _controller.handleConfiguracoesSistema();
+      return;
+    }
+
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: const Text("Salir de la aplicación"),
-          content: const Text(
-              "¿Estás seguro de que quieres salir de la aplicación?"),
+          content: const Text("¿Estás seguro de que quieres salir de la aplicación?"),
           actions: [
             TextButton(
               onPressed: () {
