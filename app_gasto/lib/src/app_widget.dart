@@ -36,8 +36,7 @@ class AppWidget extends StatelessWidget {
         breakpoints: [
           const ResponsiveBreakpoint.resize(480, name: MOBILE),
           const ResponsiveBreakpoint.autoScale(800, name: TABLET),
-          const ResponsiveBreakpoint.resize(1200,
-              name: DESKTOP, scaleFactor: 0.8),
+          const ResponsiveBreakpoint.resize(1200, name: DESKTOP, scaleFactor: 0.8),
         ],
       ),
     );

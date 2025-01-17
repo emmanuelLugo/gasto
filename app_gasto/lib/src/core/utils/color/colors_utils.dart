@@ -8,4 +8,7 @@ List<Color> coresPredefinidos = [
   Colors.purple,
   Colors.cyan,
   Colors.brown,
+  Colors.pink,
+  Colors.amber,
+  Colors.teal,
 ];

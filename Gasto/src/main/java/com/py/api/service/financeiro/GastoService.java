@@ -25,6 +25,8 @@ import com.py.api.model.entity.Caixa;
 import com.py.api.model.entity.Gasto;
 import com.py.api.repository.financeiro.CaixaRepository;
 import com.py.api.repository.financeiro.GastoRepository;
+import java.util.Collections;
+import java.util.Comparator;
 
 import lombok.AllArgsConstructor;
 
@@ -40,7 +42,7 @@ public class GastoService {
 	public Gasto save(Gasto gasto, String usuario) {
 		if (gasto.getDtGasto() == null) {
 			gasto.setDtGasto(LocalDateTime.now());
-		} 
+		}
 //		else {
 //			LocalDateTime currentDate = gasto.getDtGasto().toLocalDate().atTime(LocalTime.now());
 //			gasto.setDtGasto(currentDate);
@@ -132,6 +134,14 @@ public class GastoService {
 
 			classificacoesDto.add(clasificacionDto);
 		}
+
+		// ORDENAR DE MAYOR A MENOR
+		Collections.sort(classificacoesDto, new Comparator<TotalClassificacaoGastoDto>() {
+			@Override
+			public int compare(TotalClassificacaoGastoDto o1, TotalClassificacaoGastoDto o2) {
+				return o2.getVlTotal().compareTo(o1.getVlTotal());
+			}
+		});
 
 		GastoDto dto = new GastoDto();
 		dto.setGastos(gastos);
