@@ -49,9 +49,7 @@ class _ClassificacaoGastoPageState extends State<ClassificacaoGastoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBarWidget(
-        title: _controller.currentRecord.id == null
-            ? 'Nueva Clasificación'
-            : 'Editar Clasificación',
+        title: _controller.currentRecord.id == null ? 'Nueva Clasificación' : 'Editar Clasificación',
       ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: ColorsApp.instance.primary,
@@ -72,20 +70,22 @@ class _ClassificacaoGastoPageState extends State<ClassificacaoGastoPage> {
           children: [
             Observer(
               builder: (_) {
-                return ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text(
-                    'Estado',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text(
-                    _controller.currentRecord.status(),
-                    style: const TextStyle(fontSize: 14),
-                  ),
-                  trailing: Switch(
-                    value: _controller.currentRecord.ativo ?? false,
-                    // activeColor: Colors.blueAccent,
-                    onChanged: _controller.setAtivo,
+                return InkWell(
+                  onTap: () => _controller.setAtivo(!_controller.currentRecord.ativo!),
+                  child: ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text(
+                      'Estado',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(
+                      _controller.currentRecord.status(),
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                    trailing: Switch(
+                      value: _controller.currentRecord.ativo ?? false,
+                      onChanged: _controller.setAtivo,
+                    ),
                   ),
                 );
               },
