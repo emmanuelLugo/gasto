@@ -20,7 +20,8 @@ class GastoListView extends StatefulWidget {
   State<GastoListView> createState() => _GastoListViewState();
 }
 
-class _GastoListViewState extends State<GastoListView> with Loader, SnackbarManager {
+class _GastoListViewState extends State<GastoListView>
+    with Loader, SnackbarManager {
   final _controller = Modular.get<GastoController>();
   late final ReactionDisposer _statusReactionDisposer;
 
@@ -41,7 +42,8 @@ class _GastoListViewState extends State<GastoListView> with Loader, SnackbarMana
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SearchAppBarWidget(
-          onSearch: (value) => _controller.findByConditionPage(value), hintText: 'Buscar por Descripción'),
+          onSearch: (value) => _controller.findByConditionPage(value),
+          hintText: 'Buscar por Descripción'),
       persistentFooterButtons: [
         Observer(
           builder: (_) => FooterPaginationBar(
@@ -69,21 +71,29 @@ class _GastoListViewState extends State<GastoListView> with Loader, SnackbarMana
           enableSwitchAnimation: true,
           enabled: _controller.status == GastoStatusState.loading,
           child: _controller.status == GastoStatusState.loading
-              ? ListView.builder(
-                  itemCount: 8,
-                  itemBuilder: (context, index) {
-                    final gasto = Gasto.skeletonizer();
-                    return _buildSlidableItem(gasto, index);
-                  },
-                )
-              : ListView.builder(
-                  itemCount: _controller.dataProvider.length,
-                  itemBuilder: (context, index) {
-                    final gasto = _controller.dataProvider[index];
-                    return _buildSlidableItem(gasto, index);
-                  },
-                ),
+              ? _buildLoadingGastoList()
+              : _buildGastoList(),
         );
+      },
+    );
+  }
+
+  Widget _buildLoadingGastoList() {
+    return ListView.builder(
+      itemCount: 8,
+      itemBuilder: (context, index) {
+        final gasto = Gasto.skeletonizer();
+        return _buildSlidableItem(gasto, index);
+      },
+    );
+  }
+
+  Widget _buildGastoList() {
+    return ListView.builder(
+      itemCount: _controller.dataProvider.length,
+      itemBuilder: (context, index) {
+        final gasto = _controller.dataProvider[index];
+        return _buildSlidableItem(gasto, index);
       },
     );
   }
@@ -112,7 +122,8 @@ class _GastoListViewState extends State<GastoListView> with Loader, SnackbarMana
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Confirmación'),
-          content: const Text('¿Estás seguro de que deseas cancelar este gasto?'),
+          content:
+              const Text('¿Estás seguro de que deseas cancelar este gasto?'),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
