@@ -49,7 +49,10 @@ class _HomePageState extends State<HomePage> with Loader, SnackbarManager {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // _controller.handleConfiguracoesSistema();
-          // Modular.to.pushNamed('/home/gasto/novo');
+          Modular.to.pushNamed(
+            '/home/gasto/novo',
+            arguments: true,
+          );
         },
         child: const Icon(Icons.add),
       ),
@@ -79,7 +82,8 @@ class _HomePageState extends State<HomePage> with Loader, SnackbarManager {
       builder: (context) {
         return AlertDialog(
           title: const Text("Salir de la aplicación"),
-          content: const Text("¿Estás seguro de que quieres salir de la aplicación?"),
+          content: const Text(
+              "¿Estás seguro de que quieres salir de la aplicación?"),
           actions: [
             TextButton(
               onPressed: () {

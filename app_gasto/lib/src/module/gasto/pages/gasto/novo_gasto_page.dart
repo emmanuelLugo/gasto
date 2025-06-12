@@ -3,7 +3,9 @@ import 'package:app_gasto/src/core/components/fields/date/date_and_time_input.da
 import 'package:app_gasto/src/core/components/fields/date_form_input/date_formatter.dart';
 import 'package:app_gasto/src/core/components/fields/input_auto_search/input_seach_delegate.dart';
 import 'package:app_gasto/src/core/components/fields/number_form_input/number_input_form.dart';
-import 'package:app_gasto/src/core/components/fields/text_form_input/text_form_input.dart';
+import 'package:app_gasto/src/core/components/fields/text_form_input/text_input_form.dart';
+import 'package:app_gasto/src/core/ui/helpers/helpers/loader.dart';
+import 'package:app_gasto/src/core/ui/helpers/helpers/snack_bar_manager.dart';
 import 'package:app_gasto/src/core/ui/styles/colors_app.dart';
 import 'package:app_gasto/src/core/ui/widget/custom_app_bar.dart';
 import 'package:app_gasto/src/module/core/shared/data_shared.dart';
@@ -15,6 +17,7 @@ import 'package:app_gasto/src/module/gasto/pages/gasto/gasto_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobx/mobx.dart';
 
 class NovoGastoPage extends StatefulWidget {
   const NovoGastoPage({super.key});
@@ -23,8 +26,10 @@ class NovoGastoPage extends StatefulWidget {
   State<NovoGastoPage> createState() => _NovoGastoPageState();
 }
 
-class _NovoGastoPageState extends State<NovoGastoPage> {
-  final _classificacaoGastoController = Modular.get<ClassificacaoGastoDelegateController>();
+class _NovoGastoPageState extends State<NovoGastoPage>
+    with Loader, SnackbarManager {
+  final _classificacaoGastoController =
+      Modular.get<ClassificacaoGastoDelegateController>();
   final _classificacaoGastoEC = TextEditingController();
   final _controller = Modular.get<GastoController>();
   final _valorEC = TextEditingController();
@@ -32,10 +37,15 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
   final _dataShared = Modular.get<DataShared>();
   final _formKey = GlobalKey<FormState>();
   final _dtGastoEC = TextEditingController();
+  final _isGastoRapido = Modular.args.data ?? false;
+  late final ReactionDisposer _statusReactionDisposer;
 
   @override
   void initState() {
     super.initState();
+    if (_isGastoRapido) {
+      _initReaction();
+    }
     _controller.initGasto();
   }
 
@@ -46,6 +56,9 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
     _dtGastoEC.dispose();
     _descricaoEC.dispose();
     _classificacaoGastoEC.dispose();
+    if (_isGastoRapido) {
+      _statusReactionDisposer();
+    }
   }
 
   @override
@@ -77,7 +90,8 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
                 label: 'Caja',
                 hint: 'Seleccione un caja',
                 selectedItem: _controller.currentRecord.caixa,
-                itemToString: (caixa) => '${DateFormatter.formatShortDate(caixa.dtAbertura!)} - ${caixa.observacao}',
+                itemToString: (caixa) =>
+                    '${DateFormatter.formatShortDate(caixa.dtAbertura!)} - ${caixa.observacao}',
                 onChanged: _controller.setCaixa,
               ),
               const SizedBox(height: 12),
@@ -94,7 +108,8 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
               const SizedBox(height: 12),
               InputSeachDelegate<ClassificacaoGasto?>(
                 label: 'Clasificación',
-                searchDelegate: ClassificacaoGastoDelegate(_classificacaoGastoController),
+                searchDelegate:
+                    ClassificacaoGastoDelegate(_classificacaoGastoController),
                 controller: _classificacaoGastoEC,
                 onSelected: (value) {
                   _classificacaoGastoEC.text = value?.descricao ?? '';
@@ -132,5 +147,42 @@ class _NovoGastoPageState extends State<NovoGastoPage> {
     if (_formKey.currentState!.validate()) {
       await _controller.save();
     }
+  }
+
+  void _initReaction() {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        _statusReactionDisposer = reaction(
+          (_) => _controller.status,
+          (status) {
+            switch (status) {
+              case GastoStatusState.initial:
+                hideLoader();
+                break;
+              case GastoStatusState.loaded:
+                hideLoader();
+                break;
+              case GastoStatusState.loading:
+                showLoader();
+                break;
+              case GastoStatusState.success:
+                hideLoader();
+                Modular.to.pop();
+                showSuccess(_controller.message);
+                break;
+              case GastoStatusState.error:
+                hideLoader();
+                showError(_controller.message);
+                break;
+              case GastoStatusState.insertOrUpdate:
+                hideLoader();
+                break;
+              default:
+                hideLoader();
+            }
+          },
+        );
+      },
+    );
   }
 }

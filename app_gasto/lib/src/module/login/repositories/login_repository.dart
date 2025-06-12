@@ -9,8 +9,10 @@ class LoginRepository {
 
   Future<JwtResponse> login(String username, String password) async {
     try {
-      final response = await restClient.post("/auth/login",
-          data: {'username': username, 'password': password});
+      final response = await restClient.post("/auth/login", data: {
+        'username': username,
+        'password': password
+      }).timeout(const Duration(seconds: 6));
       return JwtResponse.fromJson(response.data);
     } on Exception catch (e) {
       throw RepositoryException.fromException(e);

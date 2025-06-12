@@ -2,7 +2,7 @@ import 'package:app_gasto/src/core/components/fields/date_form_input/date_format
 import 'package:flutter/material.dart';
 
 import '../../../ui/styles/theme_config.dart';
-import '../text_form_input/text_form_input.dart';
+import '../text_form_input/text_input_form.dart';
 
 class DateAndTimeInput extends StatefulWidget {
   final DateTime? date;

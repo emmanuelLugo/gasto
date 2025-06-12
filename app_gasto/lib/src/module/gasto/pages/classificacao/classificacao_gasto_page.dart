@@ -1,5 +1,5 @@
 import 'package:app_gasto/src/core/components/fields/input_auto_search/input_seach_delegate.dart';
-import 'package:app_gasto/src/core/components/fields/text_form_input/text_form_input.dart';
+import 'package:app_gasto/src/core/components/fields/text_form_input/text_input_form.dart';
 import 'package:app_gasto/src/core/ui/styles/colors_app.dart';
 import 'package:app_gasto/src/core/ui/widget/custom_app_bar.dart';
 import 'package:app_gasto/src/module/gasto/models/tipo_gasto.dart';
@@ -49,7 +49,9 @@ class _ClassificacaoGastoPageState extends State<ClassificacaoGastoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBarWidget(
-        title: _controller.currentRecord.id == null ? 'Nueva Clasificación' : 'Editar Clasificación',
+        title: _controller.currentRecord.id == null
+            ? 'Nueva Clasificación'
+            : 'Editar Clasificación',
       ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: ColorsApp.instance.primary,
@@ -71,7 +73,8 @@ class _ClassificacaoGastoPageState extends State<ClassificacaoGastoPage> {
             Observer(
               builder: (_) {
                 return InkWell(
-                  onTap: () => _controller.setAtivo(!_controller.currentRecord.ativo!),
+                  onTap: () =>
+                      _controller.setAtivo(!_controller.currentRecord.ativo!),
                   child: ListTile(
                     contentPadding: EdgeInsets.zero,
                     title: const Text(

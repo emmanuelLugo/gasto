@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'rest_client_exception.dart';
 
 class RepositoryException implements Exception {
@@ -22,6 +24,12 @@ class RepositoryException implements Exception {
   RepositoryException(this.message, this.code);
 
   RepositoryException.fromException(Exception e) {
+    if (e is TimeoutException) {
+      message = 'Tiempo de conexión excedido.';
+      code = 503;
+      return;
+    }
+
     if (e is RestClientException) {
       if (e.statusMessage != null) {
         message = e.statusMessage;

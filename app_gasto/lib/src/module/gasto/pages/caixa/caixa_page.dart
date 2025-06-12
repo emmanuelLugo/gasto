@@ -1,7 +1,7 @@
 import 'package:app_gasto/src/core/components/fields/date_form_input/date_form_input.dart';
 import 'package:app_gasto/src/core/components/fields/number_form_input/number_format.dart';
 import 'package:app_gasto/src/core/components/fields/number_form_input/number_input_form.dart';
-import 'package:app_gasto/src/core/components/fields/text_form_input/text_form_input.dart';
+import 'package:app_gasto/src/core/components/fields/text_form_input/text_input_form.dart';
 import 'package:app_gasto/src/core/ui/widget/custom_app_bar.dart';
 import 'package:app_gasto/src/module/gasto/pages/caixa/caixa_controller.dart';
 import 'package:app_gasto/src/module/gasto/pages/caixa/widgets/status_info_caixa_widget.dart';

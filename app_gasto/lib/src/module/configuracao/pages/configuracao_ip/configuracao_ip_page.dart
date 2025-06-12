@@ -1,4 +1,4 @@
-import 'package:app_gasto/src/core/components/fields/text_form_input/text_form_input.dart';
+import 'package:app_gasto/src/core/components/fields/text_form_input/text_input_form.dart';
 import 'package:app_gasto/src/core/global/key_constants.dart';
 import 'package:app_gasto/src/core/storage/local_storage_service.dart';
 import 'package:app_gasto/src/core/ui/helpers/helpers/custom_scaffold.dart';
